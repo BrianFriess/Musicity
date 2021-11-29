@@ -1,0 +1,87 @@
+
+/* Class = "UISegmentedControl"; 0Ql-tO-Tj0.segmentTitles[0] = "Musicien"; ObjectID = "0Ql-tO-Tj0"; */
+"0Ql-tO-Tj0.segmentTitles[0]" = "Musicien";
+
+/* Class = "UISegmentedControl"; 0Ql-tO-Tj0.segmentTitles[1] = "Groupe"; ObjectID = "0Ql-tO-Tj0"; */
+"0Ql-tO-Tj0.segmentTitles[1]" = "Groupe";
+
+/* Class = "UITextField"; placeholder = "Mot de passe"; ObjectID = "0tS-UI-ZcX"; */
+"0tS-UI-ZcX.placeholder" = "Mot de passe";
+
+/* Class = "UITextField"; placeholder = "e-mail"; ObjectID = "2kM-BM-aKC"; */
+"2kM-BM-aKC.placeholder" = "e-mail";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "7DR-LN-bEu"; */
+"7DR-LN-bEu.placeholder" = "Username";
+
+/* Class = "UITextField"; placeholder = "pays"; ObjectID = "7Fd-we-3zl"; */
+"7Fd-we-3zl.placeholder" = "pays";
+
+/* Class = "UILabel"; text = "Vous avez déjà un compte ?"; ObjectID = "K3n-I5-0Ww"; */
+"K3n-I5-0Ww.text" = "Vous avez déjà un compte ?";
+
+/* Class = "UITextField"; placeholder = "Age"; ObjectID = "Vqf-Da-c0S"; */
+"Vqf-Da-c0S.placeholder" = "Age";
+
+/* Class = "UIButton"; configuration.title = "S'inscrire"; ObjectID = "W5e-yI-lwx"; */
+"W5e-yI-lwx.configuration.title" = "S'inscrire";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "W5e-yI-lwx"; */
+"W5e-yI-lwx.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Merci de completer votre profil"; ObjectID = "XYu-p4-2by"; */
+"XYu-p4-2by.text" = "Merci de completer votre profil";
+
+/* Class = "UIButton"; configuration.title = "X"; ObjectID = "aCh-CX-GOn"; */
+"aCh-CX-GOn.configuration.title" = "X";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "aCh-CX-GOn"; */
+"aCh-CX-GOn.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "aOG-bS-nie"; */
+"aOG-bS-nie.text" = "Label";
+
+/* Class = "UIButton"; configuration.title = "Deconnexion"; ObjectID = "aPQ-sc-HmM"; */
+"aPQ-sc-HmM.configuration.title" = "Deconnexion";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "aPQ-sc-HmM"; */
+"aPQ-sc-HmM.normalTitle" = "Button";
+
+/* Class = "UIButton"; configuration.title = "Connexion"; ObjectID = "adL-Gg-rio"; */
+"adL-Gg-rio.configuration.title" = "Connexion";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "adL-Gg-rio"; */
+"adL-Gg-rio.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Musicity"; ObjectID = "cRD-UE-SyR"; */
+"cRD-UE-SyR.text" = "Musicity";
+
+/* Class = "UITextField"; placeholder = "Nom"; ObjectID = "cwY-Zl-P0J"; */
+"cwY-Zl-P0J.placeholder" = "Nom";
+
+/* Class = "UILabel"; text = "Bienvenue"; ObjectID = "gGc-2J-HVU"; */
+"gGc-2J-HVU.text" = "Bienvenue";
+
+/* Class = "UITextField"; placeholder = "e-mail"; ObjectID = "ga7-Ea-cii"; */
+"ga7-Ea-cii.placeholder" = "e-mail";
+
+/* Class = "UITextField"; placeholder = "ville"; ObjectID = "jNd-Ol-jre"; */
+"jNd-Ol-jre.placeholder" = "ville";
+
+/* Class = "UIButton"; configuration.title = "Suivant"; ObjectID = "jqD-gq-74M"; */
+"jqD-gq-74M.configuration.title" = "Suivant";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "jqD-gq-74M"; */
+"jqD-gq-74M.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "Prenom"; ObjectID = "o8f-sP-8Ga"; */
+"o8f-sP-8Ga.placeholder" = "Prenom";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "xf9-Gq-8yi"; */
+"xf9-Gq-8yi.placeholder" = "Password";
+
+/* Class = "UIButton"; configuration.title = "Se connecter"; ObjectID = "yho-Ih-fHu"; */
+"yho-Ih-fHu.configuration.title" = "Se connecter";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yho-Ih-fHu"; */
+"yho-Ih-fHu.normalTitle" = "Button";
