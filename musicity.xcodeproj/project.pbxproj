@@ -7,15 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D32E5A23274D659F0045073C /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32E5A22274D659F0045073C /* FirebaseManager.swift */; };
+		D332D814275280EC001B9A26 /* AccessPathDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D332D813275280EC001B9A26 /* AccessPathDataBase.swift */; };
+		D332D81627528EF2001B9A26 /* InfoUserCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D332D81527528EF2001B9A26 /* InfoUserCellTableViewCell.swift */; };
+		D332D818275295FB001B9A26 /* MusicInstruments.swift in Sources */ = {isa = PBXBuildFile; fileRef = D332D817275295FB001B9A26 /* MusicInstruments.swift */; };
+		D332D81A27529B01001B9A26 /* InstrumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D332D81927529B01001B9A26 /* InstrumentViewController.swift */; };
+		D3348D19274EAA1300811091 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3348D18274EAA1300811091 /* UserInfo.swift */; };
+		D33B67312750E680004369BE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D33B67302750E680004369BE /* FirebaseStorage */; };
+		D33B67332750EBD4004369BE /* CreateSecondProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33B67322750EBD4004369BE /* CreateSecondProfilViewController.swift */; };
+		D33B67352750EE41004369BE /* CustomSecondCreateProfil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33B67342750EE41004369BE /* CustomSecondCreateProfil.swift */; };
+		D349008C274BA2DF005C5C9A /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D349008B274BA2DF005C5C9A /* FirebaseDatabase */; };
+		D3490090274BF65C005C5C9A /* CustomCreateProfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D349008F274BF65C005C5C9A /* CustomCreateProfilView.swift */; };
+		D34B1E702748E0D600A7B77F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */; };
+		D34B1E732748E7BD00A7B77F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D34B1E722748E7BD00A7B77F /* FirebaseAnalytics */; };
+		D34B1E752748E7BD00A7B77F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D34B1E742748E7BD00A7B77F /* FirebaseAuth */; };
+		D34B1E7E2748FA1400A7B77F /* CreateProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34B1E7D2748FA1400A7B77F /* CreateProfilViewController.swift */; };
 		D37D91F92747B72000D59BC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D91F82747B72000D59BC5 /* AppDelegate.swift */; };
 		D37D91FB2747B72000D59BC5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D91FA2747B72000D59BC5 /* SceneDelegate.swift */; };
-		D37D91FD2747B72000D59BC5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D91FC2747B72000D59BC5 /* ViewController.swift */; };
+		D37D91FD2747B72000D59BC5 /* CreateUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D91FC2747B72000D59BC5 /* CreateUserViewController.swift */; };
 		D37D92002747B72000D59BC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D37D91FE2747B72000D59BC5 /* Main.storyboard */; };
 		D37D92022747B72100D59BC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D37D92012747B72100D59BC5 /* Assets.xcassets */; };
 		D37D92052747B72100D59BC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D37D92032747B72100D59BC5 /* LaunchScreen.storyboard */; };
 		D37D92102747B72100D59BC5 /* musicityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D920F2747B72100D59BC5 /* musicityTests.swift */; };
 		D37D921A2747B72100D59BC5 /* musicityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D92192747B72100D59BC5 /* musicityUITests.swift */; };
 		D37D921C2747B72100D59BC5 /* musicityUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D921B2747B72100D59BC5 /* musicityUITestsLaunchTests.swift */; };
+		D37D92302747ED1700D59BC5 /* CustomCreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D922F2747ED1700D59BC5 /* CustomCreateUserView.swift */; };
+		D37D92322748080D00D59BC5 /* Archistico_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D37D92312748080D00D59BC5 /* Archistico_Bold.ttf */; };
+		D3A86925274F9FE400D2BCC8 /* MusicStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */; };
+		D3A86927274FA99C00D2BCC8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A86926274FA99C00D2BCC8 /* CoreLocation.framework */; };
+		D3ECCC49274AB020005538E6 /* CustomConnextionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */; };
+		D3ECCC4B274AB2CC005538E6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */; };
+		D3ECCC4D274AC5F7005538E6 /* AlerteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +58,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D32E5A22274D659F0045073C /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		D332D813275280EC001B9A26 /* AccessPathDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessPathDataBase.swift; sourceTree = "<group>"; };
+		D332D81527528EF2001B9A26 /* InfoUserCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoUserCellTableViewCell.swift; sourceTree = "<group>"; };
+		D332D817275295FB001B9A26 /* MusicInstruments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicInstruments.swift; sourceTree = "<group>"; };
+		D332D81927529B01001B9A26 /* InstrumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentViewController.swift; sourceTree = "<group>"; };
+		D3348D18274EAA1300811091 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		D33B67322750EBD4004369BE /* CreateSecondProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecondProfilViewController.swift; sourceTree = "<group>"; };
+		D33B67342750EE41004369BE /* CustomSecondCreateProfil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecondCreateProfil.swift; sourceTree = "<group>"; };
+		D349008F274BF65C005C5C9A /* CustomCreateProfilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCreateProfilView.swift; sourceTree = "<group>"; };
+		D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D34B1E7D2748FA1400A7B77F /* CreateProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfilViewController.swift; sourceTree = "<group>"; };
 		D37D91F52747B72000D59BC5 /* musicity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = musicity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37D91F82747B72000D59BC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D37D91FA2747B72000D59BC5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D37D91FC2747B72000D59BC5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D37D91FC2747B72000D59BC5 /* CreateUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserViewController.swift; sourceTree = "<group>"; };
 		D37D91FF2747B72000D59BC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D37D92012747B72100D59BC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D37D92042747B72100D59BC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +82,13 @@
 		D37D92152747B72100D59BC5 /* musicityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = musicityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37D92192747B72100D59BC5 /* musicityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = musicityUITests.swift; sourceTree = "<group>"; };
 		D37D921B2747B72100D59BC5 /* musicityUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = musicityUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D37D922F2747ED1700D59BC5 /* CustomCreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCreateUserView.swift; sourceTree = "<group>"; };
+		D37D92312748080D00D59BC5 /* Archistico_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Archistico_Bold.ttf; sourceTree = "<group>"; };
+		D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicStyle.swift; sourceTree = "<group>"; };
+		D3A86926274FA99C00D2BCC8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConnextionView.swift; sourceTree = "<group>"; };
+		D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlerteManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +96,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3A86927274FA99C00D2BCC8 /* CoreLocation.framework in Frameworks */,
+				D34B1E732748E7BD00A7B77F /* FirebaseAnalytics in Frameworks */,
+				D349008C274BA2DF005C5C9A /* FirebaseDatabase in Frameworks */,
+				D33B67312750E680004369BE /* FirebaseStorage in Frameworks */,
+				D34B1E752748E7BD00A7B77F /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +121,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D3348D17274E3C8A00811091 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */,
+				D32E5A22274D659F0045073C /* FirebaseManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		D34B1E762748EF0C00A7B77F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3A86926274FA99C00D2BCC8 /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D37D91EC2747B72000D59BC5 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +145,7 @@
 				D37D920E2747B72100D59BC5 /* musicityTests */,
 				D37D92182747B72100D59BC5 /* musicityUITests */,
 				D37D91F62747B72000D59BC5 /* Products */,
+				D34B1E762748EF0C00A7B77F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,13 +162,15 @@
 		D37D91F72747B72000D59BC5 /* musicity */ = {
 			isa = PBXGroup;
 			children = (
-				D37D91F82747B72000D59BC5 /* AppDelegate.swift */,
 				D37D91FA2747B72000D59BC5 /* SceneDelegate.swift */,
-				D37D91FC2747B72000D59BC5 /* ViewController.swift */,
-				D37D91FE2747B72000D59BC5 /* Main.storyboard */,
-				D37D92012747B72100D59BC5 /* Assets.xcassets */,
-				D37D92032747B72100D59BC5 /* LaunchScreen.storyboard */,
+				D37D91F82747B72000D59BC5 /* AppDelegate.swift */,
+				D37D92312748080D00D59BC5 /* Archistico_Bold.ttf */,
+				D37D922A2747DF2B00D59BC5 /* Controller */,
+				D37D92292747DF2500D59BC5 /* model */,
+				D37D92282747DF1C00D59BC5 /* View */,
+				D3348D17274E3C8A00811091 /* Manager */,
 				D37D92062747B72100D59BC5 /* Info.plist */,
+				D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */,
 			);
 			path = musicity;
 			sourceTree = "<group>";
@@ -127,6 +192,44 @@
 			path = musicityUITests;
 			sourceTree = "<group>";
 		};
+		D37D92282747DF1C00D59BC5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D37D92012747B72100D59BC5 /* Assets.xcassets */,
+				D37D91FE2747B72000D59BC5 /* Main.storyboard */,
+				D37D92032747B72100D59BC5 /* LaunchScreen.storyboard */,
+				D37D922F2747ED1700D59BC5 /* CustomCreateUserView.swift */,
+				D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */,
+				D349008F274BF65C005C5C9A /* CustomCreateProfilView.swift */,
+				D33B67342750EE41004369BE /* CustomSecondCreateProfil.swift */,
+				D332D81527528EF2001B9A26 /* InfoUserCellTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D37D92292747DF2500D59BC5 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				D332D813275280EC001B9A26 /* AccessPathDataBase.swift */,
+				D3348D18274EAA1300811091 /* UserInfo.swift */,
+				D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */,
+				D332D817275295FB001B9A26 /* MusicInstruments.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		D37D922A2747DF2B00D59BC5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D37D91FC2747B72000D59BC5 /* CreateUserViewController.swift */,
+				D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */,
+				D34B1E7D2748FA1400A7B77F /* CreateProfilViewController.swift */,
+				D33B67322750EBD4004369BE /* CreateSecondProfilViewController.swift */,
+				D332D81927529B01001B9A26 /* InstrumentViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +246,12 @@
 			dependencies = (
 			);
 			name = musicity;
+			packageProductDependencies = (
+				D34B1E722748E7BD00A7B77F /* FirebaseAnalytics */,
+				D34B1E742748E7BD00A7B77F /* FirebaseAuth */,
+				D349008B274BA2DF005C5C9A /* FirebaseDatabase */,
+				D33B67302750E680004369BE /* FirebaseStorage */,
+			);
 			productName = musicity;
 			productReference = D37D91F52747B72000D59BC5 /* musicity.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +324,9 @@
 				Base,
 			);
 			mainGroup = D37D91EC2747B72000D59BC5;
+			packageReferences = (
+				D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = D37D91F62747B72000D59BC5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -231,7 +343,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D37D92322748080D00D59BC5 /* Archistico_Bold.ttf in Resources */,
 				D37D92052747B72100D59BC5 /* LaunchScreen.storyboard in Resources */,
+				D34B1E702748E0D600A7B77F /* GoogleService-Info.plist in Resources */,
 				D37D92022747B72100D59BC5 /* Assets.xcassets in Resources */,
 				D37D92002747B72000D59BC5 /* Main.storyboard in Resources */,
 			);
@@ -258,9 +372,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D37D91FD2747B72000D59BC5 /* ViewController.swift in Sources */,
+				D3348D19274EAA1300811091 /* UserInfo.swift in Sources */,
+				D33B67332750EBD4004369BE /* CreateSecondProfilViewController.swift in Sources */,
+				D3ECCC49274AB020005538E6 /* CustomConnextionView.swift in Sources */,
+				D34B1E7E2748FA1400A7B77F /* CreateProfilViewController.swift in Sources */,
+				D37D92302747ED1700D59BC5 /* CustomCreateUserView.swift in Sources */,
+				D332D81627528EF2001B9A26 /* InfoUserCellTableViewCell.swift in Sources */,
+				D332D818275295FB001B9A26 /* MusicInstruments.swift in Sources */,
+				D32E5A23274D659F0045073C /* FirebaseManager.swift in Sources */,
+				D37D91FD2747B72000D59BC5 /* CreateUserViewController.swift in Sources */,
+				D3490090274BF65C005C5C9A /* CustomCreateProfilView.swift in Sources */,
+				D332D814275280EC001B9A26 /* AccessPathDataBase.swift in Sources */,
+				D332D81A27529B01001B9A26 /* InstrumentViewController.swift in Sources */,
 				D37D91F92747B72000D59BC5 /* AppDelegate.swift in Sources */,
 				D37D91FB2747B72000D59BC5 /* SceneDelegate.swift in Sources */,
+				D33B67352750EE41004369BE /* CustomSecondCreateProfil.swift in Sources */,
+				D3A86925274F9FE400D2BCC8 /* MusicStyle.swift in Sources */,
+				D3ECCC4D274AC5F7005538E6 /* AlerteManager.swift in Sources */,
+				D3ECCC4B274AB2CC005538E6 /* LogInViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +449,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -381,6 +511,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -624,6 +755,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D33B67302750E680004369BE /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		D349008B274BA2DF005C5C9A /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		D34B1E722748E7BD00A7B77F /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		D34B1E742748E7BD00A7B77F /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D37D91ED2747B72000D59BC5 /* Project object */;
 }

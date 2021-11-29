@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DataBaseAccessPath{
+enum DataBaseAccessPath {
     case firstName
     case lastName
     case age
@@ -19,6 +19,8 @@ enum DataBaseAccessPath{
     case NbInstrument
     case MusiqueInfoUser
     case Style
+    case Instrument
+    case zero
     
     var returnAccessPath : String{
         switch self{
@@ -44,6 +46,10 @@ enum DataBaseAccessPath{
             return "MusiqueInfoUser"
         case .Style:
             return "Style"
+        case .Instrument:
+            return "Instrument"
+        case .zero :
+            return "0"
         }
     }
 }

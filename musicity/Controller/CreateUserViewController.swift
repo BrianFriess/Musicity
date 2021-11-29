@@ -7,25 +7,25 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
-
 
 class CreateUserViewController: UIViewController {
     
     let alerte = AlerteManager()
-    
+    let firebaseManager = FirebaseManager()
+
     
     //MARK: Outlet
-    @IBOutlet var customView: CustomCreateLogInView!
+    @IBOutlet var customView: CustomCreateUserView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var SegmentedControl: UISegmentedControl!
     
     
     override func viewDidLoad() {
-        customView.configureTextField()
-        customView.configureButton()
+        customView.configureView()
     }
+
     
     //MARK: Action
     @IBAction func inscrireButton(_ sender: UIButton) {
@@ -44,25 +44,39 @@ class CreateUserViewController: UIViewController {
             return
         }
         
-        //creation d'un nouvel utilisateur
-        Auth.auth().createUser(withEmail: emailUser, password: passwordUser){ authResult, error in
-            if error != nil{
-                print(error.debugDescription)
-                self.alerte.alerteVc(.FalseEmail, self)
-            }else{
-                
-                //creation dans la base de données firebase du nom d'utilisateur à l'IDUser
-               let ref = Database.database(url: "https://musicity-ff6d8-default-rtdb.europe-west1.firebasedatabase.app").reference()
-                let userID = Auth.auth().currentUser?.uid
-                ref.child("users").child(userID!).setValue(["username" : username])
-
-                self.performSegue(withIdentifier: "goToHomeSegue", sender: self)
+        //create a new user
+        firebaseManager.createNewUser(emailUser, passwordUser, username, SegmentedControl.selectedSegmentIndex) { result in
+                switch result{
+                case .success(_):
+                    //we recover the userID in the singleton
+                    self.firebaseManager.getUserId { result in
+                        switch result{
+                        case .success(let userId):
+                            UserInfo.shared.addUserId(userId)
+                            //we recover the public Info in the singleton
+                            self.firebaseManager.getDictionnaryInfoUserToFirebase( UserInfo.shared.userID, .publicInfoUser) { result in
+                                 switch result{
+                                 case .success(let infoUser):
+                                     UserInfo.shared.addPublicInfo(infoUser)
+                                     self.performSegue(withIdentifier: "goToFirstConnexionSegue", sender: self)
+                                 case.failure(_):
+                                     self.alerte.alerteVc(.errorCreateUser, self)
+                                 }
+                             }
+                        case .failure(_):
+                            self.alerte.alerteVc(.errorCreateUser, self)
+                        }
+                    }
+                case .failure(_):
+                    self.alerte.alerteVc(.FalseEmail, self)
+                }
             }
-        }
     }
     
-    @IBAction func connexionButton(_ sender: UIButton) {
+    @IBAction func pushSegmentedControl(_ sender: UISegmentedControl) {
+        customView.configureBandOrMusicien()
     }
+    
 }
 
 

@@ -9,12 +9,40 @@ import UIKit
 
 class CustomConnextionView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet var stick: [UIView]!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var connexionButton: UIButton!
+    @IBOutlet weak var incriptionButton: UIButton!
+    
+    func configureView(){
+        configureTextField()
+        configureStick()
+        configureButton()
     }
-    */
-
+    
+    private func configureTextField(){
+        emailTextField.attributedPlaceholder = NSAttributedString(
+            string: "E-mail",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
+        
+        passwordTextField.attributedPlaceholder = NSAttributedString(
+            string: "Mot de passe",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
+    }
+    
+    private func configureStick(){
+        let count = stick.count
+        for i in 0 ..< count{
+            stick[i].layer.cornerRadius = 1.5
+        }
+    }
+    
+    
+    private func configureButton(){
+        connexionButton.layer.cornerRadius = 20
+        incriptionButton.layer.cornerRadius = 20
+        incriptionButton.layer.borderWidth = 3
+        incriptionButton.layer.borderColor = UIColor.systemOrange.cgColor
+    }
 }

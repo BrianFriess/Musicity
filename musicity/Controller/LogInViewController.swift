@@ -6,13 +6,15 @@
 //
 
 import UIKit
-import FirebaseAuth
+import Firebase
 
 class LogInViewController: UIViewController {
 
     var alerte = AlerteManager()
+    var firebaseManager = FirebaseManager()
     
     
+
     //MARK: Outlet
     @IBOutlet var testView: CustomConnextionView!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -21,39 +23,55 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        testView.configureTextField()
-        testView.configureButton()
+        testView.configureView()
     }
     
 
     //MARK: Action
-    @IBAction func returnButton(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-    
     @IBAction func connexionButton(_ sender: UIButton) {
+        
+        //verification du champs mot de passe
         guard passwordTextField.text != "", let password = passwordTextField.text else{
             alerte.alerteVc(.emptyPassword, self)
             return
         }
         
-        
+        //verification du champs email
         guard emailTextField.text != "", let email = emailTextField.text else{
             alerte.alerteVc(.EmptyEmail, self)
             return
         }
         
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if error != nil{
+        firebaseManager.connexionUser(email, password) { result in
+            switch result{
+            case .success(_):
+                //we recover the userID in the singleton 
+                self.firebaseManager.getUserId { result in
+                    switch result{
+                    case .success(let userId):
+                        UserInfo.shared.addUserId(userId)
+                        //we recover the public Info in the singleton
+                        self.firebaseManager.getDictionnaryInfoUserToFirebase( UserInfo.shared.userID, .publicInfoUser) { result in
+                             switch result{
+                             case .success(let infoUser):
+                                 UserInfo.shared.addPublicInfo(infoUser)
+                                 self.performSegue(withIdentifier: "goToHomeConnexion", sender: self)
+                             case.failure(_):
+                                 self.alerte.alerteVc(.errorGetInfo, self)
+                             }
+                         }
+                    case .failure(_):
+                        self.alerte.alerteVc(.errorGetInfo, self)
+                    }
+                }
+            case .failure(_):
                 self.alerte.alerteVc(.ErrorConnexion, self)
-            }else{
-                self.performSegue(withIdentifier: "goToHomeConnexion", sender: self)
             }
         }
     }
     
     
-
+    
 }
 
 //MARK: KeyBoard Manager
