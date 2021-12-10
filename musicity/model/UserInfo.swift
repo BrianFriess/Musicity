@@ -14,13 +14,89 @@ class UserInfo{
     private init() {}
     
     var userID = ""
-    var publicInfo = [String:Any]()
-    var personalInfo = [String:Any]()
-    var musicInfoUser = [String:Any]()
+    var publicInfoUser = [String:Any]()
+    
     var profilPicture : UIImage?
+    var stringUrl = ""
+    
+    //the dictionnary for write in DDB
     var instrument = [String:Any]()
-    //it's a return value for the instruments 
+    //the array for read to DDB
     var instrumentFireBase = [String]()
+    
+    //the dictionnary for write in DDB
+    var style = [String: Any]()
+    //the array for read to DDB
+    var styleFirbase = [String]()
+    
+    
+
+    //creation or changement array Style
+    private func setStyle(_ row : String,_ style : String){
+        self.style[row] = style
+    }
+    
+    //we add in our dictionnary [String : Any] the style from a dictionnay [Int : String]
+    func addStyle(_ dictStyle : [Int : String]){
+        var i = 0
+        for (_, style) in dictStyle{
+            setStyle(String(i), style)
+            i+=1
+        }
+    }
+    
+    //we use this function for check in the controller if the numbers of style select and the numbers of the style in the segue is the same or not
+    func checkStyle(_ dictCount : Int,_ dictStyle : [Int : String]){
+        if dictCount < self.style.count{
+            self.style = [:]
+            addStyle(dictStyle)
+        }
+    }
+    
+    
+    //creation or changement array instrument
+    private func setInstrument(_ row : String,_ instrument : String){
+        self.instrument[row] = instrument
+    }
+    
+    //we add in our dictionnary [String : Any] the instruments from a dictionnay [Int : String]
+    func addInstrument(_ dictInstrument : [Int : String]){
+        var i = 0
+        for (_, instrument) in dictInstrument{
+            setInstrument(String(i), instrument)
+            i+=1
+        }
+    }
+    //we use this function for check in the controller if the numbers of instruments select and the numbers of the instruments in the segue is the same or not
+    func checkInstrument(_ dictCount : Int,_ dictInstrument : [Int : String]){
+        if dictCount < self.instrument.count{
+            self.instrument = [:]
+            addInstrument(dictInstrument)
+        }
+    }
+    
+    
+    
+    //we give all the value at the singleton and we return a bool for check if all info is ok
+    func addAllInfo(_ allinfo : [String : Any]) -> Bool{
+        guard let publicInfo = allinfo[DataBaseAccessPath.publicInfoUser.returnAccessPath] as? [String : Any] else {
+            return false
+        }
+        addPublicInfo(publicInfo)
+        
+        guard let allInstrument = allinfo[DataBaseAccessPath.Instrument.returnAccessPath] as? [String] else {
+            return false
+        }
+        addAllInstrument(allInstrument)
+        
+        guard let allStyle = allinfo[DataBaseAccessPath.Style.returnAccessPath] as? [String] else {
+            return false
+        }
+        addAllStyle(allStyle)
+        
+        return true
+    }
+    
     
     
     func addUserId(_ userId : String){
@@ -28,58 +104,43 @@ class UserInfo{
     }
     
     func addPublicInfo(_ publicInfo : [String : Any]){
-        self.publicInfo = publicInfo
+        self.publicInfoUser = publicInfo
     }
-    
-    func addPersonalInfo(_ personalInfo : [String : Any]){
-        self.personalInfo = personalInfo
-    }
-    
-    func addMusicInfo(_ musicInfo : [String : Any]){
-        self.musicInfoUser = musicInfo
-    }
-    
-    enum UserInfoDictionnay{
-        case publicInfo
-        case personalInfo
-        case musicInfoUser
-        case instrument
-    }
-    
-    func addSingleInfo(_ userInfo : String, _ userInfoDictionnay : UserInfoDictionnay , _ child  : String){
-        
-        switch userInfoDictionnay {
-        case .publicInfo:
-            self.publicInfo[child] = userInfo
-        case .personalInfo:
-            self.personalInfo[child] = userInfo
-        case .musicInfoUser:
-            self.musicInfoUser[child] = userInfo
-       case .instrument:
-            self.instrument[child] = userInfo
-        }
-    }
+
     
     func addAllInstrument(_ instrument : [String]){
         self.instrumentFireBase = instrument
+    }
+    
+    func addAllStyle(_ style : [String]){
+        self.styleFirbase = style
     }
     
     func addProfilPicture(_ image : UIImage){
         self.profilPicture = image
     }
     
-
-    func checkAllTheInstruments() -> Bool{
-        let nbInstrument = instrument.count
-        let checkInstrument = musicInfoUser["\(DataBaseAccessPath.NbInstrument)"] as? Int
-        
-        return nbInstrument == checkInstrument
+    
+    func checkIfStyleIsEmpty() -> Bool {
+        return !style.isEmpty
     }
     
-    func checkProfilPicture() -> Bool{
-        
-        return profilPicture != nil
+    
+    func checkUrlProfilPicture() -> Bool{
+        return stringUrl != ""
     }
     
+    func checkIfInstrumentIsEmpty() -> Bool{
+        return !instrument.isEmpty
+    }
+    
+    
+    func addUrlString(_ stringUrlResult : String){
+        self.stringUrl = stringUrlResult
+    }
+    
+    func checkIfItsBandOrMusician() -> String{
+        return publicInfoUser[DataBaseAccessPath.BandOrMusician.returnAccessPath] as! String
+    }
         
 }

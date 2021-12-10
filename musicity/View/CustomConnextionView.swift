@@ -12,7 +12,6 @@ class CustomConnextionView: UIView {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet var stick: [UIView]!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var connexionButton: UIButton!
     @IBOutlet weak var incriptionButton: UIButton!
     
     func configureView(){
@@ -40,7 +39,6 @@ class CustomConnextionView: UIView {
     
     
     private func configureButton(){
-        connexionButton.layer.cornerRadius = 20
         incriptionButton.layer.cornerRadius = 20
         incriptionButton.layer.borderWidth = 3
         incriptionButton.layer.borderColor = UIColor.systemOrange.cgColor

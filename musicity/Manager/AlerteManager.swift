@@ -35,6 +35,10 @@ struct AlerteManager{
         case cantAccessPhotoLibrary
         case emptyInstrument
         case emptyProfilPicture
+        case errorGeolocalisation
+        case errorCheckAroundUs
+        case deniedGeolocalisation
+        case emptyStyle
         
         
         var title : String{
@@ -81,6 +85,14 @@ struct AlerteManager{
                 return "Champs vide"
             case .emptyProfilPicture:
                 return "Photo de profil"
+            case .errorGeolocalisation:
+                return "Geolocalisation"
+            case .errorCheckAroundUs:
+                return "Il n'y a personne !"
+            case .deniedGeolocalisation:
+                return "Geolocalisation"
+            case .emptyStyle:
+                return "Champs vide"
             }
         }
         
@@ -125,9 +137,17 @@ struct AlerteManager{
             case .cantAccessPhotoLibrary:
                 return "Merci de verifier vos paramètres pour accèder à la librairie"
             case .emptyInstrument:
-                return "Merci de renseigner tous les instruments"
+                return "Merci de renseigner au moins un instruments"
             case .emptyProfilPicture:
                 return "Il manque votre photo de profil"
+            case .errorGeolocalisation:
+                return "Une erreur avec votre géolocalisation est survenue"
+            case .errorCheckAroundUs:
+                return "Aucun musicien trouvé autour de vous"
+            case .deniedGeolocalisation:
+                return "Merci de verifier vos paramètres de geolocalisation"
+            case .emptyStyle:
+                return "Merci de renseigner au moins un style"
             }
         }
     }
@@ -135,8 +155,30 @@ struct AlerteManager{
 
     
     func alerteVc(_ message: AlerteType, _ controller : UIViewController){
-        let alertVC = UIAlertController(title: "\(message.title)", message: "\(message.description)", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        controller.present(alertVC, animated: true, completion: nil)
-        }
+        DispatchQueue.main.async {
+            let alertVC = UIAlertController(title: "\(message.title)", message: "\(message.description)", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            controller.present(alertVC, animated: true, completion: nil)
+       }
+    }
+    
+    
+    func locationAlerte(_ message: AlerteType, _ controller : UIViewController){
+       DispatchQueue.main.async {
+            let alertVC = UIAlertController(title: "\(message.title)", message: "\(message.description)", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Annuler", style: .cancel, handler: nil)
+            alertVC.addAction(cancelAction)
+            
+            let openAction = UIAlertAction(title: "Ouvrir les paramètres", style: .default) { action in
+                if let url = URL(string: UIApplication.openSettingsURLString){
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+            alertVC.addAction(openAction)
+        
+        controller.present(alertVC, animated : true, completion : nil)
+       }
+    }
+    
+    
 }

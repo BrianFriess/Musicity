@@ -18,12 +18,11 @@ class CustomCreateUserView: UIView {
 
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var buttonSinscrire: UIButton!
+
 
     
     func configureView(){
         configureTextField()
-        configureButton()
         configureStick()
     }
     
@@ -47,12 +46,7 @@ class CustomCreateUserView: UIView {
             stick[i].layer.cornerRadius = 1.5
         }
     }
-    
-    func configureButton(){
-
-        buttonSinscrire.layer.cornerRadius = 20
-    }
-    
+        
     func configureBandOrMusicien(){
         switch segmentedControl.selectedSegmentIndex{
         case 0 :

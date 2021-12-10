@@ -7,10 +7,12 @@
 
 import Foundation
 import Firebase
-import FirebaseStorage
+//import FirebaseAuth
+//import FirebaseStorage
 import UIKit
-import AVFoundation
-
+//import AVFoundation
+//import GeoFireUtils
+//import GeoFire
 
 
 
@@ -33,7 +35,6 @@ struct FirebaseManager{
    func createNewUser(_ email : String, _ password : String, _ userName : String,_ segmented : Int, completion : @escaping(Result<Void, FirebaseError>) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password){ authResult, error in
             if error != nil{
-                print(error.debugDescription)
                 completion(.failure(.createUserError))
             }else{
                 let userID = Auth.auth().currentUser?.uid
@@ -62,7 +63,8 @@ struct FirebaseManager{
     }
     
     
-    func connexionUser(_ email : String,_ password : String, completion : @escaping(Result<Void, FirebaseError>) -> Void){
+    //this function is for check email and password for the connexion
+    func connexionUser(_ email : String,_ password : String, completion : @escaping(Result<Void, FirebaseError>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if error != nil{
                 completion(.failure(.connexionError))
@@ -72,20 +74,20 @@ struct FirebaseManager{
         }
     }
     
-    func logOut(completion : @escaping(Result<Void, FirebaseError>) -> Void){
-        do{
+    func logOut(completion : @escaping(Result<Void, FirebaseError>) -> Void)  {
+        do {
             try Auth.auth().signOut()
             completion(.success(()))
-        }catch{
+        } catch {
             completion(.failure(.logOutError))
         }
     }
     
     //we use this function for get the user id
-    func getUserId(completion : @escaping(Result<String, FirebaseError>) -> Void){
+    func getUserId(completion : @escaping(Result<String, FirebaseError>) -> Void) {
         if let userID = Auth.auth().currentUser?.uid{
             completion(.success(userID))
-        }else{
+        } else {
             completion(.failure(.userIdError))
         }
     }
@@ -97,37 +99,56 @@ struct FirebaseManager{
     
     
     //the result is not a dictionnay but an array not like the other functions 
-    func getDictionnaryInstrumentToFirebase(_ userId : String, _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<[String], FirebaseError>)-> Void){
+    /*func getArrayInstrumentToFirebase(_ userId : String, _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<[String], FirebaseError>)-> Void) {
         ref.child("users").child(userId).child("\(infoProfil.returnAccessPath)").observeSingleEvent(of: .value) { snapshot in
             if let value = snapshot.value as? [String]{
                 completion(.success(value))
-            }else{
+            } else {
                 completion(.failure(.InfoError))
             }
         }
-    }
+    }*/
     
     
-    //get a dictionnary in firebase
-    func getDictionnaryInfoUserToFirebase(_ userId : String, _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<[String : Any], FirebaseError>)-> Void){
-        ref.child("users").child(userId).child("\(infoProfil.returnAccessPath)").observeSingleEvent(of: .value) { snapshot in
-            if let value = snapshot.value as? [String : Any]{
+    //we get all the dictionnary's info of one user to fireBase
+    func getAllTheInfoToFirebase(_ userId : String, completion : @escaping(Result<[String : Any], FirebaseError>) -> Void){
+        ref.child("users").child(userId).observe(.value) { snapshot in
+            if let value = snapshot.value as?[String : Any] {
                 completion(.success(value))
-            }else{
+            } else {
                 completion(.failure(.InfoError))
             }
         }
     }
     
-    //set a dictionnary to firebase
-    func setDictionnaryUserInfo(_ userId : String, _ infoUser : [String : Any], _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<Void, FirebaseError>)-> Void){
-        ref.child("users").child(userId).child("\(infoProfil.returnAccessPath)").setValue(infoUser)
+    
+    
+    //get a dictionnary to firebase
+    func getDictionnaryInfoUserToFirebase(_ userId : String, _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<[String : Any], FirebaseError>)-> Void) {
+        ref.child("users").child(userId).child("\(infoProfil.returnAccessPath)").observeSingleEvent(of: .value) { snapshot in
+            if let value = snapshot.value as? [String : Any] {
+                completion(.success(value))
+            } else {
+                completion(.failure(.InfoError))
+            }
+        }
+    }
+    
+    
+    //set a dictionnary in firebase(use for create profil)
+    func setDictionnaryUserInfo(_ userId : String, _ infoUser : [String : Any], _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<Void, FirebaseError>)-> Void) {
+        ref.child("users").child(userId).child("\(infoProfil.returnAccessPath)").setValue(infoUser) { errorInfo, _ in
+            guard errorInfo == nil else {
+                completion(.failure(.connexionError))
+                return
+            }
+        }
         completion(.success(()))
     }
     
     
     //thanks to the 2 function, we create a function who can set and get a dictionnary in firebase
-    func setAndGetDictionnaryUserInfo(_ userId : String, _ infoUser : [String : Any], _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<[String : Any],FirebaseError>)-> Void ){
+    func setAndGetDictionnaryUserInfo(_ userId : String, _ infoUser : [String : Any], _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<[String : Any],FirebaseError>)-> Void ) {
         setDictionnaryUserInfo(userId, infoUser, infoProfil) { result in
             switch result{
                 case .success(_):
@@ -145,18 +166,14 @@ struct FirebaseManager{
         }
     }
     
-    
-    
-    
-    
     // set a single info in firebase
-    private func setSingleUserInfo(_ userId : String,_ firstChild : DataBaseAccessPath, _ secondChild : DataBaseAccessPath, _ infoUser: String, completion : @escaping(Result<Void, FirebaseError>)-> Void){
+    func setSingleUserInfo(_ userId : String,_ firstChild : DataBaseAccessPath, _ secondChild : DataBaseAccessPath, _ infoUser: String, completion : @escaping(Result<Void, FirebaseError>)-> Void){
         ref.child("users").child(userId).child("\(firstChild.returnAccessPath)").child(secondChild.returnAccessPath).setValue(infoUser)
         completion(.success(()))
         
     }
     
-    //get a single info in firebase
+    //get a single info to firebase
     func getSingleInfoUserToFirebase(_ userId : String, _ firstChild : DataBaseAccessPath,_ secondChild : DataBaseAccessPath, completion : @escaping(Result<String, FirebaseError>)-> Void){
         ref.child("users").child(userId).child("\(firstChild.returnAccessPath)").child(secondChild.returnAccessPath).observeSingleEvent(of: .value) { snapshot in
             if let value = snapshot.value as? String{
@@ -187,21 +204,28 @@ struct FirebaseManager{
         }
     }
     
-    
 
     
     
     //MARK: configure image in fireBase
+    
     // we set an image in firebase
-    private func setImageInFirebase(_ imageData : Data, completion : @escaping(Result<String, FirebaseError>) -> Void ){
-        storage.child(UserInfo.shared.userID).child("ProfilImage/profilImage.png").putData(imageData, metadata: nil, completion: { _, error in
+    func setImageInFirebaseAndGetUrl(_ userId : String, _ imageData : Data, completion : @escaping(Result<String, FirebaseError>) -> Void ){
+        storage.child(userId).child("ProfilImage/profilImage.png").putData(imageData, metadata: nil, completion: { _, error in
             guard error == nil else{
                 completion(.failure(.connexionError))
-                print("error1")
                 return
             }
             //we get the url of the image
-            self.storage.child(UserInfo.shared.userID).child("ProfilImage/profilImage.png").downloadURL { url, error in
+            getUrlImageToFirebase(userId) { result in
+                switch result{
+                case .success(let urlImage):
+                    completion(.success(urlImage))
+                case .failure(_):
+                    completion(.failure(.connexionError))
+                }
+            }
+          /*  self.storage.child(UserInfo.shared.userID).child("ProfilImage/profilImage.png").downloadURL { url, error in
                 guard let url = url, error == nil else{
                     completion(.failure(.connexionError))
                     print("error2")
@@ -209,20 +233,33 @@ struct FirebaseManager{
                 }
                 let urlString = url.absoluteString
                 completion(.success(urlString))
-            }
+            }*/
         })
     }
+
+    
+    //we get the urlImage for profil Picture
+    func getUrlImageToFirebase(_ userId : String, completion : @escaping(Result<String, FirebaseError>) -> Void){
+        self.storage.child(userId).child("ProfilImage/profilImage.png").downloadURL { url, error in
+            guard let url = url, error == nil else{
+                completion(.failure(.connexionError))
+                return
+            }
+            let urlString = url.absoluteString
+            completion(.success(urlString))
+        }
+    }
+
     
     
     // we get an image with an URL
-    private func getImageToFirebase(_ urlString : String, completion : @escaping(Result<UIImage,FirebaseError>) -> Void){
+    func getImageToFirebase(_ urlString : String, completion : @escaping(Result<UIImage,FirebaseError>) -> Void){
         guard let url = URL(string: urlString) else{
             return
         }
         let task = URLSession.shared.dataTask(with: url, completionHandler: {data, _, error in
             guard let data = data, error == nil else{
                 completion(.failure(.connexionError))
-                print("error3")
                 return
             }
            DispatchQueue.main.async {
@@ -234,8 +271,9 @@ struct FirebaseManager{
     }
     
     
+    
     //we set an get an image thanks to 2 functions
-    func SetAndGetImageToFirebase(_ imageData : Data, completion : @escaping(Result<UIImage,FirebaseError>)-> Void){
+    /*func SetAndGetImageToFirebase(_ imageData : Data, completion : @escaping(Result<UIImage,FirebaseError>)-> Void){
         setImageInFirebase(imageData) { result in
             switch result{
                 case .success(let urlString):
@@ -251,10 +289,7 @@ struct FirebaseManager{
                 completion(.failure(FirebaseError.connexionError))
             }
         }
-    }
-    
-    
-    
+    }*/
     
     
 }

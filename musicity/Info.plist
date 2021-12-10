@@ -6,8 +6,10 @@
 	<string>Musicity souhaite accéder à vos photos</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Musicity souhaite accéder à vos photos</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Musicity utilise votre localisation pour trouver des musiciens autour de vous</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Musicity utilise votre localisation pour trouver les musiciens autour de vous</string>
+	<string>Musicity utilise votre localisation pour trouver des musiciens autour de vous</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Archistico_Bold.ttf</string>

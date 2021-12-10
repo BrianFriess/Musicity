@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "GeoFire",
+        "repositoryURL": "https://github.com/firebase/geofire-objc.git",
+        "state": {
+          "branch": null,
+          "revision": "fd0349afe7f9fd88c5c55f2e875abc4533f3dcd9",
+          "version": "4.3.0"
+        }
+      },
+      {
         "package": "GoogleAppMeasurement",
         "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
         "state": {
@@ -107,6 +116,15 @@
           "branch": null,
           "revision": "7e2c5f3cbbeea68e004915e3a8961e20bd11d824",
           "version": "1.18.0"
+        }
+      },
+      {
+        "package": "YoutubePlayer-in-WKWebView",
+        "repositoryURL": "https://github.com/hmhv/YoutubePlayer-in-WKWebView.git",
+        "state": {
+          "branch": null,
+          "revision": "970bf5f089171c78622633e9112e9d8730ace758",
+          "version": "0.3.8"
         }
       }
     ]
