@@ -27,16 +27,18 @@ class LogInViewController: UIViewController {
 
     //MARK: Action
     @IBAction func connexionButton(_ sender: UIButton) {
-        
+        testView.connexionIsLoadOrNot(.isOnLoad)
         //check if the password is not empty
         guard passwordTextField.text != "", let password = passwordTextField.text else{
             alerte.alerteVc(.emptyPassword, self)
+            self.testView.connexionIsLoadOrNot(.isLoad)
             return
         }
         
         //check if email is not empty
         guard emailTextField.text != "", let email = emailTextField.text else{
             alerte.alerteVc(.EmptyEmail, self)
+            self.testView.connexionIsLoadOrNot(.isLoad)
             return
         }
         
@@ -63,23 +65,29 @@ class LogInViewController: UIViewController {
                                             //get the profil Picture url in the singleton and go to the next page
                                             UserInfo.shared.addUrlString(imageUrl)
                                             self.performSegue(withIdentifier: "GoToMusicitySegue", sender: self)
+                                            self.testView.connexionIsLoadOrNot(.isLoad)
                                         case .failure(_):
                                             self.alerte.alerteVc(.errorGetInfo, self)
+                                            self.testView.connexionIsLoadOrNot(.isLoad)
                                         }
                                     }
                                 } else {
                                     self.logInButMissInformation()
+                                    self.testView.connexionIsLoadOrNot(.isLoad)
                                 }
                             case .failure(_):
                                 self.alerte.alerteVc(.errorGetInfo, self)
+                                self.testView.connexionIsLoadOrNot(.isLoad)
                             }
                         }
                     case .failure(_):
                         self.alerte.alerteVc(.errorGetInfo, self)
+                        self.testView.connexionIsLoadOrNot(.isLoad)
                     }
                 }
             case .failure(_):
                 self.alerte.alerteVc(.ErrorConnexion, self)
+                self.testView.connexionIsLoadOrNot(.isLoad)
             }
         }
     }

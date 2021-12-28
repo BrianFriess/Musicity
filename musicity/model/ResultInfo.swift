@@ -13,9 +13,15 @@ class ResultInfo {
 
     var userID = ""
     var publicInfoUser = [String:Any]()
+    
     var profilPicture : UIImage?
-    var instrument = [String]()
-    var urlString = ""
+    var stringUrl = ""
+     
+    //the array for read to DDB
+    var instrumentFireBase = [String]()
+    
+    //the array for read to DDB
+    var styleFirbase = [String]()
     
 
     func addUserId(_ userId : String){
@@ -25,6 +31,7 @@ class ResultInfo {
     func addAllInfo(_ allinfo : [String : Any]){
         addPublicInfo(allinfo[DataBaseAccessPath.publicInfoUser.returnAccessPath] as! [String : Any])
         addAllInstrument(allinfo[DataBaseAccessPath.Instrument.returnAccessPath] as! [String])
+        addStyle(allinfo[DataBaseAccessPath.Style.returnAccessPath] as! [String])
     }
     
     private func addPublicInfo(_ publicInfo : [String : Any]){
@@ -33,7 +40,7 @@ class ResultInfo {
     
     
     private func addAllInstrument(_ instrument : [String]){
-        self.instrument = instrument
+        self.instrumentFireBase = instrument
     }
     
     func addProfilPicture(_ image : UIImage){
@@ -41,9 +48,15 @@ class ResultInfo {
     }
     
     func addUrlString(_ urlString : String){
-        self.urlString = urlString
+        self.stringUrl = urlString
     }
     
+    func addStyle(_ style : [String]){
+        self.styleFirbase = style
+    }
 
+    func checkIfItsBandOrMusician() -> String{
+        return publicInfoUser[DataBaseAccessPath.BandOrMusician.returnAccessPath] as! String
+    }
     
 }

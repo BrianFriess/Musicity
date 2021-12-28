@@ -13,12 +13,11 @@ class CustomCreateUserView: UIView {
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
-    
+    @IBOutlet weak var activityController: UIActivityIndicatorView!
     @IBOutlet var stick: [UIView]!
-
-    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-
+    @IBOutlet weak var inscriptionButton: CustomOrangeButton!
+    
 
     
     func configureView(){
@@ -56,6 +55,24 @@ class CustomCreateUserView: UIView {
         default:
             break
         }
-    } 
+    }
+    
+    enum IsLoad{
+        case isLoad
+        case isOnLoad
+    }
+    
+    func connexionIsLoadOrNot(_ isLoad : IsLoad){
+        switch isLoad {
+        case .isLoad:
+            self.inscriptionButton.isHidden = false
+            self.activityController.isHidden = true
+            self.activityController.stopAnimating()
+        case .isOnLoad:
+            self.inscriptionButton.isHidden = true
+            self.activityController.isHidden = false
+            self.activityController.startAnimating()
+        }
+    }
 }
  

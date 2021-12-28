@@ -39,6 +39,8 @@ struct AlerteManager{
         case errorCheckAroundUs
         case deniedGeolocalisation
         case emptyStyle
+        case tooMuchCara
+        case youtubeLink
         
         
         var title : String{
@@ -93,6 +95,10 @@ struct AlerteManager{
                 return "Geolocalisation"
             case .emptyStyle:
                 return "Champs vide"
+            case .tooMuchCara:
+                return "Trop de caractère"
+            case.youtubeLink:
+                return "Lien Youtube"
             }
         }
         
@@ -148,6 +154,10 @@ struct AlerteManager{
                 return "Merci de verifier vos paramètres de geolocalisation"
             case .emptyStyle:
                 return "Merci de renseigner au moins un style"
+            case .tooMuchCara:
+                return "500 caratères max"
+            case .youtubeLink:
+                return "Ce n'est pas un lien Youtube"
             }
         }
     }

@@ -16,25 +16,34 @@ class ProfilUserViewController: UIViewController {
     @IBOutlet weak var youtubePlayer: WKYTPlayerView!
     @IBOutlet weak var nbMember: UILabel!
     var firebaseManager = FirebaseManager()
-
-    
-   
+    @IBOutlet weak var bioLabel: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        profilUserView.configure()
         configureInformation()
         configureProfilPicture()
         
         //model + test du lien youtube // enlever finalement
-        youtubePlayer.load(withVideoId: "6U2SuAGRj4s")
+
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        changeProfilPicture()
+        checkIfBioIsEmptyOrNot()
+        youtubeVideoOrNot()
+    }
+
+    //we check if we have the same picture, else, we change for the new picture
+    func changeProfilPicture(){
+        if profilPicture.image != UserInfo.shared.profilPicture{
+            profilPicture.image = UserInfo.shared.profilPicture
+        }
+    }
     
     //check the informations for display the informations
     func configureInformation(){
-        
         if UserInfo.shared.checkIfItsBandOrMusician() == "Band"{
             profilUserView.isBandOrMusician(.isBand)
             nbMember.text = ("\(UserInfo.shared.publicInfoUser [DataBaseAccessPath.NbMember.returnAccessPath] as! String) membre(s)")
@@ -44,26 +53,50 @@ class ProfilUserViewController: UIViewController {
         usernameTextField.text = UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String
     }
     
+    
     // network call for display the profil picture 
     func configureProfilPicture(){
+        profilUserView.loadSpinner(.isInLoading)
         if UserInfo.shared.profilPicture == nil{
             firebaseManager.getImageToFirebase(UserInfo.shared.stringUrl) { result in
                 switch result{
                 case .success(let profilPictureResult):
                     UserInfo.shared.addProfilPicture(profilPictureResult)
+                    self.profilUserView.loadSpinner(.isLoad)
                     self.profilPicture.image = UserInfo.shared.profilPicture
                 case .failure(_):
+                    self.profilUserView.loadSpinner(.isLoad)
                     self.profilPicture.image = UIImage(systemName: "questionmark.circle.fill")!
                 }
             }
         }
     }
     
+    //we check if the user have already a youtubeVideo
+    func youtubeVideoOrNot(){
+        if UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] as? String  == "" || UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] == nil {
+            profilUserView.youtubePlayerIsEmpty(.isEmpty)
+        } else {
+            profilUserView.youtubePlayerIsEmpty(.isNotEmpty)
+            youtubePlayer.load(withVideoId: UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] as! String)
+        }
+    }
+    
+    
+    func checkIfBioIsEmptyOrNot(){
+        //we check if the bio is empty or not
+        if UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String  == "" || UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] == nil {
+            profilUserView.bioIsEmpty(.isEmpty)
+        } else {
+            //if the bio isn't empty,  we write the bio in the label text
+            profilUserView.bioLabelText.text = UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String
+        }
+    }
 
 }
 
 
-
+// extension for the collection view
 extension ProfilUserViewController : UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -11,14 +11,17 @@ class TileCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var customView: UIView!
     @IBOutlet weak var profilPicture: UIImageView!
+    @IBOutlet weak var spinnerActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var ageLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCell()
-        configureProfilPicture()
     }
+    
     
     func configureCell(){
         customView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor
@@ -28,10 +31,24 @@ class TileCollectionViewCell: UICollectionViewCell {
         customView.layer.cornerRadius = 10
     }
     
-    func configureProfilPicture(){
-        profilPicture.layer.cornerRadius = 60
-        profilPicture.layer.borderWidth = 2
-        profilPicture.layer.borderColor = UIColor.white.cgColor
+    enum IsLoading{
+        case isLoad
+        case isInLoading
+    }
+    
+    //the view display the spinner or the profil picture
+    func loadPhoto(_ isLoading : IsLoading, _ profilPicture : UIImage?){
+        switch isLoading {
+        case .isLoad:
+            spinnerActivityIndicator.isHidden = true
+            spinnerActivityIndicator.stopAnimating()
+            self.profilPicture.isHidden = false
+            self.profilPicture.image = profilPicture
+        case .isInLoading:
+            spinnerActivityIndicator.isHidden = false
+            spinnerActivityIndicator.startAnimating()
+            self.profilPicture.isHidden = true
+        }
     }
     
     

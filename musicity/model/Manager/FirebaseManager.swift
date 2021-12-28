@@ -225,15 +225,6 @@ struct FirebaseManager{
                     completion(.failure(.connexionError))
                 }
             }
-          /*  self.storage.child(UserInfo.shared.userID).child("ProfilImage/profilImage.png").downloadURL { url, error in
-                guard let url = url, error == nil else{
-                    completion(.failure(.connexionError))
-                    print("error2")
-                    return
-                }
-                let urlString = url.absoluteString
-                completion(.success(urlString))
-            }*/
         })
     }
 
@@ -269,27 +260,6 @@ struct FirebaseManager{
         })
         task.resume()
     }
-    
-    
-    
-    //we set an get an image thanks to 2 functions
-    /*func SetAndGetImageToFirebase(_ imageData : Data, completion : @escaping(Result<UIImage,FirebaseError>)-> Void){
-        setImageInFirebase(imageData) { result in
-            switch result{
-                case .success(let urlString):
-                getImageToFirebase(urlString) { result in
-                    switch result{
-                    case .success(let image):
-                        completion(.success(image))
-                    case .failure(_):
-                        completion(.failure(FirebaseError.connexionError))
-                    }
-                }
-                case .failure(_):
-                completion(.failure(FirebaseError.connexionError))
-            }
-        }
-    }*/
     
     
 }

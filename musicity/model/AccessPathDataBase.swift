@@ -22,6 +22,8 @@ enum DataBaseAccessPath {
     case Instrument
     case userLocation
     case MusicStyle
+    case Bio
+    case YoutubeUrl
     
     var returnAccessPath : String{
         switch self{
@@ -53,6 +55,10 @@ enum DataBaseAccessPath {
             return "UserLocation"
         case .MusicStyle:
             return "MusicStyle"
+        case .Bio:
+            return "Bio"
+        case .YoutubeUrl:
+            return "YoutubeUrl"
         }
     }
 }

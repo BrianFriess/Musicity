@@ -11,12 +11,15 @@ import Firebase
 import GeoFire
 import CoreMIDI
 import CoreAudio
+import WebKit
+import SwiftUI
 
 
 
 
 class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
+
     @IBOutlet var customView: MusicityHomeCustomView!
     let manager = CLLocationManager()
     let geolocalisationManager = GeolocalisationManager()
@@ -26,7 +29,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     let alerte = AlerteManager()    
     var arrayUser = [ResultInfo]()
     var currentUser = ResultInfo()
-
+    
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -37,8 +40,12 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
+
     }
     
+    private func callTag(){
+
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         checkIfGeolocalisationIsActive()
@@ -137,6 +144,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
 
 extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionViewDataSource{
     
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -152,22 +160,48 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
         
         cell.usernameLabel.text = arrayUser[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String
         
+        //we check if you have already the profil picture or not
         if let imageDisplay = arrayUser[indexPath.row].profilPicture {
-            cell.profilPicture.image = imageDisplay
+            cell.loadPhoto(.isLoad, imageDisplay)
         } else{
-            cell.profilPicture.image = UIImage(systemName: "questionmark.circle.fill")!
+            cell.loadPhoto(.isInLoading, nil)
+        }
+
+        var paddyY = 0
+
+        for instrument in arrayUser[indexPath.row].instrumentFireBase{
+            let label = UILabel(frame: CGRect(x: 5, y: paddyY, width: Int(cell.scrollView.layer.frame.size.width), height: 35))
+            label.textColor = UIColor.white
+            label.font = UIFont(name : "Arial Rounded MT Bold", size : 17)
+            label.text = instrument
+            cell.scrollView.addSubview(label)
+            paddyY += 30
         }
         
+        for style in arrayUser[indexPath.row].styleFirbase{
+            let label = UILabel(frame: CGRect(x: 5, y: paddyY, width: Int(cell.scrollView.layer.frame.size.width), height: 35))
+            label.textColor = UIColor.white
+            label.font = UIFont(name : "Arial Rounded MT Bold", size : 17)
+            label.text = style
+            cell.scrollView.addSubview(label)
+            paddyY += 30
+        }
+        
+        //is use for have the right scroll size*/
+        cell.scrollView.contentSize = CGSize(width: 0, height: paddyY + 60)
+           
         return cell
     }
     
+    //we prepare the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToViewUserProfil"{
-            let successVC = segue.destination as! ViewUserProfilViewController
+            let successVC = segue.destination as! ResultUserProfilViewController
             successVC.currentUser = currentUser
         }
     }
     
+    //if we click on one item, we display a new controller
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         currentUser = arrayUser[indexPath.row]
         self.performSegue(withIdentifier: "goToViewUserProfil", sender: nil)
@@ -185,11 +219,12 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
                 case .success(let allInfo):
                     self.arrayUser[indexPath.row].addAllInfo(allInfo)
                     if self.arrayUser[indexPath.row].profilPicture == nil{
-                        self.firebaseManager.getImageToFirebase(self.arrayUser[indexPath.row].urlString) { result in
+                        self.firebaseManager.getImageToFirebase(self.arrayUser[indexPath.row].stringUrl) { result in
                             switch result{
                             case .success(let image):
                                 self.arrayUser[indexPath.row].addProfilPicture(image)
-                                self.collectionView.reloadItems(at: [indexPath])
+                                //self.collectionView.reloadItems(at: [indexPath])
+                                self.collectionView.reloadData()
                             case .failure(_):
                                 self.alerte.alerteVc(.errorCheckAroundUs, self)
                             }
@@ -202,6 +237,22 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
         }
     }
     
+    
+}
+
+
+
+
+
+// extension for pagination
+extension MusicityHomeViewController :  UIScrollViewDelegate{
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (scrollView.contentOffset.x == collectionView.contentSize.width - scrollView.frame.size.width)
+        {
+            checkIfGeolocalisationIsActive()
+        }
+    }
     
 }
 

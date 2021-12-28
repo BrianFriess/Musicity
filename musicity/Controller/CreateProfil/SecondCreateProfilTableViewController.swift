@@ -190,7 +190,7 @@ extension SecondCreateProfilTableViewController : UICollectionViewDelegate, UICo
         
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //when the user push on one cell, we check if the cell is select or desect
         if isSelectArray[indexPath.row] == false{

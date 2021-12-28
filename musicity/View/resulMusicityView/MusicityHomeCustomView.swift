@@ -14,6 +14,7 @@ class MusicityHomeCustomView: UIView {
     @IBOutlet weak var labelTextGeolocalisation: UILabel!
 
     
+    
     enum GeolocalisationIsActive{
         case isActive
         case notActive

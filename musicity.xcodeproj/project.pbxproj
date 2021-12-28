@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D3100F07275DF02B004BB3BF /* ViewUserProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100F06275DF02B004BB3BF /* ViewUserProfilViewController.swift */; };
+		D3100F07275DF02B004BB3BF /* ResultUserProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100F06275DF02B004BB3BF /* ResultUserProfilViewController.swift */; };
 		D3100F0B275E1AFC004BB3BF /* ProfilPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100F0A275E1AFC004BB3BF /* ProfilPageView.swift */; };
 		D3100F10275E258C004BB3BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A86926274FA99C00D2BCC8 /* CoreLocation.framework */; };
 		D32E5A23274D659F0045073C /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32E5A22274D659F0045073C /* FirebaseManager.swift */; };
@@ -20,6 +20,7 @@
 		D3497CB727566F7C00D69D08 /* MusicityHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3497CB627566F7C00D69D08 /* MusicityHomeViewController.swift */; };
 		D3497CB927567A5100D69D08 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3497CB827567A5100D69D08 /* WelcomeViewController.swift */; };
 		D34B1E702748E0D600A7B77F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */; };
+		D35075262772513900DD3365 /* YoutubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35075252772513900DD3365 /* YoutubeManager.swift */; };
 		D36292192761225400328090 /* ChoiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36292182761225400328090 /* ChoiceCollectionViewCell.swift */; };
 		D36F0BE8275FA652009D5A69 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */; };
 		D372FE73275E28D300DC5298 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE72275E28D300DC5298 /* FirebaseDatabase */; };
@@ -41,16 +42,20 @@
 		D37D921C2747B72100D59BC5 /* musicityUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D921B2747B72100D59BC5 /* musicityUITestsLaunchTests.swift */; };
 		D37D92302747ED1700D59BC5 /* CustomCreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D922F2747ED1700D59BC5 /* CustomCreateUserView.swift */; };
 		D37D92322748080D00D59BC5 /* Archistico_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D37D92312748080D00D59BC5 /* Archistico_Bold.ttf */; };
+		D381CB0F277B18C500570A1F /* ResultProfilPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D381CB0E277B18C500570A1F /* ResultProfilPage.swift */; };
 		D386B45C27611795003CA551 /* FirstCreateProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386B45B27611795003CA551 /* FirstCreateProfilViewController.swift */; };
 		D39353812762310B000A57B3 /* SecondCreateProfilTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39353802762310B000A57B3 /* SecondCreateProfilTableViewController.swift */; };
 		D393538327623CB8000A57B3 /* CustomCreateSecondUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393538227623CB8000A57B3 /* CustomCreateSecondUIView.swift */; };
 		D3A86925274F9FE400D2BCC8 /* MusicStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */; };
-		D3B14CF2275A4B5800BA5876 /* resultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF1275A4B5800BA5876 /* resultInfo.swift */; };
+		D3B14CF2275A4B5800BA5876 /* ResultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */; };
 		D3B14CF4275A596300BA5876 /* TileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF3275A596300BA5876 /* TileCollectionViewCell.swift */; };
 		D3ECCC49274AB020005538E6 /* CustomConnextionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */; };
 		D3ECCC4B274AB2CC005538E6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */; };
 		D3ECCC4D274AC5F7005538E6 /* AlerteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */; };
 		D3ECD6ED276355F900366A1D /* CustomOrangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECD6EC276355F900366A1D /* CustomOrangeButton.swift */; };
+		D3ECD6F22763B9F400366A1D /* CustomProfilPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECD6F12763B9F400366A1D /* CustomProfilPictureView.swift */; };
+		D3ECD6F52763BF6600366A1D /* EditProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECD6F42763BF6600366A1D /* EditProfilViewController.swift */; };
+		D3FF5A5A2770F794000596D7 /* EditProfilCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF5A592770F794000596D7 /* EditProfilCustomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D3100F06275DF02B004BB3BF /* ViewUserProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUserProfilViewController.swift; sourceTree = "<group>"; };
+		D3100F06275DF02B004BB3BF /* ResultUserProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultUserProfilViewController.swift; sourceTree = "<group>"; };
 		D3100F0A275E1AFC004BB3BF /* ProfilPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilPageView.swift; sourceTree = "<group>"; };
 		D32E5A22274D659F0045073C /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		D332D813275280EC001B9A26 /* AccessPathDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessPathDataBase.swift; sourceTree = "<group>"; };
@@ -83,6 +88,7 @@
 		D3497CB627566F7C00D69D08 /* MusicityHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicityHomeViewController.swift; sourceTree = "<group>"; };
 		D3497CB827567A5100D69D08 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D35075252772513900DD3365 /* YoutubeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeManager.swift; sourceTree = "<group>"; };
 		D36292182761225400328090 /* ChoiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceCollectionViewCell.swift; sourceTree = "<group>"; };
 		D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		D37D91F52747B72000D59BC5 /* musicity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = musicity.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,17 +106,21 @@
 		D37D921B2747B72100D59BC5 /* musicityUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = musicityUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D37D922F2747ED1700D59BC5 /* CustomCreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCreateUserView.swift; sourceTree = "<group>"; };
 		D37D92312748080D00D59BC5 /* Archistico_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Archistico_Bold.ttf; sourceTree = "<group>"; };
+		D381CB0E277B18C500570A1F /* ResultProfilPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultProfilPage.swift; sourceTree = "<group>"; };
 		D386B45B27611795003CA551 /* FirstCreateProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCreateProfilViewController.swift; sourceTree = "<group>"; };
 		D39353802762310B000A57B3 /* SecondCreateProfilTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCreateProfilTableViewController.swift; sourceTree = "<group>"; };
 		D393538227623CB8000A57B3 /* CustomCreateSecondUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCreateSecondUIView.swift; sourceTree = "<group>"; };
 		D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicStyle.swift; sourceTree = "<group>"; };
 		D3A86926274FA99C00D2BCC8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		D3B14CF1275A4B5800BA5876 /* resultInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = resultInfo.swift; sourceTree = "<group>"; };
+		D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultInfo.swift; sourceTree = "<group>"; };
 		D3B14CF3275A596300BA5876 /* TileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConnextionView.swift; sourceTree = "<group>"; };
 		D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlerteManager.swift; sourceTree = "<group>"; };
 		D3ECD6EC276355F900366A1D /* CustomOrangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOrangeButton.swift; sourceTree = "<group>"; };
+		D3ECD6F12763B9F400366A1D /* CustomProfilPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProfilPictureView.swift; sourceTree = "<group>"; };
+		D3ECD6F42763BF6600366A1D /* EditProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilViewController.swift; sourceTree = "<group>"; };
+		D3FF5A592770F794000596D7 /* EditProfilCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilCustomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +163,7 @@
 				D37D91FC2747B72000D59BC5 /* CreateUserViewController.swift */,
 				D386B45B27611795003CA551 /* FirstCreateProfilViewController.swift */,
 				D39353802762310B000A57B3 /* SecondCreateProfilTableViewController.swift */,
+				D3497CB827567A5100D69D08 /* WelcomeViewController.swift */,
 			);
 			path = CreateProfil;
 			sourceTree = "<group>";
@@ -171,6 +182,7 @@
 				D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */,
 				D32E5A22274D659F0045073C /* FirebaseManager.swift */,
 				D337625F2758A8F20083FE53 /* GeolocalisationManager.swift */,
+				D35075252772513900DD3365 /* YoutubeManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -213,7 +225,6 @@
 				D37D922A2747DF2B00D59BC5 /* Controller */,
 				D37D92292747DF2500D59BC5 /* model */,
 				D37D92282747DF1C00D59BC5 /* View */,
-				D3348D17274E3C8A00811091 /* Manager */,
 				D37D92062747B72100D59BC5 /* Info.plist */,
 				D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */,
 			);
@@ -243,12 +254,10 @@
 				D37D92012747B72100D59BC5 /* Assets.xcassets */,
 				D37D91FE2747B72000D59BC5 /* Main.storyboard */,
 				D37D92032747B72100D59BC5 /* LaunchScreen.storyboard */,
-				D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */,
-				D37D922F2747ED1700D59BC5 /* CustomCreateUserView.swift */,
-				D393538227623CB8000A57B3 /* CustomCreateSecondUIView.swift */,
-				D33762632758D8EC0083FE53 /* MusicityHomeCustomView.swift */,
-				D3100F0A275E1AFC004BB3BF /* ProfilPageView.swift */,
-				D3ECD6EC276355F900366A1D /* CustomOrangeButton.swift */,
+				D381CB10277B18D900570A1F /* CreateProfilView */,
+				D381CB13277B469C00570A1F /* resulMusicityView */,
+				D381CB11277B190C00570A1F /* ProfilPersoView */,
+				D3ECD6F32763BA0100366A1D /* customElement */,
 				D3ECD6EE27635A9900366A1D /* collectionViewCell */,
 			);
 			path = View;
@@ -257,11 +266,12 @@
 		D37D92292747DF2500D59BC5 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				D3348D17274E3C8A00811091 /* Manager */,
 				D332D813275280EC001B9A26 /* AccessPathDataBase.swift */,
 				D3348D18274EAA1300811091 /* UserInfo.swift */,
 				D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */,
 				D332D817275295FB001B9A26 /* MusicInstruments.swift */,
-				D3B14CF1275A4B5800BA5876 /* resultInfo.swift */,
+				D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -271,18 +281,54 @@
 			children = (
 				D3100F09275DF0E0004BB3BF /* LogIn */,
 				D3100F08275DF0B9004BB3BF /* CreateProfil */,
-				D3497CB827567A5100D69D08 /* WelcomeViewController.swift */,
-				D3497CB627566F7C00D69D08 /* MusicityHomeViewController.swift */,
-				D3100F06275DF02B004BB3BF /* ViewUserProfilViewController.swift */,
+				D381CB12277B467900570A1F /* resultMusicity */,
 				D3CA9620275E6CA000522FEE /* ProfilPerso */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		D381CB10277B18D900570A1F /* CreateProfilView */ = {
+			isa = PBXGroup;
+			children = (
+				D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */,
+				D37D922F2747ED1700D59BC5 /* CustomCreateUserView.swift */,
+				D393538227623CB8000A57B3 /* CustomCreateSecondUIView.swift */,
+			);
+			path = CreateProfilView;
+			sourceTree = "<group>";
+		};
+		D381CB11277B190C00570A1F /* ProfilPersoView */ = {
+			isa = PBXGroup;
+			children = (
+				D3100F0A275E1AFC004BB3BF /* ProfilPageView.swift */,
+				D3FF5A592770F794000596D7 /* EditProfilCustomView.swift */,
+			);
+			path = ProfilPersoView;
+			sourceTree = "<group>";
+		};
+		D381CB12277B467900570A1F /* resultMusicity */ = {
+			isa = PBXGroup;
+			children = (
+				D3100F06275DF02B004BB3BF /* ResultUserProfilViewController.swift */,
+				D3497CB627566F7C00D69D08 /* MusicityHomeViewController.swift */,
+			);
+			path = resultMusicity;
+			sourceTree = "<group>";
+		};
+		D381CB13277B469C00570A1F /* resulMusicityView */ = {
+			isa = PBXGroup;
+			children = (
+				D33762632758D8EC0083FE53 /* MusicityHomeCustomView.swift */,
+				D381CB0E277B18C500570A1F /* ResultProfilPage.swift */,
+			);
+			path = resulMusicityView;
 			sourceTree = "<group>";
 		};
 		D3CA9620275E6CA000522FEE /* ProfilPerso */ = {
 			isa = PBXGroup;
 			children = (
 				D3497CB4275668EC00D69D08 /* ProfilUserViewController.swift */,
+				D3ECD6F42763BF6600366A1D /* EditProfilViewController.swift */,
 			);
 			path = ProfilPerso;
 			sourceTree = "<group>";
@@ -295,6 +341,15 @@
 				D36292182761225400328090 /* ChoiceCollectionViewCell.swift */,
 			);
 			path = collectionViewCell;
+			sourceTree = "<group>";
+		};
+		D3ECD6F32763BA0100366A1D /* customElement */ = {
+			isa = PBXGroup;
+			children = (
+				D3ECD6EC276355F900366A1D /* CustomOrangeButton.swift */,
+				D3ECD6F12763B9F400366A1D /* CustomProfilPictureView.swift */,
+			);
+			path = customElement;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,16 +502,19 @@
 			files = (
 				D3497CB727566F7C00D69D08 /* MusicityHomeViewController.swift in Sources */,
 				D3348D19274EAA1300811091 /* UserInfo.swift in Sources */,
-				D3B14CF2275A4B5800BA5876 /* resultInfo.swift in Sources */,
+				D3B14CF2275A4B5800BA5876 /* ResultInfo.swift in Sources */,
 				D3ECCC49274AB020005538E6 /* CustomConnextionView.swift in Sources */,
 				D386B45C27611795003CA551 /* FirstCreateProfilViewController.swift in Sources */,
 				D37D92302747ED1700D59BC5 /* CustomCreateUserView.swift in Sources */,
 				D3B14CF4275A596300BA5876 /* TileCollectionViewCell.swift in Sources */,
 				D3497CB927567A5100D69D08 /* WelcomeViewController.swift in Sources */,
+				D35075262772513900DD3365 /* YoutubeManager.swift in Sources */,
 				D33762642758D8EC0083FE53 /* MusicityHomeCustomView.swift in Sources */,
 				D3100F0B275E1AFC004BB3BF /* ProfilPageView.swift in Sources */,
 				D332D818275295FB001B9A26 /* MusicInstruments.swift in Sources */,
 				D36F0BE8275FA652009D5A69 /* TagCollectionViewCell.swift in Sources */,
+				D3ECD6F52763BF6600366A1D /* EditProfilViewController.swift in Sources */,
+				D3FF5A5A2770F794000596D7 /* EditProfilCustomView.swift in Sources */,
 				D32E5A23274D659F0045073C /* FirebaseManager.swift in Sources */,
 				D36292192761225400328090 /* ChoiceCollectionViewCell.swift in Sources */,
 				D37D91FD2747B72000D59BC5 /* CreateUserViewController.swift in Sources */,
@@ -467,10 +525,12 @@
 				D37D91FB2747B72000D59BC5 /* SceneDelegate.swift in Sources */,
 				D33762602758A8F20083FE53 /* GeolocalisationManager.swift in Sources */,
 				D3A86925274F9FE400D2BCC8 /* MusicStyle.swift in Sources */,
+				D381CB0F277B18C500570A1F /* ResultProfilPage.swift in Sources */,
+				D3ECD6F22763B9F400366A1D /* CustomProfilPictureView.swift in Sources */,
 				D3ECCC4D274AC5F7005538E6 /* AlerteManager.swift in Sources */,
 				D3ECCC4B274AB2CC005538E6 /* LogInViewController.swift in Sources */,
 				D393538327623CB8000A57B3 /* CustomCreateSecondUIView.swift in Sources */,
-				D3100F07275DF02B004BB3BF /* ViewUserProfilViewController.swift in Sources */,
+				D3100F07275DF02B004BB3BF /* ResultUserProfilViewController.swift in Sources */,
 				D3497CB5275668EC00D69D08 /* ProfilUserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

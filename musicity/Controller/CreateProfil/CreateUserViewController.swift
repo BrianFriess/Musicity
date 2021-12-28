@@ -29,18 +29,23 @@ class CreateUserViewController: UIViewController {
     
     //MARK: Action
     @IBAction func inscrireButton(_ sender: UIButton) {
+        customView.connexionIsLoadOrNot(.isOnLoad)
+        
         guard emailTextField.text != "", let emailUser = emailTextField.text  else{
             alerte.alerteVc(.EmptyEmail, self)
+            customView.connexionIsLoadOrNot(.isLoad)
             return
         }
         
         guard passwordTextField.text != "", passwordTextField.text!.count >= 6, let passwordUser = passwordTextField.text else{
             alerte.alerteVc(.LessSixPassword, self)
+            customView.connexionIsLoadOrNot(.isLoad)
             return
         }
         
         guard usernameTextField.text != "",  let username = usernameTextField.text else{
             alerte.alerteVc(.EmptyUsername, self)
+            customView.connexionIsLoadOrNot(.isLoad)
             return
         }
         
@@ -59,16 +64,20 @@ class CreateUserViewController: UIViewController {
                                  case .success(let infoUser):
                                      UserInfo.shared.addPublicInfo(infoUser)
                                      self.performSegue(withIdentifier: "goToFirstConnexionSegue", sender: self)
+                                     self.customView.connexionIsLoadOrNot(.isLoad)
                                  case.failure(_):
                                      self.alerte.alerteVc(.errorCreateUser, self)
+                                     self.customView.connexionIsLoadOrNot(.isLoad)
                                  }
                              }
                         case .failure(_):
                             self.alerte.alerteVc(.errorCreateUser, self)
+                            self.customView.connexionIsLoadOrNot(.isLoad)
                         }
                     }
                 case .failure(_):
                     self.alerte.alerteVc(.FalseEmail, self)
+                    self.customView.connexionIsLoadOrNot(.isLoad)
                 }
             }
     }

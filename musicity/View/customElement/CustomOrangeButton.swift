@@ -13,6 +13,7 @@ class CustomOrangeButton: UIButton {
     override func awakeFromNib() {
         configureButton()
     }
+    
 
     private func configureButton(){
         layer.cornerRadius = 20

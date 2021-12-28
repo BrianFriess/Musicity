@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewUserProfilViewController: UIViewController {
+class ResultUserProfilViewController: UIViewController {
     
     var currentUser = ResultInfo()
     @IBOutlet weak var profilPicture: UIImageView!
@@ -16,8 +16,6 @@ class ViewUserProfilViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        configureProfilPicture()
         configureView()
     }
     
@@ -26,14 +24,7 @@ class ViewUserProfilViewController: UIViewController {
         profilPicture.image = currentUser.profilPicture
         userNameTextField.text = currentUser.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String
     }
-    
-    func configureProfilPicture(){
-        profilPicture.layer.cornerRadius = 60
-        profilPicture.layer.borderWidth = 2
-        profilPicture.layer.borderColor = UIColor.white.cgColor
-    }
-    
-    
-    
 
 }
+
+

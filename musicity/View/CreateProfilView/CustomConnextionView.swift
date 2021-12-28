@@ -12,7 +12,9 @@ class CustomConnextionView: UIView {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet var stick: [UIView]!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var incriptionButton: UIButton!
+    @IBOutlet weak var connexionButton: CustomOrangeButton!
     
     func configureView(){
         configureTextField()
@@ -43,4 +45,23 @@ class CustomConnextionView: UIView {
         incriptionButton.layer.borderWidth = 3
         incriptionButton.layer.borderColor = UIColor.systemOrange.cgColor
     }
+    
+    enum IsLoad{
+        case isLoad
+        case isOnLoad
+    }
+    
+    func connexionIsLoadOrNot(_ isLoad : IsLoad){
+        switch isLoad {
+        case .isLoad:
+            self.connexionButton.isHidden = false
+            self.activityIndicator.isHidden = true
+            self.activityIndicator.stopAnimating()
+        case .isOnLoad:
+            self.connexionButton.isHidden = true
+            self.activityIndicator.isHidden = false
+            self.activityIndicator.startAnimating()
+        }
+    }
+    
 }
