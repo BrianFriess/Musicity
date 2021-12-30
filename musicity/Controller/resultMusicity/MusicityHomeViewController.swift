@@ -31,6 +31,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     private var currentUser = ResultInfo()
     private var distanceFilter = 25.0
     private var checkFilter = 0.0
+    @IBOutlet weak var arrowAnimated: UIImageView!
     
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -42,9 +43,31 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
+        animated()
 
     }
     
+    func animated(){
+        let translation = CGAffineTransform(translationX: 7, y: 0)
+        UIView.animate(withDuration: 1){
+            self.arrowAnimated.transform = translation
+        } completion: { success in
+            self.reverseAnimated()
+        }
+    }
+    
+    func reverseAnimated(){
+        let reverseTranslation = CGAffineTransform(translationX: -7, y: 0)
+        UIView.animate(withDuration: 1){
+            self.arrowAnimated.transform = reverseTranslation
+        } completion: { success in
+            self.animated()
+        }
+    }
+    
+    func animatedArrow(){
+
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         checkIfGeolocalisationIsActive()
@@ -160,12 +183,14 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
 
 
 
-extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionViewDataSource{
+extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrayUser.count
@@ -234,6 +259,15 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
                 }
             }
         }
+    }
+    
+    //set the value at the cell
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        
+        let screenSize : CGSize = UIScreen.main.bounds.size
+        let heightSize  = view.safeAreaLayoutGuide.layoutFrame.size.height
+        return CGSize(width: screenSize.width , height: heightSize)
     }
     
     

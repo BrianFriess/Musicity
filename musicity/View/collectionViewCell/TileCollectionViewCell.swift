@@ -17,6 +17,8 @@ class TileCollectionViewCell: UICollectionViewCell {
     
     
     
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCell()
@@ -30,6 +32,10 @@ class TileCollectionViewCell: UICollectionViewCell {
         customView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         customView.layer.shadowOpacity = 2.0
         customView.layer.cornerRadius = 10
+
+
+        //customView.layer.frame.size.height = screenSize.height
+        //customView.layer.frame.size.width = screenSize.width
     }
     
     enum IsLoading{
@@ -50,6 +56,12 @@ class TileCollectionViewCell: UICollectionViewCell {
             spinnerActivityIndicator.startAnimating()
             self.profilPicture.isHidden = true
         }
+    }
+    
+    func createCustomView(){
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
+        customView.backgroundColor = UIColor.red
+        addSubview(customView)
     }
     
     //we create our scroll View
