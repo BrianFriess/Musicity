@@ -29,6 +29,7 @@ class UserInfo{
     //the array for read to DDB
     var styleFirbase = [String]()
     
+    var filter = [String: Any]()
 
     
 

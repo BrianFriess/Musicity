@@ -23,9 +23,6 @@ class ProfilUserViewController: UIViewController {
         super.viewDidLoad()
         configureInformation()
         configureProfilPicture()
-        
-        //model + test du lien youtube // enlever finalement
-
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -43,6 +43,7 @@
 		D37D92302747ED1700D59BC5 /* CustomCreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D922F2747ED1700D59BC5 /* CustomCreateUserView.swift */; };
 		D37D92322748080D00D59BC5 /* Archistico_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D37D92312748080D00D59BC5 /* Archistico_Bold.ttf */; };
 		D381CB0F277B18C500570A1F /* ResultProfilPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D381CB0E277B18C500570A1F /* ResultProfilPage.swift */; };
+		D381CB15277B8F7000570A1F /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D381CB14277B8F7000570A1F /* FilterViewController.swift */; };
 		D386B45C27611795003CA551 /* FirstCreateProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386B45B27611795003CA551 /* FirstCreateProfilViewController.swift */; };
 		D39353812762310B000A57B3 /* SecondCreateProfilTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39353802762310B000A57B3 /* SecondCreateProfilTableViewController.swift */; };
 		D393538327623CB8000A57B3 /* CustomCreateSecondUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393538227623CB8000A57B3 /* CustomCreateSecondUIView.swift */; };
@@ -107,6 +108,7 @@
 		D37D922F2747ED1700D59BC5 /* CustomCreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCreateUserView.swift; sourceTree = "<group>"; };
 		D37D92312748080D00D59BC5 /* Archistico_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Archistico_Bold.ttf; sourceTree = "<group>"; };
 		D381CB0E277B18C500570A1F /* ResultProfilPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultProfilPage.swift; sourceTree = "<group>"; };
+		D381CB14277B8F7000570A1F /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		D386B45B27611795003CA551 /* FirstCreateProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCreateProfilViewController.swift; sourceTree = "<group>"; };
 		D39353802762310B000A57B3 /* SecondCreateProfilTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCreateProfilTableViewController.swift; sourceTree = "<group>"; };
 		D393538227623CB8000A57B3 /* CustomCreateSecondUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCreateSecondUIView.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			children = (
 				D3100F06275DF02B004BB3BF /* ResultUserProfilViewController.swift */,
 				D3497CB627566F7C00D69D08 /* MusicityHomeViewController.swift */,
+				D381CB14277B8F7000570A1F /* FilterViewController.swift */,
 			);
 			path = resultMusicity;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				D3A86925274F9FE400D2BCC8 /* MusicStyle.swift in Sources */,
 				D381CB0F277B18C500570A1F /* ResultProfilPage.swift in Sources */,
 				D3ECD6F22763B9F400366A1D /* CustomProfilPictureView.swift in Sources */,
+				D381CB15277B8F7000570A1F /* FilterViewController.swift in Sources */,
 				D3ECCC4D274AC5F7005538E6 /* AlerteManager.swift in Sources */,
 				D3ECCC4B274AB2CC005538E6 /* LogInViewController.swift in Sources */,
 				D393538327623CB8000A57B3 /* CustomCreateSecondUIView.swift in Sources */,

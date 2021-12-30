@@ -9,21 +9,54 @@ import UIKit
 
 class FilterViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var sliderKm: UISlider!
+    @IBOutlet weak var labelKm: UILabel!
+    @IBOutlet weak var segmentedFilter: UISegmentedControl!
 
-        // Do any additional setup after loading the view.
+    
+    override func viewDidLoad() {
+        if UserInfo.shared.filter["Distance"] != nil{
+            sliderKm.value = Float(UserInfo.shared.filter["Distance"] as! Double / 100)
+        }
+        labelKm.text = "\(Int(sliderKm.value * 100)) Km"
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    var infoUseInPickerView = [String]()
+    
+    
+    //we set and display the value of the slider
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        labelKm.text = "\(Int(sliderKm.value * 100)) Km"
     }
-    */
-
+    
+    
+    @IBAction func changeSegmentedFilter(_ sender: Any) {
+        chooseSegmentedFilter()
+    }
+    
+    func chooseSegmentedFilter(){
+        switch segmentedFilter.selectedSegmentIndex{
+        case 0:
+            UserInfo.shared.filter["Search"] = "Band"
+        case 1:
+            UserInfo.shared.filter["search"] = "Musician"
+        case 2:
+            UserInfo.shared.filter["search"] = "All"
+        default:
+            break
+        }
+    }
+    
+    
+    @IBAction func filterButton(_ sender: Any) {
+        UserInfo.shared.filter["Distance"] = Double(sliderKm.value * 100)
+            dismiss(animated: true, completion: nil)
+        
+    }
+    
 }
+
+
+    
+    
+

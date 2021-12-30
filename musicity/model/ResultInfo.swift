@@ -23,7 +23,13 @@ class ResultInfo {
     //the array for read to DDB
     var styleFirbase = [String]()
     
+    var distance = ""
+    
 
+    func addDistance(_ distance : String){
+        self.distance = distance
+    }
+    
     func addUserId(_ userId : String){
         userID = userId
     }

@@ -21,14 +21,16 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
 
     @IBOutlet var customView: MusicityHomeCustomView!
-    let manager = CLLocationManager()
-    let geolocalisationManager = GeolocalisationManager()
-    let firebaseManager = FirebaseManager()
-    var latitude = 0.0
-    var longitude = 0.0
-    let alerte = AlerteManager()    
-    var arrayUser = [ResultInfo]()
-    var currentUser = ResultInfo()
+    private let manager = CLLocationManager()
+    private let geolocalisationManager = GeolocalisationManager()
+    private let firebaseManager = FirebaseManager()
+    private var latitude = 0.0
+    private var longitude = 0.0
+    private let alerte = AlerteManager()
+    private var arrayUser = [ResultInfo]()
+    private var currentUser = ResultInfo()
+    private var distanceFilter = 25.0
+    private var checkFilter = 0.0
     
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -43,9 +45,6 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
 
     }
     
-    private func callTag(){
-
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         checkIfGeolocalisationIsActive()
@@ -67,7 +66,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
     
     //we check if the geolocalisation is actived or not
-    func checkIfGeolocalisationIsActive(){
+    private func checkIfGeolocalisationIsActive(){
         let locationManager = CLLocationManager()
         if CLLocationManager.locationServicesEnabled() {
             switch locationManager.authorizationStatus {
@@ -89,45 +88,64 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
     
     // set the value in DDB
-    func setGeolocalisationInDDB() {
+    private func setGeolocalisationInDDB() {
         geolocalisationManager.setTheGeolocalisation(latitude, longitude, UserInfo.shared.userID) { result in
             switch result{
             case .success(_):
-                self.getArrayOfUserAroundUs()
+                self.checkFilterAfterGetUserAroundUs()
             case .failure(_):
                 self.alerte.alerteVc(.errorGeolocalisation, self)
             }
         }
     }
     
-    //we get an array of user around us
-    func getArrayOfUserAroundUs(){
-        geolocalisationManager.checkAround(latitude, longitude, 50) { result in
+    
+    //we check if the user use a filter or not
+    private func checkFilterAfterGetUserAroundUs(){
+        if UserInfo.shared.filter["Distance"] == nil{
+            //if we haven't filter, the distance by default is 25
+            checkAroundUsFilter(25.0)
+        }
+        else if UserInfo.shared.filter["Distance"] as! Double != checkFilter{
+            checkFilter = UserInfo.shared.filter["Distance"] as! Double
+            arrayUser = []
+            collectionView.reloadData()
+            checkAroundUsFilter(UserInfo.shared.filter["Distance"] as! Double)
+        }
+    }
+    
+    
+    //we cbeck the user around use thanks to "distance"
+    private func checkAroundUsFilter(_ distance : Double){
+        geolocalisationManager.checkAround(latitude, longitude, distance ) { result in
             //we create an instance of ResultInfo and we get all the value in
             let userResult = ResultInfo()
             switch result{
-            case .success(let userId):
-                userResult.userID = userId
-                    self.firebaseManager.getUrlImageToFirebase(userId) { resultUrl in
-                        switch resultUrl{
-                        case .success(let url):
-                            userResult.addUrlString(url)
-                            //we check if this user is already in our array of Result if not, we add a new userResut in our array
-                            if !self.checkIfUserAlreadyHere(userResult){
-                                self.arrayUser.append(userResult)
-                                self.collectionView.reloadData()
-                            }
-                        case .failure(_):
-                            self.alerte.alerteVc(.errorCheckAroundUs, self)
+            case .success(let resultArrayGeo):
+                userResult.addUserId(resultArrayGeo[0])
+                userResult.addDistance(resultArrayGeo[1])
+                self.firebaseManager.getUrlImageToFirebase(resultArrayGeo[0]) { resultUrl in
+                    switch resultUrl{
+                    case .success(let url):
+                        userResult.addUrlString(url)
+                        //we check if this user is already in our array of Result if not, we add a new userResut in our array
+                        if !self.checkIfUserAlreadyHere(userResult){
+                            self.arrayUser.append(userResult)
+                            self.collectionView.reloadData()
                         }
+                    case .failure(_):
+                        self.alerte.alerteVc(.errorCheckAroundUs, self)
                     }
+                }
             case .failure(_):
-                self.alerte.alerteVc(.errorCheckAroundUs, self)
+            self.alerte.alerteVc(.errorCheckAroundUs, self)
             }
         }
     }
     
-    func checkIfUserAlreadyHere(_ user : ResultInfo) -> Bool{
+    
+    
+    private func checkIfUserAlreadyHere(_ user : ResultInfo) -> Bool{
         for currentUser in arrayUser{
             if currentUser.userID == user.userID{
                 return true
@@ -158,38 +176,20 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
             return UICollectionViewCell()
         }
         
-        cell.usernameLabel.text = arrayUser[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String
         
+        
+        if let username = arrayUser[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String{
+            cell.usernameLabel.text = username
+            cell.createScrollView(arrayUser[indexPath.row].instrumentFireBase, arrayUser[indexPath.row].styleFirbase)
+            cell.configDistanceLabel(arrayUser[indexPath.row].distance) 
+        }
+
         //we check if you have already the profil picture or not
         if let imageDisplay = arrayUser[indexPath.row].profilPicture {
             cell.loadPhoto(.isLoad, imageDisplay)
-        } else{
+        } else {
             cell.loadPhoto(.isInLoading, nil)
         }
-
-        var paddyY = 0
-
-        for instrument in arrayUser[indexPath.row].instrumentFireBase{
-            let label = UILabel(frame: CGRect(x: 5, y: paddyY, width: Int(cell.scrollView.layer.frame.size.width), height: 35))
-            label.textColor = UIColor.white
-            label.font = UIFont(name : "Arial Rounded MT Bold", size : 17)
-            label.text = instrument
-            cell.scrollView.addSubview(label)
-            paddyY += 30
-        }
-        
-        for style in arrayUser[indexPath.row].styleFirbase{
-            let label = UILabel(frame: CGRect(x: 5, y: paddyY, width: Int(cell.scrollView.layer.frame.size.width), height: 35))
-            label.textColor = UIColor.white
-            label.font = UIFont(name : "Arial Rounded MT Bold", size : 17)
-            label.text = style
-            cell.scrollView.addSubview(label)
-            paddyY += 30
-        }
-        
-        //is use for have the right scroll size*/
-        cell.scrollView.contentSize = CGSize(width: 0, height: paddyY + 60)
-           
         return cell
     }
     
@@ -223,7 +223,6 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
                             switch result{
                             case .success(let image):
                                 self.arrayUser[indexPath.row].addProfilPicture(image)
-                                //self.collectionView.reloadItems(at: [indexPath])
                                 self.collectionView.reloadData()
                             case .failure(_):
                                 self.alerte.alerteVc(.errorCheckAroundUs, self)
