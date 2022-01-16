@@ -22,7 +22,7 @@ class TchatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.registerObservers()
+        
         firebaseManager.readInMessengerDataBase(UserInfo.shared.userID, currentUser.userID) { result in
             switch result{
             case .success(let messages):
@@ -33,44 +33,8 @@ class TchatViewController: UIViewController {
             }
         }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
 
 
-
-        
-    }
-
-    func registerObservers(){
-
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-  /*  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }*/
-
-    @objc func keyboardWillAppear(notification: Notification){
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            let tabBarHeight = self.tabBarController?.tabBar.frame.size.height ?? 49
-            let navigationTabHeight = self.navigationController?.navigationBar.frame.size.height
-            
-            self.upView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight+tabBarHeight)
-            self.textField.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight+tabBarHeight)
-            self.tableView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight+tabBarHeight + navigationTabHeight! + 20)
-            self.sentButton.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight+tabBarHeight)
-        }
-    }
-
-    @objc func keyboardWillHide(notification: Notification){
-        self.upView.transform = .identity
-        self.textField.transform = .identity
-        self.tableView.transform = .identity
-        self.sentButton.transform = .identity
-    }
 
     
     //before set the id of the user in our DDB, we check if he already exists
@@ -158,7 +122,7 @@ class TchatViewController: UIViewController {
                 self.alerte.alerteVc(.messageError, self)
             }
         }
-                //if we don't have a userMessengerId in our database, we create an dictionnary juste with the UserInfo
+                //if we don't have a userMessengerId in our database, we create an dictionnary just with the UserInfo
             case .failure(_):
                 self.currentUser.addAllUserMessenger([UserInfo.shared.userID])
                 //we set the dictionnary in our database

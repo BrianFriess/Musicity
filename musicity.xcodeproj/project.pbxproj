@@ -20,13 +20,13 @@
 		D33762642758D8EC0083FE53 /* MusicityHomeCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33762632758D8EC0083FE53 /* MusicityHomeCustomView.swift */; };
 		D34049A32786090800FA2F90 /* TchatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34049A22786090800FA2F90 /* TchatViewController.swift */; };
 		D34049A527862EB500FA2F90 /* TchatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34049A427862EB500FA2F90 /* TchatTableViewCell.swift */; };
+		D3452178279458200074BBBB /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D3452177279458200074BBBB /* IQKeyboardManagerSwift */; };
 		D3497CB5275668EC00D69D08 /* ProfilUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3497CB4275668EC00D69D08 /* ProfilUserViewController.swift */; };
 		D3497CB727566F7C00D69D08 /* MusicityHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3497CB627566F7C00D69D08 /* MusicityHomeViewController.swift */; };
 		D3497CB927567A5100D69D08 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3497CB827567A5100D69D08 /* WelcomeViewController.swift */; };
 		D34B1E702748E0D600A7B77F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */; };
 		D35075262772513900DD3365 /* YoutubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35075252772513900DD3365 /* YoutubeManager.swift */; };
 		D36292192761225400328090 /* ChoiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36292182761225400328090 /* ChoiceCollectionViewCell.swift */; };
-		D367B677278C9E0F003ADDE7 /* messengerUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367B676278C9E0F003ADDE7 /* messengerUser.swift */; };
 		D36F0BE8275FA652009D5A69 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */; };
 		D372FE73275E28D300DC5298 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE72275E28D300DC5298 /* FirebaseDatabase */; };
 		D372FE75275E28DE00DC5298 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE74275E28DE00DC5298 /* FirebaseAuth */; };
@@ -55,8 +55,6 @@
 		D3A86925274F9FE400D2BCC8 /* MusicStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */; };
 		D3B14CF2275A4B5800BA5876 /* ResultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */; };
 		D3B14CF4275A596300BA5876 /* TileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF3275A596300BA5876 /* TileCollectionViewCell.swift */; };
-		D3CC36D42789F204000DE5AF /* StreamChat in Frameworks */ = {isa = PBXBuildFile; productRef = D3CC36D32789F204000DE5AF /* StreamChat */; };
-		D3CC36D62789F204000DE5AF /* StreamChatUI in Frameworks */ = {isa = PBXBuildFile; productRef = D3CC36D52789F204000DE5AF /* StreamChatUI */; };
 		D3ECCC49274AB020005538E6 /* CustomConnextionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */; };
 		D3ECCC4B274AB2CC005538E6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */; };
 		D3ECCC4D274AC5F7005538E6 /* AlerteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */; };
@@ -102,7 +100,6 @@
 		D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D35075252772513900DD3365 /* YoutubeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeManager.swift; sourceTree = "<group>"; };
 		D36292182761225400328090 /* ChoiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceCollectionViewCell.swift; sourceTree = "<group>"; };
-		D367B676278C9E0F003ADDE7 /* messengerUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messengerUser.swift; sourceTree = "<group>"; };
 		D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		D37D91F52747B72000D59BC5 /* musicity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = musicity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37D91F82747B72000D59BC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,11 +141,10 @@
 			files = (
 				D372FE84275E300900DC5298 /* YoutubePlayer-in-WKWebView in Frameworks */,
 				D372FE77275E28E900DC5298 /* GeoFire in Frameworks */,
-				D3CC36D42789F204000DE5AF /* StreamChat in Frameworks */,
 				D372FE73275E28D300DC5298 /* FirebaseDatabase in Frameworks */,
-				D3CC36D62789F204000DE5AF /* StreamChatUI in Frameworks */,
 				D372FE7B275E28FB00DC5298 /* FirebaseAnalytics in Frameworks */,
 				D372FE75275E28DE00DC5298 /* FirebaseAuth in Frameworks */,
+				D3452178279458200074BBBB /* IQKeyboardManagerSwift in Frameworks */,
 				D372FE7D275E28FB00DC5298 /* FirebaseStorage in Frameworks */,
 				D372FE81275E296300DC5298 /* FirebaseFirestore in Frameworks */,
 				D3100F10275E258C004BB3BF /* CoreLocation.framework in Frameworks */,
@@ -258,6 +254,7 @@
 				D37D92312748080D00D59BC5 /* Archistico_Bold.ttf */,
 				D37D922A2747DF2B00D59BC5 /* Controller */,
 				D37D92292747DF2500D59BC5 /* model */,
+				D3348D17274E3C8A00811091 /* Manager */,
 				D37D92282747DF1C00D59BC5 /* View */,
 				D37D92062747B72100D59BC5 /* Info.plist */,
 				D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */,
@@ -301,13 +298,11 @@
 		D37D92292747DF2500D59BC5 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				D3348D17274E3C8A00811091 /* Manager */,
 				D332D813275280EC001B9A26 /* AccessPathDataBase.swift */,
 				D3348D18274EAA1300811091 /* UserInfo.swift */,
 				D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */,
 				D332D817275295FB001B9A26 /* MusicInstruments.swift */,
 				D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */,
-				D367B676278C9E0F003ADDE7 /* messengerUser.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -415,8 +410,7 @@
 				D372FE7C275E28FB00DC5298 /* FirebaseStorage */,
 				D372FE80275E296300DC5298 /* FirebaseFirestore */,
 				D372FE83275E300900DC5298 /* YoutubePlayer-in-WKWebView */,
-				D3CC36D32789F204000DE5AF /* StreamChat */,
-				D3CC36D52789F204000DE5AF /* StreamChatUI */,
+				D3452177279458200074BBBB /* IQKeyboardManagerSwift */,
 			);
 			productName = musicity;
 			productReference = D37D91F52747B72000D59BC5 /* musicity.app */;
@@ -494,7 +488,7 @@
 				D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D3497CBC27579C0B00D69D08 /* XCRemoteSwiftPackageReference "geofire-objc" */,
 				D372FE82275E300900DC5298 /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */,
-				D3CC36D22789F204000DE5AF /* XCRemoteSwiftPackageReference "stream-chat-swift" */,
+				D3452176279458200074BBBB /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = D37D91F62747B72000D59BC5 /* Products */;
 			projectDirPath = "";
@@ -543,7 +537,6 @@
 			files = (
 				D3497CB727566F7C00D69D08 /* MusicityHomeViewController.swift in Sources */,
 				D3348D19274EAA1300811091 /* UserInfo.swift in Sources */,
-				D367B677278C9E0F003ADDE7 /* messengerUser.swift in Sources */,
 				D31BCE3B2784B23C00B0E21A /* MessengerTableViewCell.swift in Sources */,
 				D3B14CF2275A4B5800BA5876 /* ResultInfo.swift in Sources */,
 				D3ECCC49274AB020005538E6 /* CustomConnextionView.swift in Sources */,
@@ -762,9 +755,14 @@
 				DEVELOPMENT_TEAM = MMWV3F3KVU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = musicity/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Musicity utilise votre localisation pour trouver des musiciens autour de vous";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Musicity utilise votre localisation pour trouver des musiciens autour de vous";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Musicity souhaite accéder à vos photos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Musicity souhaite accéder à vos photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -790,9 +788,14 @@
 				DEVELOPMENT_TEAM = MMWV3F3KVU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = musicity/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Musicity utilise votre localisation pour trouver des musiciens autour de vous";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Musicity utilise votre localisation pour trouver des musiciens autour de vous";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Musicity souhaite accéder à vos photos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Musicity souhaite accéder à vos photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -946,6 +949,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D3452176279458200074BBBB /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		D3497CBC27579C0B00D69D08 /* XCRemoteSwiftPackageReference "geofire-objc" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/geofire-objc.git";
@@ -970,17 +981,14 @@
 				minimumVersion = 0.3.8;
 			};
 		};
-		D3CC36D22789F204000DE5AF /* XCRemoteSwiftPackageReference "stream-chat-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/GetStream/stream-chat-swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D3452177279458200074BBBB /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3452176279458200074BBBB /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		D372FE72275E28D300DC5298 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -1020,16 +1028,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D372FE82275E300900DC5298 /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */;
 			productName = "YoutubePlayer-in-WKWebView";
-		};
-		D3CC36D32789F204000DE5AF /* StreamChat */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D3CC36D22789F204000DE5AF /* XCRemoteSwiftPackageReference "stream-chat-swift" */;
-			productName = StreamChat;
-		};
-		D3CC36D52789F204000DE5AF /* StreamChatUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D3CC36D22789F204000DE5AF /* XCRemoteSwiftPackageReference "stream-chat-swift" */;
-			productName = StreamChatUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

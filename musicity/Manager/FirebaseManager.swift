@@ -7,12 +7,8 @@
 
 import Foundation
 import Firebase
-//import FirebaseAuth
-//import FirebaseStorage
 import UIKit
-//import AVFoundation
-//import GeoFireUtils
-//import GeoFire
+
 
 
 
@@ -92,16 +88,8 @@ struct FirebaseManager{
         }
     }
     
-
-    
     
     //MARK: Configure string in fireBase
-    
-    
-    
-   /* func getUsernameMessenger(_ userIdMessenger : String, completion : @escaping(Result<String,FirebaseError>) -> Void){
-        ref.child("users").child(DataBaseAccessPath.publicInfoUser.returnAccessPath)
-    }*/
   
     
     func getTheUserIdMessengerToDdb(_ userId : String, completion : @escaping(Result<[String],FirebaseError>) -> Void){
@@ -121,7 +109,6 @@ struct FirebaseManager{
                 completion(.failure(.connexionError))
                 return
             }
-        
             completion (.success(()))
         }
         
@@ -130,7 +117,6 @@ struct FirebaseManager{
     
     //we set a new message in our DDB
     func setNewMessage(_ userId : String, _ resultUserId : String, _ message : [String:Any], completion : @escaping(Result<Void, FirebaseError>) -> Void){
-        
         observeKeyMessenger(userId, resultUserId) { result in
             switch result{
             case .success(let key):
@@ -147,6 +133,8 @@ struct FirebaseManager{
         }
     }
     
+    
+    
     //we check if the child bewteen 2 users in messenger already exist
     private func observeKeyMessenger(_ userId : String,_ resultUserId : String, completion : @escaping(Result<String,FirebaseError>)-> Void){
         ref.child("Messages").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -159,6 +147,7 @@ struct FirebaseManager{
          })
         completion(.failure(.InfoError))
     }
+    
     
     // thanks to this function, we read in our DBB when our DBB change
     func readInMessengerDataBase(_ userId : String,_ resultUserId : String, completion : @escaping(Result<[String : Any], FirebaseError>) -> Void){
@@ -179,7 +168,9 @@ struct FirebaseManager{
     }
     
     
-    //we get all the dictionnary's info of one user to fireBase
+    
+    
+    //we get all dictionnarys info of one user to fireBase
     func getAllTheInfoToFirebase(_ userId : String, completion : @escaping(Result<[String : Any], FirebaseError>) -> Void){
         ref.child("users").child(userId).observe(.value) { snapshot in
             if let value = snapshot.value as?[String : Any] {
@@ -192,7 +183,7 @@ struct FirebaseManager{
     
     
     
-    //get a dictionnary to firebase
+    //get a dictionnary to firebase like all instrument or all style etc ...
     func getDictionnaryInfoUserToFirebase(_ userId : String, _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<[String : Any], FirebaseError>)-> Void) {
         ref.child("users").child(userId).child("\(infoProfil.returnAccessPath)").observeSingleEvent(of: .value) { snapshot in
             if let value = snapshot.value as? [String : Any] {
@@ -215,25 +206,7 @@ struct FirebaseManager{
         completion(.success(()))
     }
     
-    
-    //thanks to the 2 function, we create a function who can set and get a dictionnary in firebase
-    func setAndGetDictionnaryUserInfo(_ userId : String, _ infoUser : [String : Any], _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<[String : Any],FirebaseError>)-> Void ) {
-        setDictionnaryUserInfo(userId, infoUser, infoProfil) { result in
-            switch result{
-                case .success(_):
-                getDictionnaryInfoUserToFirebase(userId, infoProfil) { result in
-                    switch result{
-                        case .success(let resultInfo):
-                            completion(.success(resultInfo))
-                        case .failure(_):
-                            completion(.failure(.connexionError))
-                    }
-                }
-                case .failure(_):
-                completion(.failure(.connexionError))
-            }
-        }
-    }
+
     
     // set a single info in firebase
     func setSingleUserInfo(_ userId : String,_ firstChild : DataBaseAccessPath, _ secondChild : DataBaseAccessPath, _ infoUser: String, completion : @escaping(Result<Void, FirebaseError>)-> Void){
@@ -255,7 +228,7 @@ struct FirebaseManager{
     
     
     //thanks to the 2 function, we create a function who can set and get a dictionnary in firebase
-    func setAndGetSingleUserInfo(_ userId : String, _ infoUser : String, _ firstChild : DataBaseAccessPath, _ secondChild : DataBaseAccessPath, completion : @escaping(Result<String,FirebaseError>)-> Void ){
+   func setAndGetSingleUserInfo(_ userId : String, _ infoUser : String, _ firstChild : DataBaseAccessPath, _ secondChild : DataBaseAccessPath, completion : @escaping(Result<String,FirebaseError>)-> Void ){
         setSingleUserInfo(userId, firstChild, secondChild, infoUser){ result in
             switch result{
                 case .success(_):

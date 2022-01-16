@@ -30,9 +30,9 @@
             filePath = "musicity/Manager/FirebaseManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "getDictionnaryInfoUserToFirebase(_:_:completion:)"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "setTheUserIdMessengerInDdb(_:_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,9 +46,9 @@
             filePath = "musicity/Manager/FirebaseManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "getDictionnaryInfoUserToFirebase(_:_:completion:)"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "setNewMessage(_:_:_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -341,8 +341,8 @@
             filePath = "musicity/Controller/Messenger/TchatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "sendButton(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -398,38 +398,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "60C814B5-74EA-474D-8978-0371AFE2BE63"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "musicity/Controller/Messenger/TchatViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "keyboardWillHide(notification:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "237AF0C9-1758-46DD-A6B6-87F9F4C89F51"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "musicity/Controller/Messenger/TchatViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "keyboardWillAppear(notification:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D8E05D28-E311-43EE-A060-4B6420D33C15"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -437,8 +405,8 @@
             filePath = "musicity/Controller/Messenger/TchatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "addNewUserIdInUserListMessenger()"
             landmarkType = "7">
          </BreakpointContent>
@@ -453,8 +421,8 @@
             filePath = "musicity/Controller/Messenger/TchatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "addNewUserIdInUserListMessenger()"
             landmarkType = "7">
          </BreakpointContent>
@@ -469,8 +437,8 @@
             filePath = "musicity/Controller/Messenger/TchatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "addNewUserInTheOtherUserListMessenger()"
             landmarkType = "7">
          </BreakpointContent>

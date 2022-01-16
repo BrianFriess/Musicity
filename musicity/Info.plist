@@ -2,14 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Musicity souhaite accéder à vos photos</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Musicity souhaite accéder à vos photos</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Musicity utilise votre localisation pour trouver des musiciens autour de vous</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Musicity utilise votre localisation pour trouver des musiciens autour de vous</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Archistico_Bold.ttf</string>
