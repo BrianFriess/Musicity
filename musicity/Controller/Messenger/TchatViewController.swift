@@ -62,6 +62,8 @@ class TchatViewController: UIViewController {
             firebaseManager.setNewMessage(UserInfo.shared.userID, currentUser.userID, newMessage) { [self] result in
                 switch result{
                 case .success(_):
+                    self.textField.resignFirstResponder()
+
                     self.textField.text = ""
                     addNewUserIdInUserListMessenger()
                 case .failure(_):
@@ -181,10 +183,6 @@ extension TchatViewController : UITableViewDelegate, UITableViewDataSource{
 //extension for the keyboard
 
 extension TchatViewController : UITextFieldDelegate {
-    
-    @IBAction func dismissKeyboard(_ sender: Any) {
-        self.textField.resignFirstResponder()
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.textField.resignFirstResponder()

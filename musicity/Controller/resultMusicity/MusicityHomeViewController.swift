@@ -201,15 +201,16 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                                 userResult.addUrlString(url)
                                 //we check if this user is already in our array of Result if not, we add a new userResut in our array
                                 if !self.checkIfUserAlreadyHere(userResult){
+                                    if userResult.userID != UserInfo.shared.userID{
                                     self.filterBandOrMusician(checkBandOrMusician, bandOrMusicianFilter, userResult)
-                                    self.collectionView.reloadData()
+                                        self.collectionView.reloadData()
+                                    }
                                 }
                             case .failure(_):
                                 self.alerte.alerteVc(.errorCheckAroundUs, self)
                             }
                         }
                     case .failure(_):
-                        print("nope")
                         self.alerte.alerteVc(.errorCheckAroundUs, self)
                     }
                 }
@@ -233,7 +234,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     //we check if the user who found around us is already in our array or if the result is us 
     private func checkIfUserAlreadyHere(_ user : ResultInfo) -> Bool{
         for currentUser in arrayUser{
-            if currentUser.userID == user.userID || UserInfo.shared.userID == user.userID{
+            if currentUser.userID == user.userID{
                 return true
             }
         }

@@ -944,12 +944,6 @@
         <!--Tchat View Controller-->
         <scene sceneID="rzb-4m-VId">
             <objects>
-                <tapGestureRecognizer id="gSi-8P-Itv">
-                    <connections>
-                        <action selector="dismissKeyboard:" destination="HB5-yK-9ZT" id="aQW-9i-dBQ"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a9G-53-72L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController modalPresentationStyle="fullScreen" id="HB5-yK-9ZT" customClass="TchatViewController" customModule="musicity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bMz-qC-y4S">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -1012,7 +1006,6 @@
                                 <connections>
                                     <outlet property="dataSource" destination="HB5-yK-9ZT" id="dEo-jj-VVU"/>
                                     <outlet property="delegate" destination="HB5-yK-9ZT" id="goE-aF-sRx"/>
-                                    <outletCollection property="gestureRecognizers" destination="gSi-8P-Itv" appends="YES" id="tac-u0-2ZA"/>
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ez7-nF-nLL">
@@ -1069,6 +1062,7 @@
                         <outlet property="upView" destination="ez7-nF-nLL" id="kLe-hb-Dwn"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a9G-53-72L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2396" y="3729.9850074962524"/>
         </scene>
