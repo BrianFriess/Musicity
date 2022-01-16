@@ -23,7 +23,7 @@ class CustomCreateSecondUIView: UIView {
     func configureButton(){
         photoButton.layer.cornerRadius = 60
         photoButton.layer.borderWidth = 2
-        photoButton.layer.borderColor = UIColor.white.cgColor
+        photoButton.layer.borderColor = UIColor.systemOrange.cgColor
         activityIndicator.isHidden = true
     }
     

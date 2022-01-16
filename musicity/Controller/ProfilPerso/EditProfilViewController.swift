@@ -23,6 +23,7 @@ class EditProfilViewController: UIViewController {
         super.viewDidLoad()
         editUserView.configure(UserInfo.shared.profilPicture!)
         checkIfBioIsEmptyOrNotAtStart()
+        checkIfYoutubeLinkIsEmptyOrNot()
     }
 
     
@@ -32,6 +33,13 @@ class EditProfilViewController: UIViewController {
             editUserView.bioIsEmpty(.isEmpty)
         } else {
             editUserView.bioLabelText.text = UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String
+        }
+    }
+    
+    //we check if the youtube link is empty or not in our segue
+    func checkIfYoutubeLinkIsEmptyOrNot(){
+        if  UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] != nil {
+            editUserView.youtubeUrlLabel.text = ("https://www.youtube.com/watch?v=\(String(describing: UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] as! String))")
         }
     }
     

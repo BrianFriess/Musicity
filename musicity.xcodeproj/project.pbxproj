@@ -10,18 +10,23 @@
 		D3100F07275DF02B004BB3BF /* ResultUserProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100F06275DF02B004BB3BF /* ResultUserProfilViewController.swift */; };
 		D3100F0B275E1AFC004BB3BF /* ProfilPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3100F0A275E1AFC004BB3BF /* ProfilPageView.swift */; };
 		D3100F10275E258C004BB3BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A86926274FA99C00D2BCC8 /* CoreLocation.framework */; };
+		D31BCE382784B16000B0E21A /* AllConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31BCE372784B16000B0E21A /* AllConversation.swift */; };
+		D31BCE3B2784B23C00B0E21A /* MessengerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31BCE3A2784B23C00B0E21A /* MessengerTableViewCell.swift */; };
 		D32E5A23274D659F0045073C /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32E5A22274D659F0045073C /* FirebaseManager.swift */; };
 		D332D814275280EC001B9A26 /* AccessPathDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D332D813275280EC001B9A26 /* AccessPathDataBase.swift */; };
 		D332D818275295FB001B9A26 /* MusicInstruments.swift in Sources */ = {isa = PBXBuildFile; fileRef = D332D817275295FB001B9A26 /* MusicInstruments.swift */; };
 		D3348D19274EAA1300811091 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3348D18274EAA1300811091 /* UserInfo.swift */; };
 		D33762602758A8F20083FE53 /* GeolocalisationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D337625F2758A8F20083FE53 /* GeolocalisationManager.swift */; };
 		D33762642758D8EC0083FE53 /* MusicityHomeCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33762632758D8EC0083FE53 /* MusicityHomeCustomView.swift */; };
+		D34049A32786090800FA2F90 /* TchatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34049A22786090800FA2F90 /* TchatViewController.swift */; };
+		D34049A527862EB500FA2F90 /* TchatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34049A427862EB500FA2F90 /* TchatTableViewCell.swift */; };
 		D3497CB5275668EC00D69D08 /* ProfilUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3497CB4275668EC00D69D08 /* ProfilUserViewController.swift */; };
 		D3497CB727566F7C00D69D08 /* MusicityHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3497CB627566F7C00D69D08 /* MusicityHomeViewController.swift */; };
 		D3497CB927567A5100D69D08 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3497CB827567A5100D69D08 /* WelcomeViewController.swift */; };
 		D34B1E702748E0D600A7B77F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */; };
 		D35075262772513900DD3365 /* YoutubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35075252772513900DD3365 /* YoutubeManager.swift */; };
 		D36292192761225400328090 /* ChoiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36292182761225400328090 /* ChoiceCollectionViewCell.swift */; };
+		D367B677278C9E0F003ADDE7 /* messengerUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367B676278C9E0F003ADDE7 /* messengerUser.swift */; };
 		D36F0BE8275FA652009D5A69 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */; };
 		D372FE73275E28D300DC5298 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE72275E28D300DC5298 /* FirebaseDatabase */; };
 		D372FE75275E28DE00DC5298 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE74275E28DE00DC5298 /* FirebaseAuth */; };
@@ -50,6 +55,8 @@
 		D3A86925274F9FE400D2BCC8 /* MusicStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */; };
 		D3B14CF2275A4B5800BA5876 /* ResultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */; };
 		D3B14CF4275A596300BA5876 /* TileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF3275A596300BA5876 /* TileCollectionViewCell.swift */; };
+		D3CC36D42789F204000DE5AF /* StreamChat in Frameworks */ = {isa = PBXBuildFile; productRef = D3CC36D32789F204000DE5AF /* StreamChat */; };
+		D3CC36D62789F204000DE5AF /* StreamChatUI in Frameworks */ = {isa = PBXBuildFile; productRef = D3CC36D52789F204000DE5AF /* StreamChatUI */; };
 		D3ECCC49274AB020005538E6 /* CustomConnextionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */; };
 		D3ECCC4B274AB2CC005538E6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */; };
 		D3ECCC4D274AC5F7005538E6 /* AlerteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */; };
@@ -79,18 +86,23 @@
 /* Begin PBXFileReference section */
 		D3100F06275DF02B004BB3BF /* ResultUserProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultUserProfilViewController.swift; sourceTree = "<group>"; };
 		D3100F0A275E1AFC004BB3BF /* ProfilPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilPageView.swift; sourceTree = "<group>"; };
+		D31BCE372784B16000B0E21A /* AllConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllConversation.swift; sourceTree = "<group>"; };
+		D31BCE3A2784B23C00B0E21A /* MessengerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerTableViewCell.swift; sourceTree = "<group>"; };
 		D32E5A22274D659F0045073C /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		D332D813275280EC001B9A26 /* AccessPathDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessPathDataBase.swift; sourceTree = "<group>"; };
 		D332D817275295FB001B9A26 /* MusicInstruments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicInstruments.swift; sourceTree = "<group>"; };
 		D3348D18274EAA1300811091 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		D337625F2758A8F20083FE53 /* GeolocalisationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeolocalisationManager.swift; sourceTree = "<group>"; };
 		D33762632758D8EC0083FE53 /* MusicityHomeCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicityHomeCustomView.swift; sourceTree = "<group>"; };
+		D34049A22786090800FA2F90 /* TchatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TchatViewController.swift; sourceTree = "<group>"; };
+		D34049A427862EB500FA2F90 /* TchatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TchatTableViewCell.swift; sourceTree = "<group>"; };
 		D3497CB4275668EC00D69D08 /* ProfilUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilUserViewController.swift; sourceTree = "<group>"; };
 		D3497CB627566F7C00D69D08 /* MusicityHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicityHomeViewController.swift; sourceTree = "<group>"; };
 		D3497CB827567A5100D69D08 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D35075252772513900DD3365 /* YoutubeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeManager.swift; sourceTree = "<group>"; };
 		D36292182761225400328090 /* ChoiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceCollectionViewCell.swift; sourceTree = "<group>"; };
+		D367B676278C9E0F003ADDE7 /* messengerUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messengerUser.swift; sourceTree = "<group>"; };
 		D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		D37D91F52747B72000D59BC5 /* musicity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = musicity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37D91F82747B72000D59BC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,7 +144,9 @@
 			files = (
 				D372FE84275E300900DC5298 /* YoutubePlayer-in-WKWebView in Frameworks */,
 				D372FE77275E28E900DC5298 /* GeoFire in Frameworks */,
+				D3CC36D42789F204000DE5AF /* StreamChat in Frameworks */,
 				D372FE73275E28D300DC5298 /* FirebaseDatabase in Frameworks */,
+				D3CC36D62789F204000DE5AF /* StreamChatUI in Frameworks */,
 				D372FE7B275E28FB00DC5298 /* FirebaseAnalytics in Frameworks */,
 				D372FE75275E28DE00DC5298 /* FirebaseAuth in Frameworks */,
 				D372FE7D275E28FB00DC5298 /* FirebaseStorage in Frameworks */,
@@ -176,6 +190,24 @@
 				D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */,
 			);
 			path = LogIn;
+			sourceTree = "<group>";
+		};
+		D31BCE392784B16400B0E21A /* Messenger */ = {
+			isa = PBXGroup;
+			children = (
+				D31BCE372784B16000B0E21A /* AllConversation.swift */,
+				D34049A22786090800FA2F90 /* TchatViewController.swift */,
+			);
+			path = Messenger;
+			sourceTree = "<group>";
+		};
+		D31BCE3C2784BA0400B0E21A /* tableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D31BCE3A2784B23C00B0E21A /* MessengerTableViewCell.swift */,
+				D34049A427862EB500FA2F90 /* TchatTableViewCell.swift */,
+			);
+			path = tableViewCell;
 			sourceTree = "<group>";
 		};
 		D3348D17274E3C8A00811091 /* Manager */ = {
@@ -261,6 +293,7 @@
 				D381CB11277B190C00570A1F /* ProfilPersoView */,
 				D3ECD6F32763BA0100366A1D /* customElement */,
 				D3ECD6EE27635A9900366A1D /* collectionViewCell */,
+				D31BCE3C2784BA0400B0E21A /* tableViewCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -274,6 +307,7 @@
 				D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */,
 				D332D817275295FB001B9A26 /* MusicInstruments.swift */,
 				D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */,
+				D367B676278C9E0F003ADDE7 /* messengerUser.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -285,6 +319,7 @@
 				D3100F08275DF0B9004BB3BF /* CreateProfil */,
 				D381CB12277B467900570A1F /* resultMusicity */,
 				D3CA9620275E6CA000522FEE /* ProfilPerso */,
+				D31BCE392784B16400B0E21A /* Messenger */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -311,9 +346,9 @@
 		D381CB12277B467900570A1F /* resultMusicity */ = {
 			isa = PBXGroup;
 			children = (
-				D3100F06275DF02B004BB3BF /* ResultUserProfilViewController.swift */,
 				D3497CB627566F7C00D69D08 /* MusicityHomeViewController.swift */,
 				D381CB14277B8F7000570A1F /* FilterViewController.swift */,
+				D3100F06275DF02B004BB3BF /* ResultUserProfilViewController.swift */,
 			);
 			path = resultMusicity;
 			sourceTree = "<group>";
@@ -380,6 +415,8 @@
 				D372FE7C275E28FB00DC5298 /* FirebaseStorage */,
 				D372FE80275E296300DC5298 /* FirebaseFirestore */,
 				D372FE83275E300900DC5298 /* YoutubePlayer-in-WKWebView */,
+				D3CC36D32789F204000DE5AF /* StreamChat */,
+				D3CC36D52789F204000DE5AF /* StreamChatUI */,
 			);
 			productName = musicity;
 			productReference = D37D91F52747B72000D59BC5 /* musicity.app */;
@@ -457,6 +494,7 @@
 				D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D3497CBC27579C0B00D69D08 /* XCRemoteSwiftPackageReference "geofire-objc" */,
 				D372FE82275E300900DC5298 /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */,
+				D3CC36D22789F204000DE5AF /* XCRemoteSwiftPackageReference "stream-chat-swift" */,
 			);
 			productRefGroup = D37D91F62747B72000D59BC5 /* Products */;
 			projectDirPath = "";
@@ -505,10 +543,13 @@
 			files = (
 				D3497CB727566F7C00D69D08 /* MusicityHomeViewController.swift in Sources */,
 				D3348D19274EAA1300811091 /* UserInfo.swift in Sources */,
+				D367B677278C9E0F003ADDE7 /* messengerUser.swift in Sources */,
+				D31BCE3B2784B23C00B0E21A /* MessengerTableViewCell.swift in Sources */,
 				D3B14CF2275A4B5800BA5876 /* ResultInfo.swift in Sources */,
 				D3ECCC49274AB020005538E6 /* CustomConnextionView.swift in Sources */,
 				D386B45C27611795003CA551 /* FirstCreateProfilViewController.swift in Sources */,
 				D37D92302747ED1700D59BC5 /* CustomCreateUserView.swift in Sources */,
+				D31BCE382784B16000B0E21A /* AllConversation.swift in Sources */,
 				D3B14CF4275A596300BA5876 /* TileCollectionViewCell.swift in Sources */,
 				D3497CB927567A5100D69D08 /* WelcomeViewController.swift in Sources */,
 				D35075262772513900DD3365 /* YoutubeManager.swift in Sources */,
@@ -528,7 +569,9 @@
 				D37D91FB2747B72000D59BC5 /* SceneDelegate.swift in Sources */,
 				D33762602758A8F20083FE53 /* GeolocalisationManager.swift in Sources */,
 				D3A86925274F9FE400D2BCC8 /* MusicStyle.swift in Sources */,
+				D34049A32786090800FA2F90 /* TchatViewController.swift in Sources */,
 				D381CB0F277B18C500570A1F /* ResultProfilPage.swift in Sources */,
+				D34049A527862EB500FA2F90 /* TchatTableViewCell.swift in Sources */,
 				D3ECD6F22763B9F400366A1D /* CustomProfilPictureView.swift in Sources */,
 				D381CB15277B8F7000570A1F /* FilterViewController.swift in Sources */,
 				D3ECCC4D274AC5F7005538E6 /* AlerteManager.swift in Sources */,
@@ -643,7 +686,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -699,7 +742,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -927,6 +970,14 @@
 				minimumVersion = 0.3.8;
 			};
 		};
+		D3CC36D22789F204000DE5AF /* XCRemoteSwiftPackageReference "stream-chat-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/GetStream/stream-chat-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -969,6 +1020,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D372FE82275E300900DC5298 /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */;
 			productName = "YoutubePlayer-in-WKWebView";
+		};
+		D3CC36D32789F204000DE5AF /* StreamChat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3CC36D22789F204000DE5AF /* XCRemoteSwiftPackageReference "stream-chat-swift" */;
+			productName = StreamChat;
+		};
+		D3CC36D52789F204000DE5AF /* StreamChatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3CC36D22789F204000DE5AF /* XCRemoteSwiftPackageReference "stream-chat-swift" */;
+			productName = StreamChatUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

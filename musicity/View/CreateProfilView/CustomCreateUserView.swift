@@ -28,15 +28,15 @@ class CustomCreateUserView: UIView {
     func configureTextField(){
         userNameTextField.attributedPlaceholder = NSAttributedString(
             string: "Nom d'utilisateur",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
         
         passwordTextField.attributedPlaceholder = NSAttributedString(
             string: "Mot de passe",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
         
         emailTextField.attributedPlaceholder = NSAttributedString(
             string: "E-mail",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
     }
     
     func configureStick(){
@@ -49,9 +49,9 @@ class CustomCreateUserView: UIView {
     func configureBandOrMusicien(){
         switch segmentedControl.selectedSegmentIndex{
         case 0 :
-            userNameTextField.attributedPlaceholder = NSAttributedString(string: "Nom d'utilisateur", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
+            userNameTextField.attributedPlaceholder = NSAttributedString(string: "Nom d'utilisateur", attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
         case 1 :
-            userNameTextField.attributedPlaceholder = NSAttributedString(string: "Nom du groupe", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
+            userNameTextField.attributedPlaceholder = NSAttributedString(string: "Nom du groupe", attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
         default:
             break
         }

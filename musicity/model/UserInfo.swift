@@ -30,8 +30,24 @@ class UserInfo{
     var styleFirbase = [String]()
     
     var filter = [String: Any]()
-
     
+    var activeMessengerUserId = [String : Any]()
+    var activeMessengerUserIdFirebase = [String]()
+    
+
+    func resetSingleton(){
+        userID = ""
+        publicInfoUser = [:]
+        profilPicture = nil
+        stringUrl = ""
+        instrument = [:]
+        instrumentFireBase = []
+        style = [:]
+        styleFirbase = []
+        filter = [:]
+        activeMessengerUserId = [:]
+        activeMessengerUserIdFirebase = []
+    }
 
     //creation or changement array Style
     private func setStyle(_ row : String,_ style : String){
@@ -48,6 +64,7 @@ class UserInfo{
     }
     
     //we use this function for check in the controller if the numbers of style select and the numbers of the style in the segue is the same or not
+    //we make this function if the user click in the finish or continue button but he make return
     func checkStyle(_ dictCount : Int,_ dictStyle : [Int : String]){
         if dictCount < self.style.count{
             self.style = [:]
@@ -70,6 +87,7 @@ class UserInfo{
         }
     }
     //we use this function for check in the controller if the numbers of instruments select and the numbers of the instruments in the segue is the same or not
+    //we make this function if the user click in the finish or continue button but he make return
     func checkInstrument(_ dictCount : Int,_ dictInstrument : [Int : String]){
         if dictCount < self.instrument.count{
             self.instrument = [:]
@@ -94,12 +112,24 @@ class UserInfo{
         guard let allStyle = allinfo[DataBaseAccessPath.Style.returnAccessPath] as? [String] else {
             return false
         }
+        
         addAllStyle(allStyle)
         
+        if let allIdMessenger = allinfo[DataBaseAccessPath.messengerUserId.returnAccessPath] as? [String]{
+            addAllUserMessenger(allIdMessenger)
+            setDictionnaryUserIdMessenger()
+        }
         return true
     }
     
     
+    //we convert the array of Id in our DDB in an Dictionnary [String : Any]
+    private func setDictionnaryUserIdMessenger(){
+            for i in 0...activeMessengerUserIdFirebase.count-1{
+                activeMessengerUserId[String(i)] = activeMessengerUserIdFirebase[i]
+            }
+    }
+
     
     func addUserId(_ userId : String){
         userID = userId
@@ -112,6 +142,10 @@ class UserInfo{
     
     func addAllInstrument(_ instrument : [String]){
         self.instrumentFireBase = instrument
+    }
+    
+    func addAllUserMessenger(_ idUserMessenger : [String]){
+        self.activeMessengerUserIdFirebase = idUserMessenger
     }
     
     func addAllStyle(_ style : [String]){

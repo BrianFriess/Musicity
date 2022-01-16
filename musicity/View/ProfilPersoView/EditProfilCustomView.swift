@@ -20,6 +20,7 @@ class EditProfilCustomView: UIView {
     
     func configure(_ profilPicture : UIImage) {
         configureButton(profilPicture)
+        
     }
     
     enum Loading{
@@ -49,6 +50,8 @@ class EditProfilCustomView: UIView {
         profilPicture.setImage(profilPictureUser, for: .normal)
         profilPicture.imageView?.contentMode = .scaleAspectFill
         profilPicture.clipsToBounds = true
+        profilPicture.layer.borderWidth = 2
+        profilPicture.layer.borderColor = UIColor.systemOrange.cgColor
     }
     
     enum IsEmpty{

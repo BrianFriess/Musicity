@@ -25,7 +25,22 @@ class ResultInfo {
     
     var distance = ""
     
+    var activeMessengerUserId = [String : Any]()
+    var activeMessengerUserIdFirebase = [String]()
+    
 
+    func addAllUserMessenger(_ idUserMessenger : [String]){
+        self.activeMessengerUserIdFirebase = idUserMessenger
+        setDictionnaryUserIdMessenger()
+    }
+    
+    //we create a dictionnary with our array for firebase
+    private func setDictionnaryUserIdMessenger(){
+            for i in 0...activeMessengerUserIdFirebase.count-1{
+                activeMessengerUserId[String(i)] = activeMessengerUserIdFirebase[i]
+            }
+    }
+    
     func addDistance(_ distance : String){
         self.distance = distance
     }

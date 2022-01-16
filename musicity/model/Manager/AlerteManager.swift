@@ -41,6 +41,7 @@ struct AlerteManager{
         case emptyStyle
         case tooMuchCara
         case youtubeLink
+        case messageError
         
         
         var title : String{
@@ -99,6 +100,8 @@ struct AlerteManager{
                 return "Trop de caractère"
             case.youtubeLink:
                 return "Lien Youtube"
+            case .messageError:
+                return "Message"
             }
         }
         
@@ -158,6 +161,8 @@ struct AlerteManager{
                 return "500 caratères max"
             case .youtubeLink:
                 return "Ce n'est pas un lien Youtube"
+            case .messageError:
+                return "Erreur lors de l'envoie du message"
             }
         }
     }

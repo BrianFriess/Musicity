@@ -25,11 +25,11 @@ class CustomConnextionView: UIView {
     private func configureTextField(){
         emailTextField.attributedPlaceholder = NSAttributedString(
             string: "E-mail",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
         
         passwordTextField.attributedPlaceholder = NSAttributedString(
             string: "Mot de passe",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
     }
     
     private func configureStick(){

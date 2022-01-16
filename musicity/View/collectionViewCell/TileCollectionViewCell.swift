@@ -14,8 +14,9 @@ class TileCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var spinnerActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
-    
-    
+    @IBOutlet weak var rightArrow: UIImageView!
+    @IBOutlet weak var leftArrow: UIImageView!
+    @IBOutlet weak var bandOrMusicianLabel: UILabel!
     
     
     
@@ -24,18 +25,32 @@ class TileCollectionViewCell: UICollectionViewCell {
         configureCell()
     }
     
+    //we check if the collectionView is the first or the last to display the arrow or not 
+    func displayArrow(_ checkCollectionRow: Int, _ collectionMax : Int){
+        if checkCollectionRow == 0 {
+            leftArrow.isHidden = true
+            rightArrow.isHidden = false
+            if collectionMax - 1 == 0 {
+                leftArrow.isHidden = true
+                rightArrow.isHidden = true
+            }
+        } else if checkCollectionRow == collectionMax - 1 {
+            rightArrow.isHidden = true
+            leftArrow.isHidden = false
+        } else {
+            rightArrow.isHidden = false
+            leftArrow.isHidden = false
+        }
+    }
+    
     
     func configureCell(){
-       // scrollView.layer.cornerRadius = 10
         customView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor
         customView.layer.shadowRadius = 2.0
         customView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         customView.layer.shadowOpacity = 2.0
         customView.layer.cornerRadius = 10
 
-
-        //customView.layer.frame.size.height = screenSize.height
-        //customView.layer.frame.size.width = screenSize.width
     }
     
     enum IsLoading{
@@ -64,12 +79,18 @@ class TileCollectionViewCell: UICollectionViewCell {
         addSubview(customView)
     }
     
+    
     //we create our scroll View
     func createScrollView(_ infoInstrument : [String], _ infoStyle : [String]){
         var paddyY = 0
         let scrollView = UIScrollView(frame: CGRect(x: customView.layer.frame.minX, y: customView.layer.frame.maxY/2+30, width: customView.layer.frame.size.width , height: customView.layer.frame.maxY/2-30))
         scrollView.backgroundColor = UIColor.systemOrange
-        scrollView.layer.cornerRadius = 10
+       /* scrollView.layer.cornerRadius = 10
+        scrollView.layer.shadowOffset = .zero
+        scrollView.layer.shadowColor = UIColor.white.cgColor
+        scrollView.layer.shadowRadius = 20
+        scrollView.layer.shadowOpacity = 1
+        scrollView.layer.shadowPath = UIBezierPath(rect: scrollView.bounds).cgPath*/
         addSubview(scrollView)
         paddyY = createLabelInScrollView(infoInstrument, paddyY, scrollView)
         paddyY = createLabelInScrollView(infoStyle, paddyY, scrollView)
@@ -92,9 +113,23 @@ class TileCollectionViewCell: UICollectionViewCell {
         return paddyY
     }
     
+    func configureBandOrMusicianLabel(_ bandOrMusician : String){
+        if bandOrMusician == "Band"{
+            bandOrMusicianLabel.text = "Groupe"
+        } else if bandOrMusician == "Musician" {
+            bandOrMusicianLabel.text = "Musicien"
+        } else {
+            bandOrMusicianLabel.text = ""
+        }
+    }
     
+    //we display the distance in the distance label
     func configDistanceLabel(_ distance : String){
-        distanceLabel.text = ("\(distance) Km")
+        if distance != "" {
+            distanceLabel.text = ("\(distance) Km")
+        } else {
+            distanceLabel.text = ""
+        }
     }
     
     

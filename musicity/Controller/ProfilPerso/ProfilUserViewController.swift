@@ -54,7 +54,6 @@ class ProfilUserViewController: UIViewController {
     // network call for display the profil picture 
     func configureProfilPicture(){
         profilUserView.loadSpinner(.isInLoading)
-        if UserInfo.shared.profilPicture == nil{
             firebaseManager.getImageToFirebase(UserInfo.shared.stringUrl) { result in
                 switch result{
                 case .success(let profilPictureResult):
@@ -66,7 +65,6 @@ class ProfilUserViewController: UIViewController {
                     self.profilPicture.image = UIImage(systemName: "questionmark.circle.fill")!
                 }
             }
-        }
     }
     
     //we check if the user have already a youtubeVideo

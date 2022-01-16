@@ -85,6 +85,18 @@ class ResultUserProfilViewController: UIViewController {
         }
     }
     
+    //we prepare the segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SegueToFirstTimeMessenger"{
+            let successVC = segue.destination as! TchatViewController
+            successVC.currentUser = currentUser
+        }
+    }
+    
+    @IBAction func contactButton(_ sender: Any) {
+       performSegue(withIdentifier: "SegueToFirstTimeMessenger", sender: self)
+    }
+        
     
 
 }

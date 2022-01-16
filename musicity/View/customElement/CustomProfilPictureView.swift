@@ -15,8 +15,7 @@ class CustomProfilPictureView: UIImageView {
     
     private func configureProfilPicture(){
         layer.cornerRadius = 60
-       // layer.borderWidth = 2
-        //layer.borderColor = UIColor.white.cgColor
+        
     }
 
 }

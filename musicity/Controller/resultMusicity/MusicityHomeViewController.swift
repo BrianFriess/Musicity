@@ -9,18 +9,17 @@ import UIKit
 import CoreLocation
 import Firebase
 import GeoFire
-import CoreMIDI
-import CoreAudio
 import WebKit
-import SwiftUI
 
 
 
 
 class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
-
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var customView: MusicityHomeCustomView!
+    
+    
     private let manager = CLLocationManager()
     private let geolocalisationManager = GeolocalisationManager()
     private let firebaseManager = FirebaseManager()
@@ -30,44 +29,86 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     private var arrayUser = [ResultInfo]()
     private var currentUser = ResultInfo()
     private var distanceFilter = 25.0
-    private var checkFilter = 0.0
-    @IBOutlet weak var arrowAnimated: UIImageView!
+    private var checkFilterDistance = 0.0
+    private var checkFilterSearch = ""
     
     
-    @IBOutlet weak var collectionView: UICollectionView!
+
     
     //call the geolocalisation
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkIfWeAlreadyConnect()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
-        animated()
 
     }
     
-    func animated(){
-        let translation = CGAffineTransform(translationX: 7, y: 0)
-        UIView.animate(withDuration: 1){
-            self.arrowAnimated.transform = translation
-        } completion: { success in
-            self.reverseAnimated()
+    //we check in firebase if the user is already connect
+    func checkIfWeAlreadyConnect(){
+        if Firebase.Auth.auth().currentUser == nil {
+            self.performSegue(withIdentifier: "segueDisconnect", sender: nil)
+        } else {
+            getAllValueOfUserIfWeAreAlreadyConnect()
         }
     }
     
-    func reverseAnimated(){
-        let reverseTranslation = CGAffineTransform(translationX: -7, y: 0)
-        UIView.animate(withDuration: 1){
-            self.arrowAnimated.transform = reverseTranslation
-        } completion: { success in
-            self.animated()
+    //if the user is already connect, we get all the info at the start
+    func getAllValueOfUserIfWeAreAlreadyConnect(){
+                //we get the userID
+        self.firebaseManager.getUserId { result in
+            switch result{
+            case .success(let userId):
+                UserInfo.shared.addUserId(userId)
+                //we read all the information in the DDB
+                self.firebaseManager.getAllTheInfoToFirebase(userId) { result in
+                    switch result{
+                    case .success(let allInfo):
+                        //if we have all the information, we get the information in the singleton
+                        let allInfoIsGet = UserInfo.shared.addAllInfo(allInfo)
+                        if allInfoIsGet {
+                            //get the url profil picture
+                            self.firebaseManager.getUrlImageToFirebase(userId) { resultImage in
+                                switch resultImage{
+                                case .success(let imageUrl):
+                                    //get the profil Picture url in the singleton and go to the next page
+                                    UserInfo.shared.addUrlString(imageUrl)
+                                case .failure(_):
+                                    self.alerte.alerteVc(.errorGetInfo, self)
+                                }
+                            }
+                        } else {
+                            self.disconnect()
+                        }
+                    case .failure(_):
+                        self.alerte.alerteVc(.errorGetInfo, self)
+                    }
+                }
+            case .failure(_):
+                self.alerte.alerteVc(.errorGetInfo, self)
+            }
         }
     }
     
-    func animatedArrow(){
-
+   private func disconnect(){
+        firebaseManager.logOut { result in
+            switch result{
+            case .success(_):
+                print("logout")
+                self.performSegue(withIdentifier: "segueDisconnect", sender: nil)
+            case .failure(_):
+                self.alerte.alerteVc(.errorLogOut, self)
+            }
+        }
     }
+    
+    //we use this to disconnect the user
+    @IBAction func disconnectButton(_ sender: Any) {
+        disconnect()
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         checkIfGeolocalisationIsActive()
@@ -115,7 +156,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         geolocalisationManager.setTheGeolocalisation(latitude, longitude, UserInfo.shared.userID) { result in
             switch result{
             case .success(_):
-                self.checkFilterAfterGetUserAroundUs()
+                self.checkFilterAroundUs()
             case .failure(_):
                 self.alerte.alerteVc(.errorGeolocalisation, self)
             }
@@ -124,39 +165,51 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
     
     //we check if the user use a filter or not
-    private func checkFilterAfterGetUserAroundUs(){
+    private func checkFilterAroundUs(){
         if UserInfo.shared.filter["Distance"] == nil{
             //if we haven't filter, the distance by default is 25
-            checkAroundUsFilter(25.0)
+            checkAroundUsFilter(25.0, "All")
         }
-        else if UserInfo.shared.filter["Distance"] as! Double != checkFilter{
-            checkFilter = UserInfo.shared.filter["Distance"] as! Double
+        else if UserInfo.shared.filter["Distance"] as! Double != checkFilterDistance || UserInfo.shared.filter["Search"] as? String != checkFilterSearch  {
+            checkFilterDistance = UserInfo.shared.filter["Distance"] as! Double
+            checkFilterSearch = (UserInfo.shared.filter["Search"] as! String)
             arrayUser = []
             collectionView.reloadData()
-            checkAroundUsFilter(UserInfo.shared.filter["Distance"] as! Double)
+            checkAroundUsFilter(UserInfo.shared.filter["Distance"] as! Double, UserInfo.shared.filter["Search"] as! String )
         }
     }
     
     
     //we cbeck the user around use thanks to "distance"
-    private func checkAroundUsFilter(_ distance : Double){
+    private func checkAroundUsFilter(_ distance : Double, _ bandOrMusicianFilter : String){
         geolocalisationManager.checkAround(latitude, longitude, distance ) { result in
             //we create an instance of ResultInfo and we get all the value in
             let userResult = ResultInfo()
             switch result{
+                //we get the result user Id and the distance
             case .success(let resultArrayGeo):
-                userResult.addUserId(resultArrayGeo[0])
-                userResult.addDistance(resultArrayGeo[1])
-                self.firebaseManager.getUrlImageToFirebase(resultArrayGeo[0]) { resultUrl in
-                    switch resultUrl{
-                    case .success(let url):
-                        userResult.addUrlString(url)
-                        //we check if this user is already in our array of Result if not, we add a new userResut in our array
-                        if !self.checkIfUserAlreadyHere(userResult){
-                            self.arrayUser.append(userResult)
-                            self.collectionView.reloadData()
+                userResult.addUserId(resultArrayGeo["idResult"]!)
+                userResult.addDistance(resultArrayGeo["distance"]!)
+                //network call for check if the result is band or Musician
+                self.firebaseManager.getSingleInfoUserToFirebase(resultArrayGeo["idResult"]!, .publicInfoUser, .BandOrMusician) { result in
+                    switch result{
+                    case .success(let checkBandOrMusician):
+                        //we get the url info of the result
+                        self.firebaseManager.getUrlImageToFirebase(resultArrayGeo["idResult"]!) { resultUrl in
+                            switch resultUrl{
+                            case .success(let url):
+                                userResult.addUrlString(url)
+                                //we check if this user is already in our array of Result if not, we add a new userResut in our array
+                                if !self.checkIfUserAlreadyHere(userResult){
+                                    self.filterBandOrMusician(checkBandOrMusician, bandOrMusicianFilter, userResult)
+                                    self.collectionView.reloadData()
+                                }
+                            case .failure(_):
+                                self.alerte.alerteVc(.errorCheckAroundUs, self)
+                            }
                         }
                     case .failure(_):
+                        print("nope")
                         self.alerte.alerteVc(.errorCheckAroundUs, self)
                     }
                 }
@@ -166,11 +219,21 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    // we check with the network call result and the filter if we want Band or Musician or All
+    func filterBandOrMusician(_ checkBandOrMusician : String, _ bandOrMusicianFilter : String, _ userResult : ResultInfo){
+        if checkBandOrMusician == bandOrMusicianFilter{
+            self.arrayUser.append(userResult)
+        } else if bandOrMusicianFilter == "All"{
+            self.arrayUser.append(userResult)
+        }
+    }
     
     
+    
+    //we check if the user who found around us is already in our array or if the result is us 
     private func checkIfUserAlreadyHere(_ user : ResultInfo) -> Bool{
         for currentUser in arrayUser{
-            if currentUser.userID == user.userID{
+            if currentUser.userID == user.userID || UserInfo.shared.userID == user.userID{
                 return true
             }
         }
@@ -201,13 +264,22 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
             return UICollectionViewCell()
         }
         
+        cell.displayArrow(indexPath.row, arrayUser.count)
         
-        
+        //we check if we have already a username, if yes, we display the name and we display the scrollView and the distance
         if let username = arrayUser[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String{
+            cell.isHidden = false
             cell.usernameLabel.text = username
             cell.createScrollView(arrayUser[indexPath.row].instrumentFireBase, arrayUser[indexPath.row].styleFirbase)
-            cell.configDistanceLabel(arrayUser[indexPath.row].distance) 
+            cell.configDistanceLabel(arrayUser[indexPath.row].distance)
+            cell.configureBandOrMusicianLabel(arrayUser[indexPath.row].publicInfoUser[DataBaseAccessPath.BandOrMusician.returnAccessPath] as! String)
+        } else {
+            cell.isHidden = true
+            cell.usernameLabel.text = ""
+            cell.configureBandOrMusicianLabel("")
+            cell.configDistanceLabel("")
         }
+        
 
         //we check if you have already the profil picture or not
         if let imageDisplay = arrayUser[indexPath.row].profilPicture {
@@ -284,10 +356,12 @@ extension MusicityHomeViewController :  UIScrollViewDelegate{
         if (scrollView.contentOffset.x == collectionView.contentSize.width - scrollView.frame.size.width)
         {
             checkIfGeolocalisationIsActive()
+
         }
     }
     
 }
+
 
 
 

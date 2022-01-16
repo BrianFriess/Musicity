@@ -35,7 +35,7 @@ class GeolocalisationManager{
     }
     
     //we check around us in the DDB
-    func checkAround(_ latitude : Double, _ longitude : Double,_ distance : Double, completion : @escaping(Result<[String],GeolocalisationError>) -> Void){
+    func checkAround(_ latitude : Double, _ longitude : Double,_ distance : Double, completion : @escaping(Result<[String : String],GeolocalisationError>) -> Void){
         let geoFire = GeoFire(firebaseRef: geofireRef)
         let center = CLLocation(latitude: latitude, longitude: longitude)
         
@@ -50,11 +50,9 @@ class GeolocalisationManager{
             }
             let distanceFromUser = Int(center.distance(from: location)/1000)
             
-           // print(Int(distanceFromUser/1000))
-            let arrayResult = [key!,String(distanceFromUser)]
-            completion(.success(arrayResult))
+            let dictionnaryResult = (["idResult": key!, "distance" : String(distanceFromUser)])
+            completion(.success(dictionnaryResult))
         })
     }
-    
     
 }

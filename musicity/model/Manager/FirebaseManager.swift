@@ -98,16 +98,85 @@ struct FirebaseManager{
     //MARK: Configure string in fireBase
     
     
-    //the result is not a dictionnay but an array not like the other functions 
-    /*func getArrayInstrumentToFirebase(_ userId : String, _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<[String], FirebaseError>)-> Void) {
-        ref.child("users").child(userId).child("\(infoProfil.returnAccessPath)").observeSingleEvent(of: .value) { snapshot in
+    
+   /* func getUsernameMessenger(_ userIdMessenger : String, completion : @escaping(Result<String,FirebaseError>) -> Void){
+        ref.child("users").child(DataBaseAccessPath.publicInfoUser.returnAccessPath)
+    }*/
+  
+    
+    func getTheUserIdMessengerToDdb(_ userId : String, completion : @escaping(Result<[String],FirebaseError>) -> Void){
+        ref.child("users").child(userId).child(DataBaseAccessPath.messengerUserId.returnAccessPath).observeSingleEvent(of: .value) { snapshot in
             if let value = snapshot.value as? [String]{
                 completion(.success(value))
-            } else {
+            }else{
                 completion(.failure(.InfoError))
             }
         }
-    }*/
+    }
+    
+    
+    func setTheUserIdMessengerInDdb(_ userId : String, _ userIdMessenger : [String:Any] , completion : @escaping(Result<Void, FirebaseError>)-> Void){
+        ref.child("users").child(userId).child(DataBaseAccessPath.messengerUserId.returnAccessPath).setValue(userIdMessenger){ errorInfo, _ in
+            guard errorInfo == nil else {
+                completion(.failure(.connexionError))
+                return
+            }
+        
+            completion (.success(()))
+        }
+        
+    }
+    
+    
+    //we set a new message in our DDB
+    func setNewMessage(_ userId : String, _ resultUserId : String, _ message : [String:Any], completion : @escaping(Result<Void, FirebaseError>) -> Void){
+        
+        observeKeyMessenger(userId, resultUserId) { result in
+            switch result{
+            case .success(let key):
+                ref.child("Messages").child(key).childByAutoId().setValue(message) { errorInfo, _ in
+                    guard errorInfo == nil else {
+                        completion(.failure(.connexionError))
+                        return
+                    }
+                    completion(.success(()))
+                }
+            case .failure(_):
+                completion(.failure(.InfoError))
+            }
+        }
+    }
+    
+    //we check if the child bewteen 2 users in messenger already exist
+    private func observeKeyMessenger(_ userId : String,_ resultUserId : String, completion : @escaping(Result<String,FirebaseError>)-> Void){
+        ref.child("Messages").observeSingleEvent(of: .value, with: { (snapshot) in
+             if snapshot.hasChild(userId+resultUserId){
+                 completion(.success(userId+resultUserId))
+
+             }else{
+                 completion(.success(resultUserId+userId))
+             }
+         })
+        completion(.failure(.InfoError))
+    }
+    
+    // thanks to this function, we read in our DBB when our DBB change
+    func readInMessengerDataBase(_ userId : String,_ resultUserId : String, completion : @escaping(Result<[String : Any], FirebaseError>) -> Void){
+        observeKeyMessenger(userId, resultUserId) { result in
+            switch result{
+            case .success(let key):
+                ref.child("Messages").child(key).observe(.childAdded, with: { (snapshot) -> Void in
+                    if let value = snapshot.value as?[String : Any]{
+                        completion(.success(value))
+                    } else {
+                        completion(.failure(.InfoError))
+                    }
+                   })
+            case .failure(_):
+                completion(.failure(.InfoError))
+            }
+        }
+    }
     
     
     //we get all the dictionnary's info of one user to fireBase

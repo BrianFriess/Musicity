@@ -24,6 +24,11 @@ class LogInViewController: UIViewController {
         testView.configureView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super .viewDidAppear(true)
+        UserInfo.shared.resetSingleton()
+    }
+    
 
     //MARK: Action
     @IBAction func connexionButton(_ sender: UIButton) {
@@ -91,6 +96,8 @@ class LogInViewController: UIViewController {
             }
         }
     }
+    
+
     
     
     func logInButMissInformation(){

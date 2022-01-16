@@ -110,6 +110,15 @@
         }
       },
       {
+        "package": "StreamChat",
+        "repositoryURL": "https://github.com/GetStream/stream-chat-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "1edabbeef14668b2211737f211e23dece695d6e3",
+          "version": "4.8.0"
+        }
+      },
+      {
         "package": "SwiftProtobuf",
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
