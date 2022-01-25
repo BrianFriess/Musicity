@@ -93,6 +93,7 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         row = indexPath.row
         performSegue(withIdentifier: "segueToMessenger", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     

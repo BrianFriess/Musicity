@@ -196,7 +196,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                 self.firebaseManager.getSingleInfoUserToFirebase(resultArrayGeo["idResult"]!, .publicInfoUser, .BandOrMusician) { result in
                     switch result{
                     case .success(let checkBandOrMusician):
-                        //we get the url info of the result
+                        //we get the url image of the result
                         self.firebaseManager.getUrlImageToFirebase(resultArrayGeo["idResult"]!) { resultUrl in
                             switch resultUrl{
                             case .success(let url):
@@ -204,7 +204,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                                 //we check if this user is already in our array of Result if not, we add a new userResut in our array
                                 self.updateArrayOfUserResult(checkBandOrMusician, userResult, bandOrMusicianFilter)
                             case .failure(_):
-                                self.alerte.alerteVc(.errorCheckAroundUs, self)
+                                break
                             }
                         }
                     case .failure(_):
@@ -217,16 +217,19 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    // we check with the network call result and the filter if we want Band or Musician or All
-    func filterBandOrMusician(_ checkBandOrMusician : String, _ bandOrMusicianFilter : String, _ userResult : ResultInfo){
-        if checkBandOrMusician == bandOrMusicianFilter{
-            self.arrayUser.append(userResult)
-        } else if bandOrMusicianFilter == "All"{
-            self.arrayUser.append(userResult)
+
+    //we check if this user is already in our array of Result if not, we add a new userResut in our array
+    func updateArrayOfUserResult(_ checkBandOrMusician : String, _ userResult : ResultInfo, _ bandOrMusicianFilter : String ){
+        if !self.checkIfUserAlreadyHere(userResult){
+            if userResult.userID != UserInfo.shared.userID{
+            self.filterBandOrMusician(checkBandOrMusician, bandOrMusicianFilter, userResult)
+                self.collectionView.reloadData()
+            }
         }
     }
     
-    //we check if the user who found around us is already in our array or if the result is us 
+    
+    //we check if the user who found around us is already in our array or if the result is us
     private func checkIfUserAlreadyHere(_ user : ResultInfo) -> Bool{
         for currentUser in arrayUser{
             if currentUser.userID == user.userID{
@@ -236,13 +239,12 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         return false
     }
     
-    //we check if this user is already in our array of Result if not, we add a new userResut in our array
-    func updateArrayOfUserResult(_ checkBandOrMusician : String, _ userResult : ResultInfo, _ bandOrMusicianFilter : String ){
-        if !self.checkIfUserAlreadyHere(userResult){
-            if userResult.userID != UserInfo.shared.userID{
-            self.filterBandOrMusician(checkBandOrMusician, bandOrMusicianFilter, userResult)
-                self.collectionView.reloadData()
-            }
+    // we check with the network call result and the filter if we want Band or Musician or All
+    func filterBandOrMusician(_ checkBandOrMusician : String, _ bandOrMusicianFilter : String, _ userResult : ResultInfo){
+        if checkBandOrMusician == bandOrMusicianFilter{
+            self.arrayUser.append(userResult)
+        } else if bandOrMusicianFilter == "All"{
+            self.arrayUser.append(userResult)
         }
     }
     

@@ -21,8 +21,6 @@ class GeolocalisationManager{
     
     private let geofireRef = Database.database(url: "https://musicity-ff6d8-default-rtdb.europe-west1.firebasedatabase.app").reference().child(DataBaseAccessPath.userLocation.returnAccessPath)
     
-
-    
     
     enum AccessGeolocalisation{
         case accepted
@@ -48,9 +46,6 @@ class GeolocalisationManager{
             return .denied
         }
     }
-    
-    
-    
     
     
     // we set the localisation in our Database

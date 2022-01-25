@@ -31,8 +31,9 @@ class TchatViewController: UIViewController {
         view.addSubview(inputBar)
         configureKeyboard()
         configureInputBar()
+        configureKeyboardNotification()
+
     }
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -40,6 +41,24 @@ class TchatViewController: UIViewController {
         IQKeyboardManager.shared.enableAutoToolbar = true
     }
 
+    func configureKeyboardNotification(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+     //   let keyboardSiz = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSValue)?.cgRectValue
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue, tableView.contentInset == .zero {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 70 , right: 0)
+        }
+        scrollAtTheEndOfTableView()
+    }
+
+
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        tableView.contentInset = .zero
+    }
+    
 
     private func getMessages(){
         firebaseManager.readInMessengerDataBase(UserInfo.shared.userID, currentUser.userID) { result in
@@ -47,10 +66,17 @@ class TchatViewController: UIViewController {
             case .success(let messages):
                 self.messages.append(messages)
                 self.tableView.insertRows(at: [IndexPath(row: self.messages.count-1, section: 0)], with: .automatic)
+                self.scrollAtTheEndOfTableView()
             case .failure(_):
                 break
             }
         }
+    }
+    
+    
+    func scrollAtTheEndOfTableView(){
+        let indexPath = IndexPath(row: (self.messages.count)-1 , section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
     private func configureInputBar() {
@@ -82,9 +108,6 @@ class TchatViewController: UIViewController {
         keyboardManager.shouldApplyAdditionBottomSpaceToInteractiveDismissal = true
         keyboardManager.bind(inputAccessoryView: inputBar)
         keyboardManager.bind(to: tableView)
-        tableView.setContentOffset(CGPoint(x: 80, y: 0), animated: true)
-       // keyboardManager.keyboardWillChangeFrame(notification: <#T##NSNotification#>)
-        //a chaque notifiation , changer l'offset de la tableView
     }
 
     
@@ -112,14 +135,12 @@ class TchatViewController: UIViewController {
         firebaseManager.setNewMessage(UserInfo.shared.userID, currentUser.userID, newMessage) { [weak self] result in
             switch result{
             case .success(_):
-                let indexPath = IndexPath(row: (self?.messages.count)!-1 , section: 0)
-                self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                 self?.inputBar.inputTextView.text = ""
                 self?.inputBar.inputTextView.resignFirstResponder()
+                self?.scrollAtTheEndOfTableView()
                 self?.addNewUserIdInUserListMessenger()
             case .failure(_):
-                // alerte.alerteVc(.messageError, self)
-                print("fail")
+                break
             }
         }
     }
@@ -244,20 +265,21 @@ extension TchatViewController: InputBarAccessoryViewDelegate {
         self.sendMessage(text)
         inputBar.inputTextView.text = ""
         inputBar.inputTextView.resignFirstResponder()
+
     }
 }
 
 
 // extension for pagination for close the keyboard
-extension TchatViewController :  UIScrollViewDelegate{
+/*extension TchatViewController :  UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
         if position < (tableView.contentSize.height-800-scrollView.frame.size.height) {
 
-            inputBar.inputTextView.resignFirstResponder()
+           // inputBar.inputTextView.resignFirstResponder()
 
         }
     }
     
-}
+}*/
