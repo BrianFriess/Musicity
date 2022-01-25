@@ -7,14 +7,19 @@
 
 import UIKit
 
+import UIKit
+import IQKeyboardManagerSwift
+import InputBarAccessoryView
+
 class TchatViewController: UIViewController {
 
 
-    @IBOutlet weak var upView: UIView!
-    @IBOutlet weak var textField: UITextField!
+   // @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var sentButton: UIButton!
+   // @IBOutlet weak var sentButton: UIButton!
     
+    private let keyboardManager = KeyboardManager()
+    private let inputBar = InputBarAccessoryView()
     var firebaseManager = FirebaseManager()
     var currentUser = ResultInfo()
     var messages = [[String:Any]]()
@@ -22,7 +27,21 @@ class TchatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getMessages()
+        view.addSubview(inputBar)
+        configureKeyboard()
+        configureInputBar()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = true
+    }
+
+
+    private func getMessages(){
         firebaseManager.readInMessengerDataBase(UserInfo.shared.userID, currentUser.userID) { result in
             switch result{
             case .success(let messages):
@@ -33,8 +52,40 @@ class TchatViewController: UIViewController {
             }
         }
     }
-
-
+    
+    private func configureInputBar() {
+        inputBar.delegate = self
+        inputBar.inputTextView.isImagePasteEnabled = false
+        inputBar.isTranslucent = true
+        inputBar.backgroundView.backgroundColor = .tertiarySystemBackground
+        inputBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        let inputTextView = inputBar.inputTextView
+        inputTextView.layer.cornerRadius = 14.0
+        inputTextView.layer.borderWidth = 0.0
+        inputTextView.backgroundColor = .secondarySystemGroupedBackground
+        inputTextView.font = .systemFont(ofSize: 18.0)
+        inputTextView.placeholderLabel.text = "Votre message"
+        inputTextView.textContainerInset = UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12)
+        inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 6, left: 18, bottom: 6, right: 15)
+        
+        let sendButton = inputBar.sendButton
+        sendButton.image = UIImage(systemName: "paperplane.fill")
+        sendButton.tintColor = .label
+        sendButton.title = nil
+        sendButton.setSize(CGSize(width: 30, height: 30), animated: true)
+    }
+    
+    private func configureKeyboard() {
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.enable = false
+        keyboardManager.shouldApplyAdditionBottomSpaceToInteractiveDismissal = true
+        keyboardManager.bind(inputAccessoryView: inputBar)
+        keyboardManager.bind(to: tableView)
+        tableView.setContentOffset(CGPoint(x: 80, y: 0), animated: true)
+       // keyboardManager.keyboardWillChangeFrame(notification: <#T##NSNotification#>)
+        //a chaque notifiation , changer l'offset de la tableView
+    }
 
     
     //before set the id of the user in our DDB, we check if he already exists
@@ -48,31 +99,31 @@ class TchatViewController: UIViewController {
     }
     
     
-    
-    //push send button
-    @IBAction func sendButton(_ sender: Any) {
-        //we create a new message
-        if textField.text != ""{
-            
-            let newMessage : [String:Any] = [
-                "name" : UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath]!,
-                "message" : textField.text!
-            ]
-            //we send the new message in our DDB
-            firebaseManager.setNewMessage(UserInfo.shared.userID, currentUser.userID, newMessage) { [self] result in
-                switch result{
-                case .success(_):
-                    self.textField.resignFirstResponder()
-
-                    self.textField.text = ""
-                    addNewUserIdInUserListMessenger()
-                case .failure(_):
-                   // alerte.alerteVc(.messageError, self)
-                    print("fail")
-                }
+    private func sendMessage(_ message: String?) {
+        guard let message = message, !message.isEmpty else {
+            return
+        }
+        guard let userName = UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] else {
+            return
+        }
+        let newMessage: [String:Any] = ["name": userName,
+                                        "message": message]
+        //we send the new message in our DDB
+        firebaseManager.setNewMessage(UserInfo.shared.userID, currentUser.userID, newMessage) { [weak self] result in
+            switch result{
+            case .success(_):
+                let indexPath = IndexPath(row: (self?.messages.count)!-1 , section: 0)
+                self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                self?.inputBar.inputTextView.text = ""
+                self?.inputBar.inputTextView.resignFirstResponder()
+                self?.addNewUserIdInUserListMessenger()
+            case .failure(_):
+                // alerte.alerteVc(.messageError, self)
+                print("fail")
             }
         }
     }
+    
     
     
     //if the userId is not in our DDB, we create a new value in our DDB and we recover this value in our array of UserIdMessenger
@@ -86,21 +137,28 @@ class TchatViewController: UIViewController {
                 switch result{
                 case .success(_):
                     //we recover the new id in our Array in local
-                    self.firebaseManager.getTheUserIdMessengerToDdb(UserInfo.shared.userID) { result in
-                        switch result{
-                        case .success(let userIdArray):
-                            self.addNewUserInTheOtherUserListMessenger()
-                            UserInfo.shared.addAllUserMessenger(userIdArray)
-                        case .failure(_):
-                            self.alerte.alerteVc(.messageError, self)
-                        }
-                    }
+                    self.getTheUserIdFromDatabase()
                 case .failure(_):
                     self.alerte.alerteVc(.messageError, self)
                 }
             }
         }
     }
+    
+    
+    private func getTheUserIdFromDatabase() {
+        self.firebaseManager.getTheUserIdMessengerToDdb(UserInfo.shared.userID) { result in
+            switch result{
+            case .success(let userIdArray):
+                self.addNewUserInTheOtherUserListMessenger()
+                UserInfo.shared.addAllUserMessenger(userIdArray)
+            case .failure(_):
+                self.alerte.alerteVc(.messageError, self)
+            }
+        }
+    }
+    
+    
     
     
     //if we add the userId in the lise of messenger active in the UserInfo, we need to do the same thing in the currentUserResult
@@ -140,12 +198,15 @@ class TchatViewController: UIViewController {
         }
     }
     
-    
-    
 }
 
 
-extension TchatViewController : UITableViewDelegate, UITableViewDataSource{
+extension TchatViewController :  UITableViewDataSource, UITableViewDelegate{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
@@ -163,10 +224,10 @@ extension TchatViewController : UITableViewDelegate, UITableViewDataSource{
         } else {
             cell.viewCustom.backgroundColor = UIColor.gray
         }
+        
         return cell
     }
-    
-    
+
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -174,19 +235,29 @@ extension TchatViewController : UITableViewDelegate, UITableViewDataSource{
         return UITableView.automaticDimension
     }
     
-    
-    
-    
 }
 
 
-//extension for the keyboard
+//when we click on the sent button
+extension TchatViewController: InputBarAccessoryViewDelegate {
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        self.sendMessage(text)
+        inputBar.inputTextView.text = ""
+        inputBar.inputTextView.resignFirstResponder()
+    }
+}
 
-extension TchatViewController : UITextFieldDelegate {
+
+// extension for pagination for close the keyboard
+extension TchatViewController :  UIScrollViewDelegate{
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.textField.resignFirstResponder()
-        return true
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position < (tableView.contentSize.height-800-scrollView.frame.size.height) {
+
+            inputBar.inputTextView.resignFirstResponder()
+
+        }
     }
     
 }

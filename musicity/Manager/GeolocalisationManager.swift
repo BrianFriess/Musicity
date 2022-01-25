@@ -17,7 +17,40 @@ enum GeolocalisationError : Error{
 
 class GeolocalisationManager{
     
-    let geofireRef = Database.database(url: "https://musicity-ff6d8-default-rtdb.europe-west1.firebasedatabase.app").reference().child(DataBaseAccessPath.userLocation.returnAccessPath)
+    let manager = CLLocationManager()
+    
+    private let geofireRef = Database.database(url: "https://musicity-ff6d8-default-rtdb.europe-west1.firebasedatabase.app").reference().child(DataBaseAccessPath.userLocation.returnAccessPath)
+    
+
+    
+    
+    enum AccessGeolocalisation{
+        case accepted
+        case denied
+        case notDetermined
+    }
+    
+    //we check if the user autorizes the geolocalisation
+    func checkIfGeolocalisationIsActive() -> AccessGeolocalisation{
+        let locationManager = CLLocationManager()
+        if CLLocationManager.locationServicesEnabled() {
+            switch locationManager.authorizationStatus {
+            case .restricted, .denied:
+                return .denied
+            case .authorizedAlways, .authorizedWhenInUse:
+                return .accepted
+            case .notDetermined:
+                return .notDetermined
+            @unknown default:
+                return .denied
+            }
+        } else {
+            return .denied
+        }
+    }
+    
+    
+    
     
     
     // we set the localisation in our Database
@@ -54,5 +87,11 @@ class GeolocalisationManager{
             completion(.success(dictionnaryResult))
         })
     }
+    
+
+    
+
+    
+    
     
 }

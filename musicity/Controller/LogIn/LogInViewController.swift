@@ -12,16 +12,18 @@ class LogInViewController: UIViewController {
 
     var alerte = AlerteManager()
     var firebaseManager = FirebaseManager()
+    let geolocalisationManager = GeolocalisationManager()
     
     //MARK: Outlet
-    @IBOutlet var testView: CustomConnextionView!
+    @IBOutlet var customView: CustomConnextionView!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        testView.configureView()
+        customView.configureView()
+        AppUtility.lockOrientation(.portrait)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -29,21 +31,21 @@ class LogInViewController: UIViewController {
         UserInfo.shared.resetSingleton()
     }
     
-
+    
     //MARK: Action
     @IBAction func connexionButton(_ sender: UIButton) {
-        testView.connexionIsLoadOrNot(.isOnLoad)
+        customView.connexionIsLoadOrNot(.isOnLoad)
         //check if the password is not empty
         guard passwordTextField.text != "", let password = passwordTextField.text else{
             alerte.alerteVc(.emptyPassword, self)
-            self.testView.connexionIsLoadOrNot(.isLoad)
+            self.customView.connexionIsLoadOrNot(.isLoad)
             return
         }
         
         //check if email is not empty
         guard emailTextField.text != "", let email = emailTextField.text else{
             alerte.alerteVc(.EmptyEmail, self)
-            self.testView.connexionIsLoadOrNot(.isLoad)
+            self.customView.connexionIsLoadOrNot(.isLoad)
             return
         }
         
@@ -70,35 +72,32 @@ class LogInViewController: UIViewController {
                                             //get the profil Picture url in the singleton and go to the next page
                                             UserInfo.shared.addUrlString(imageUrl)
                                             self.performSegue(withIdentifier: "GoToMusicitySegue", sender: self)
-                                            self.testView.connexionIsLoadOrNot(.isLoad)
+                                            self.customView.connexionIsLoadOrNot(.isLoad)
                                         case .failure(_):
                                             self.alerte.alerteVc(.errorGetInfo, self)
-                                            self.testView.connexionIsLoadOrNot(.isLoad)
+                                            self.customView.connexionIsLoadOrNot(.isLoad)
                                         }
                                     }
                                 } else {
                                     self.logInButMissInformation()
-                                    self.testView.connexionIsLoadOrNot(.isLoad)
+                                    self.customView.connexionIsLoadOrNot(.isLoad)
                                 }
                             case .failure(_):
                                 self.alerte.alerteVc(.errorGetInfo, self)
-                                self.testView.connexionIsLoadOrNot(.isLoad)
+                                self.customView.connexionIsLoadOrNot(.isLoad)
                             }
                         }
                     case .failure(_):
                         self.alerte.alerteVc(.errorGetInfo, self)
-                        self.testView.connexionIsLoadOrNot(.isLoad)
+                        self.customView.connexionIsLoadOrNot(.isLoad)
                     }
                 }
             case .failure(_):
                 self.alerte.alerteVc(.ErrorConnexion, self)
-                self.testView.connexionIsLoadOrNot(.isLoad)
+                self.customView.connexionIsLoadOrNot(.isLoad)
             }
         }
     }
-    
-
-    
     
     func logInButMissInformation(){
         //we go to the viewController for enter all the informations
@@ -106,6 +105,8 @@ class LogInViewController: UIViewController {
     }
     
 }
+
+
 
 //MARK: KeyBoard Manager
 extension LogInViewController : UITextFieldDelegate{

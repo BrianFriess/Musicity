@@ -46,10 +46,10 @@ class TileCollectionViewCell: UICollectionViewCell {
     
     func configureCell(){
         customView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor
-        customView.layer.shadowRadius = 2.0
-        customView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        customView.layer.shadowRadius = 1.0
+        customView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         customView.layer.shadowOpacity = 2.0
-        customView.layer.cornerRadius = 10
+        customView.layer.cornerRadius = 25
 
     }
     
@@ -85,22 +85,17 @@ class TileCollectionViewCell: UICollectionViewCell {
         var paddyY = 0
         let scrollView = UIScrollView(frame: CGRect(x: customView.layer.frame.minX, y: customView.layer.frame.maxY/2+30, width: customView.layer.frame.size.width , height: customView.layer.frame.maxY/2-30))
         scrollView.backgroundColor = UIColor.systemOrange
-       /* scrollView.layer.cornerRadius = 10
-        scrollView.layer.shadowOffset = .zero
-        scrollView.layer.shadowColor = UIColor.white.cgColor
-        scrollView.layer.shadowRadius = 20
-        scrollView.layer.shadowOpacity = 1
-        scrollView.layer.shadowPath = UIBezierPath(rect: scrollView.bounds).cgPath*/
         addSubview(scrollView)
         paddyY = createLabelInScrollView(infoInstrument, paddyY, scrollView)
         paddyY = createLabelInScrollView(infoStyle, paddyY, scrollView)
         scrollView.contentSize = CGSize(width: 0, height: paddyY)
+        scrollView.layer.cornerRadius = 15
+
     }
     
     
     //we create the label View in the scrollView
     func createLabelInScrollView(_ infoArray: [String],_ posY : Int, _ scrollView : UIScrollView) -> Int{
-
         var paddyY = posY
         for info in infoArray{
             let label =  UILabel(frame: CGRect(x: 5, y:paddyY, width: Int(scrollView.layer.frame.size.width), height : 35))
@@ -108,6 +103,7 @@ class TileCollectionViewCell: UICollectionViewCell {
             label.textColor = UIColor.white
             label.font = UIFont(name : "Arial Rounded MT Bold", size : 17)
             label.text = info
+            
             paddyY += 30
         }
         return paddyY

@@ -28,7 +28,6 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     private let alerte = AlerteManager()
     private var arrayUser = [ResultInfo]()
     private var currentUser = ResultInfo()
-    private var distanceFilter = 25.0
     private var checkFilterDistance = 0.0
     private var checkFilterSearch = ""
     
@@ -40,17 +39,30 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         checkIfWeAlreadyConnect()
         manager.delegate = self
+        AppUtility.lockOrientation(.portrait)
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        checkIfGeolocalisationIsActive()
+    }
+    
+    
+    func configureGeolocalisation(){
+        
         manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
-
     }
+    
+    
     
     //we check in firebase if the user is already connect
     func checkIfWeAlreadyConnect(){
         if Firebase.Auth.auth().currentUser == nil {
             self.performSegue(withIdentifier: "segueDisconnect", sender: nil)
         } else {
+            configureGeolocalisation()
             getAllValueOfUserIfWeAreAlreadyConnect()
         }
     }
@@ -92,11 +104,11 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    
    private func disconnect(){
         firebaseManager.logOut { result in
             switch result{
             case .success(_):
-                print("logout")
                 self.performSegue(withIdentifier: "segueDisconnect", sender: nil)
             case .failure(_):
                 self.alerte.alerteVc(.errorLogOut, self)
@@ -104,16 +116,13 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    
     //we use this to disconnect the user
     @IBAction func disconnectButton(_ sender: Any) {
         disconnect()
     }
     
-    
-    override func viewDidAppear(_ animated: Bool) {
-        checkIfGeolocalisationIsActive()
-    }
-    
+
     //we get the localisation of the iPhone
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.first{
@@ -125,28 +134,21 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
     //we check the status of localisation when the user change settings
     func locationManager(_ manager : CLLocationManager , didChangeAuthorization status : CLAuthorizationStatus){
-         checkIfGeolocalisationIsActive()
+        checkIfGeolocalisationIsActive()
     }
     
     
     //we check if the geolocalisation is actived or not
     private func checkIfGeolocalisationIsActive(){
-        let locationManager = CLLocationManager()
-        if CLLocationManager.locationServicesEnabled() {
-            switch locationManager.authorizationStatus {
-            case .restricted, .denied:
-                alerte.locationAlerte(.deniedGeolocalisation, self)
-                customView.displayLabelGeolocalisation(.notActive)
-            case .authorizedAlways, .authorizedWhenInUse, .notDetermined:
-                customView.displayLabelGeolocalisation(.isActive)
-                setGeolocalisationInDDB()
-            
-            @unknown default:
-                    break
-            }
-        } else {
-            customView.displayLabelGeolocalisation(.notActive)
+        switch geolocalisationManager.checkIfGeolocalisationIsActive(){
+        case .accepted:
+            customView.displayLabelGeolocalisation(.isActive)
+            setGeolocalisationInDDB()
+        case .notDetermined:
+            checkIfGeolocalisationIsActive()
+        case .denied:
             alerte.locationAlerte(.deniedGeolocalisation, self)
+            customView.displayLabelGeolocalisation(.notActive)
         }
     }
     
@@ -156,7 +158,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         geolocalisationManager.setTheGeolocalisation(latitude, longitude, UserInfo.shared.userID) { result in
             switch result{
             case .success(_):
-                self.checkFilterAroundUs()
+                self.checkFilter()
             case .failure(_):
                 self.alerte.alerteVc(.errorGeolocalisation, self)
             }
@@ -165,23 +167,23 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
     
     //we check if the user use a filter or not
-    private func checkFilterAroundUs(){
-        if UserInfo.shared.filter["Distance"] == nil{
+    private func checkFilter(){
+        if UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] == nil{
             //if we haven't filter, the distance by default is 25
-            checkAroundUsFilter(25.0, "All")
+            checkAroundUsWithFilter(25.0, "All")
         }
-        else if UserInfo.shared.filter["Distance"] as! Double != checkFilterDistance || UserInfo.shared.filter["Search"] as? String != checkFilterSearch  {
-            checkFilterDistance = UserInfo.shared.filter["Distance"] as! Double
-            checkFilterSearch = (UserInfo.shared.filter["Search"] as! String)
+        else if UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] as! Double != checkFilterDistance || UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] as? String != checkFilterSearch  {
+            checkFilterDistance = UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] as! Double
+            checkFilterSearch = (UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] as! String)
             arrayUser = []
             collectionView.reloadData()
-            checkAroundUsFilter(UserInfo.shared.filter["Distance"] as! Double, UserInfo.shared.filter["Search"] as! String )
+            checkAroundUsWithFilter(UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] as! Double, UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] as! String )
         }
     }
     
     
     //we cbeck the user around use thanks to "distance"
-    private func checkAroundUsFilter(_ distance : Double, _ bandOrMusicianFilter : String){
+    private func checkAroundUsWithFilter(_ distance : Double, _ bandOrMusicianFilter : String){
         geolocalisationManager.checkAround(latitude, longitude, distance ) { result in
             //we create an instance of ResultInfo and we get all the value in
             let userResult = ResultInfo()
@@ -200,12 +202,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                             case .success(let url):
                                 userResult.addUrlString(url)
                                 //we check if this user is already in our array of Result if not, we add a new userResut in our array
-                                if !self.checkIfUserAlreadyHere(userResult){
-                                    if userResult.userID != UserInfo.shared.userID{
-                                    self.filterBandOrMusician(checkBandOrMusician, bandOrMusicianFilter, userResult)
-                                        self.collectionView.reloadData()
-                                    }
-                                }
+                                self.updateArrayOfUserResult(checkBandOrMusician, userResult, bandOrMusicianFilter)
                             case .failure(_):
                                 self.alerte.alerteVc(.errorCheckAroundUs, self)
                             }
@@ -229,8 +226,6 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    
-    
     //we check if the user who found around us is already in our array or if the result is us 
     private func checkIfUserAlreadyHere(_ user : ResultInfo) -> Bool{
         for currentUser in arrayUser{
@@ -239,6 +234,16 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
         return false
+    }
+    
+    //we check if this user is already in our array of Result if not, we add a new userResut in our array
+    func updateArrayOfUserResult(_ checkBandOrMusician : String, _ userResult : ResultInfo, _ bandOrMusicianFilter : String ){
+        if !self.checkIfUserAlreadyHere(userResult){
+            if userResult.userID != UserInfo.shared.userID{
+            self.filterBandOrMusician(checkBandOrMusician, bandOrMusicianFilter, userResult)
+                self.collectionView.reloadData()
+            }
+        }
     }
     
 }
@@ -336,8 +341,6 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
     
     //set the value at the cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        
         let screenSize : CGSize = UIScreen.main.bounds.size
         let heightSize  = view.safeAreaLayoutGuide.layoutFrame.size.height
         return CGSize(width: screenSize.width , height: heightSize)
