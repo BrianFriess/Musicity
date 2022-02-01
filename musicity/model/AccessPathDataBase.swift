@@ -21,6 +21,7 @@ enum DataBaseAccessPath {
     case messengerUserId
     case distance
     case search
+    case notification
     
     var returnAccessPath : String{
         switch self{
@@ -50,6 +51,8 @@ enum DataBaseAccessPath {
             return "Distance"
         case .search:
             return "Search"
+        case .notification:
+            return "Notification"
         }
     }
 }

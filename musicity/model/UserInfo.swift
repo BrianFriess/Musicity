@@ -140,7 +140,7 @@ class UserInfo{
     }
 
     
-    func addAllInstrument(_ instrument : [String]){
+    private func addAllInstrument(_ instrument : [String]){
         self.instrumentFireBase = instrument
     }
     
@@ -148,7 +148,7 @@ class UserInfo{
         self.activeMessengerUserIdFirebase = idUserMessenger
     }
     
-    func addAllStyle(_ style : [String]){
+    private func addAllStyle(_ style : [String]){
         self.styleFirbase = style
     }
     

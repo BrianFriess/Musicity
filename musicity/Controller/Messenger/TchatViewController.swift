@@ -10,6 +10,10 @@ import UIKit
 import UIKit
 import IQKeyboardManagerSwift
 import InputBarAccessoryView
+import nanopb
+
+//TableView qui se leve trop uniquement la premiere fois
+
 
 class TchatViewController: UIViewController {
 
@@ -75,8 +79,10 @@ class TchatViewController: UIViewController {
     
     
     func scrollAtTheEndOfTableView(){
-        let indexPath = IndexPath(row: (self.messages.count)-1 , section: 0)
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        if messages.count != 0{
+            let indexPath = IndexPath(row: (self.messages.count)-1 , section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
     }
     
     private func configureInputBar() {
@@ -198,7 +204,8 @@ class TchatViewController: UIViewController {
                 self.firebaseManager.setTheUserIdMessengerInDdb(self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
             switch result{
                 case .success(_):
-                break
+                break 
+              //  self.addNotificationInTheOtherUserDdb(self.currentUser.userID)
             case .failure(_):
                 self.alerte.alerteVc(.messageError, self)
             }
@@ -211,6 +218,7 @@ class TchatViewController: UIViewController {
                     switch result{
                         case .success(_):
                         break
+                      //  self.addNotificationInTheOtherUserDdb(self.currentUser.userID)
                     case .failure(_):
                         self.alerte.alerteVc(.messageError, self)
                     }
@@ -218,6 +226,18 @@ class TchatViewController: UIViewController {
             }
         }
     }
+    
+/*    func addNotificationInTheOtherUserDdb(_ otherUserId : String){
+        let notification = [UserInfo.shared.userID : true]
+        firebaseManager.setTheNotificationInDdb(otherUserId, notification) { result in
+            switch result{
+            case .success(_):
+                print("ok")
+            case .failure(_):
+                print("nok")
+            }
+        }
+    }*/
     
 }
 
