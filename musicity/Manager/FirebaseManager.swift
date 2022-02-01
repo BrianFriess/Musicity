@@ -114,17 +114,6 @@ struct FirebaseManager{
     }
     
     
-    /* func setTheNotificationInDdb(_ otherUserId : String, _ notification : [String:Any], completion : @escaping(Result<Void,FirebaseError>)->Void){
-        ref.child("users").child(otherUserId).child(DataBaseAccessPath.notification.returnAccessPath).setValue(notification){ errorInfo, _ in
-            guard errorInfo == nil else {
-                completion(.failure(.connexionError))
-                return
-            }
-            completion(.success(()))
-        }
-    }*/
-    
-    
     //we set a new message in our DDB
     func setNewMessage(_ userId : String, _ resultUserId : String, _ message : [String:Any], completion : @escaping(Result<Void, FirebaseError>) -> Void){
         observeKeyMessenger(userId, resultUserId) { result in

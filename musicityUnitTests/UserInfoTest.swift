@@ -37,8 +37,6 @@ class UserInfoTest: XCTestCase {
     }
     
     
-    
-    
     func testStyleIsEmpty_SetOneStyle_StyleIsNotEmpty(){
         let dictStyle = setOneStyleDictionnary()
         
@@ -83,32 +81,43 @@ class UserInfoTest: XCTestCase {
     
     func testUserInfoIsEmpty_RecoverAllTheInfoToTheDDB_UserInfoIsNotEmpty(){
         let userInfoExport = exportUserDataBase
+
         if userInfo.addAllInfo(userInfoExport){
             XCTAssert(userInfo.instrumentFireBase == userInfoExport["Instrument"] as! [String])
             XCTAssert(userInfo.styleFirbase == userInfoExport["Style"] as! [String])
+ 
         }
     }
         
+    func testDontHaveAprofilPicture_AddProfilPicture_HaveAprofilPicture(){
+        XCTAssert(userInfo.profilPicture == nil)
         
+        userInfo.addProfilPicture(image)
         
-        func testUserInfoIsEmpty_RecoverAllTheInfoToTheDDBWithError_UserInfoIsEmpty(){
+        XCTAssert(userInfo.profilPicture != nil)
+    }
+    
+        
+    func testUserInfoIsEmpty_RecoverAllTheInfoToTheDDBWithError_UserInfoIsEmpty(){
             
-            var userInfoExport = exportUserDataBase
-            userInfoExport.removeAll()
-            XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
+        var userInfoExport = exportUserDataBase
+        userInfoExport.removeAll()
+        XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
             
-            userInfoExport = exportUserDataBase
-            userInfoExport.removeValue(forKey: "Instrument")
-            XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
+        userInfoExport = exportUserDataBase
+        userInfoExport.removeValue(forKey: "Instrument")
+        XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
             
-            userInfoExport = exportUserDataBase
-            userInfoExport.removeValue(forKey: "Style")
-            XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
+        userInfoExport = exportUserDataBase
+        userInfoExport.removeValue(forKey: "Style")
+        XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
     }
     
     func testStyleIsEmpty_CheckIfDataIsEmptyOrNot(){
         XCTAssert(userInfo.checkIfStyleIsEmpty())
+        
         XCTAssertFalse(userInfo.checkUrlProfilPicture())
+        
         XCTAssert(userInfo.checkIfInstrumentIsEmpty())
     }
     
@@ -135,14 +144,13 @@ class UserInfoTest: XCTestCase {
         XCTAssert(userInfo.userID == ""  && userInfo.profilPicture == nil && userInfo.stringUrl == "" &&  userInfo.instrumentFireBase == [] &&  userInfo.styleFirbase == [] &&  userInfo.activeMessengerUserIdFirebase == [])
     }
     
+    
     func testUserIdIsEmpty_AssUuserId_NotEmpty(){
         let testId = "testId"
-        XCTAssert(userInfo.userID == "")
         
         userInfo.addUserId(testId)
         
         XCTAssert(userInfo.userID == testId)
-        
     }
     
 

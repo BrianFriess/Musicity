@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 let exportUserDataBase = [
@@ -23,3 +24,5 @@ let exportUserDataBase = [
                  "username" : "testgroupe1"
                 ]
             ] as [String : Any]
+
+let image = UIImage()

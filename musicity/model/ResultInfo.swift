@@ -72,7 +72,7 @@ class ResultInfo {
         self.stringUrl = urlString
     }
     
-    func addStyle(_ style : [String]){
+    private func addStyle(_ style : [String]){
         self.styleFirbase = style
     }
 
