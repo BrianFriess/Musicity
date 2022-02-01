@@ -14,6 +14,7 @@ class UserInfoTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        
         userInfo = UserInfo.shared
     }
     
