@@ -11,6 +11,7 @@ import XCTest
 class ResultInfoTest: XCTestCase {
 
     var resultInfo = ResultInfo()
+    var data = fakeDataUnitTest()
     
     override func setUp() {
         super.setUp()
@@ -19,16 +20,16 @@ class ResultInfoTest: XCTestCase {
     
     func testDontHaveUserInfo_AddInfo_HaveAUserInfo(){
         
-        resultInfo.addAllInfo(exportUserDataBase)
+        resultInfo.addAllInfo(data.exportUserDataBase)
         
-        XCTAssert(resultInfo.instrumentFireBase == exportUserDataBase["Instrument"] as! [String])
-        XCTAssert(resultInfo.styleFirbase == exportUserDataBase["Style"] as! [String])
+        XCTAssert(resultInfo.instrumentFireBase == data.exportUserDataBase["Instrument"] as! [String])
+        XCTAssert(resultInfo.styleFirbase == data.exportUserDataBase["Style"] as! [String])
     }
     
     
     func testDontHaveUserIdMessenger_AddUserId_HaveUserId(){
         
-        let arrayOfId = exportUserDataBase["MessengerUserId"] as! [String]
+        let arrayOfId = data.exportUserDataBase["MessengerUserId"] as! [String]
         
         XCTAssert(resultInfo.activeMessengerUserIdFirebase == [] )
         
@@ -59,7 +60,7 @@ class ResultInfoTest: XCTestCase {
     }
     
     func testDontHaveUrlPicture_AddInfo_HaveUrlPicture(){
-        resultInfo.addAllInfo(exportUserDataBase)
+        resultInfo.addAllInfo(data.exportUserDataBase)
 
         resultInfo.addUrlString(resultInfo.publicInfoUser["YoutubeUrl"] as! String)
         
@@ -68,14 +69,14 @@ class ResultInfoTest: XCTestCase {
     
     
     func testDontKnowIfItsBandOrMusician_CheckIfItsBandOrMusician_KnowIfItsBandOrMusician(){
-        resultInfo.addAllInfo(exportUserDataBase)
+        resultInfo.addAllInfo(data.exportUserDataBase)
         
         XCTAssert(resultInfo.checkIfItsBandOrMusician() == "Band")
     }
     
     func testDontHaveAprofilPicture_AddProfilPicture_HaveAprofilPicture(){
         XCTAssert(resultInfo.profilPicture == nil)
-        resultInfo.addProfilPicture(image)
+        resultInfo.addProfilPicture(data.image)
         XCTAssert(resultInfo.profilPicture != nil)
     }
     

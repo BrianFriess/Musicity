@@ -15,10 +15,11 @@ class SecondCreateProfilTableViewController: UIViewController {
     @IBOutlet weak var nbMemberLabel: UILabel!
     @IBOutlet weak var photoButton: UIButton!
     
-    var isSelectArray = Array(repeating: false,  count: musicInstruments.count)
-    var dictInstrument = [Int : String]()
-    var alerte = AlerteManager()
-    var fireBaseManager = FirebaseManager()
+    private var isSelectArray = Array(repeating: false,  count: musicInstruments.count)
+    private var dictInstrument = [Int : String]()
+    private let alerte = AlerteManager()
+    private let fireBaseManager = FirebaseManager()
+    private let ref = FirebaseReference.ref
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +54,7 @@ class SecondCreateProfilTableViewController: UIViewController {
                 alerte.alerteVc(.emptyNbMembre, self)
                 return
             }
-            fireBaseManager.setSingleUserInfo(UserInfo.shared.userID, .publicInfoUser, .NbMember, nbMemberLabel.text!) { result in
+            fireBaseManager.setSingleUserInfo(ref, UserInfo.shared.userID, .publicInfoUser, .NbMember, nbMemberLabel.text!) { result in
                 switch result{
                 case .success(_):
                     break
@@ -63,7 +64,7 @@ class SecondCreateProfilTableViewController: UIViewController {
             }
         }
         
-        fireBaseManager.setDictionnaryUserInfo(UserInfo.shared.userID, UserInfo.shared.instrument, .Instrument) { result in
+        fireBaseManager.setDictionnaryUserInfo(ref, UserInfo.shared.userID, UserInfo.shared.instrument, .Instrument) { result in
             switch result{
             case .success(_):
                 self.performSegue(withIdentifier: "goToWelcomeSegue", sender: self)

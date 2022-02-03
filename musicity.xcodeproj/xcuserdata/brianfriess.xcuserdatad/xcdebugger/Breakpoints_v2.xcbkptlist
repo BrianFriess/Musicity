@@ -36,5 +36,144 @@
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "01748803-984B-460D-B6E6-1C317889A30B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "musicityUnitTests/FirebaseManagerTest.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "testTryGetAllValueToDataBase_GiveAGoodId_HaveAllData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7259B984-3AC9-4509-A42F-8C3FF90E362B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "musicityUnitTests/FirebaseManagerTest.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "FirebaseManagerTest"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "7259B984-3AC9-4509-A42F-8C3FF90E362B - b72a6afd0153494f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "musicityUnitTests.FirebaseManagerTest.__allocating_init(invocation: Swift.Optional&lt;__C.NSInvocation&gt;) -&gt; musicityUnitTests.FirebaseManagerTest"
+                  moduleName = "musicityUnitTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brianfriess/Documents/OpenClassrooms/Projet12/musicity/musicityUnitTests/FirebaseManagerTest.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "7259B984-3AC9-4509-A42F-8C3FF90E362B - 3eafd9f51e4d1849"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "musicityUnitTests.FirebaseManagerTest.init(invocation: Swift.Optional&lt;__C.NSInvocation&gt;) -&gt; musicityUnitTests.FirebaseManagerTest"
+                  moduleName = "musicityUnitTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brianfriess/Documents/OpenClassrooms/Projet12/musicity/musicityUnitTests/FirebaseManagerTest.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "7259B984-3AC9-4509-A42F-8C3FF90E362B - 6add82e16489b508"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "musicityUnitTests.FirebaseManagerTest.__allocating_init(selector: ObjectiveC.Selector) -&gt; musicityUnitTests.FirebaseManagerTest"
+                  moduleName = "musicityUnitTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brianfriess/Documents/OpenClassrooms/Projet12/musicity/musicityUnitTests/FirebaseManagerTest.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "7259B984-3AC9-4509-A42F-8C3FF90E362B - dca78b71d22e4f41"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "musicityUnitTests.FirebaseManagerTest.init(selector: ObjectiveC.Selector) -&gt; musicityUnitTests.FirebaseManagerTest"
+                  moduleName = "musicityUnitTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brianfriess/Documents/OpenClassrooms/Projet12/musicity/musicityUnitTests/FirebaseManagerTest.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "7259B984-3AC9-4509-A42F-8C3FF90E362B - 338de5b6c1177162"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "musicityUnitTests.FirebaseManagerTest.__allocating_init() -&gt; musicityUnitTests.FirebaseManagerTest"
+                  moduleName = "musicityUnitTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brianfriess/Documents/OpenClassrooms/Projet12/musicity/musicityUnitTests/FirebaseManagerTest.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  uuid = "7259B984-3AC9-4509-A42F-8C3FF90E362B - a81608a2d7c2db2e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "musicityUnitTests.FirebaseManagerTest.init() -&gt; musicityUnitTests.FirebaseManagerTest"
+                  moduleName = "musicityUnitTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brianfriess/Documents/OpenClassrooms/Projet12/musicity/musicityUnitTests/FirebaseManagerTest.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  uuid = "7259B984-3AC9-4509-A42F-8C3FF90E362B - 202ceae3e7b8a95a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "musicityUnitTests.FirebaseManagerTest.__deallocating_deinit"
+                  moduleName = "musicityUnitTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brianfriess/Documents/OpenClassrooms/Projet12/musicity/musicityUnitTests/FirebaseManagerTest.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -11,6 +11,7 @@ import XCTest
 class UserInfoTest: XCTestCase {
 
     var userInfo = UserInfo.shared
+    var data = fakeDataUnitTest()
     
     override func setUp() {
         super.setUp()
@@ -81,7 +82,7 @@ class UserInfoTest: XCTestCase {
 
     
     func testUserInfoIsEmpty_RecoverAllTheInfoToTheDDB_UserInfoIsNotEmpty(){
-        let userInfoExport = exportUserDataBase
+        let userInfoExport = data.exportUserDataBase
 
         if userInfo.addAllInfo(userInfoExport){
             XCTAssert(userInfo.instrumentFireBase == userInfoExport["Instrument"] as! [String])
@@ -93,7 +94,7 @@ class UserInfoTest: XCTestCase {
     func testDontHaveAprofilPicture_AddProfilPicture_HaveAprofilPicture(){
         XCTAssert(userInfo.profilPicture == nil)
         
-        userInfo.addProfilPicture(image)
+        userInfo.addProfilPicture(data.image)
         
         XCTAssert(userInfo.profilPicture != nil)
     }
@@ -101,15 +102,15 @@ class UserInfoTest: XCTestCase {
         
     func testUserInfoIsEmpty_RecoverAllTheInfoToTheDDBWithError_UserInfoIsEmpty(){
             
-        var userInfoExport = exportUserDataBase
+        var userInfoExport = data.exportUserDataBase
         userInfoExport.removeAll()
         XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
             
-        userInfoExport = exportUserDataBase
+        userInfoExport = data.exportUserDataBase
         userInfoExport.removeValue(forKey: "Instrument")
         XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
             
-        userInfoExport = exportUserDataBase
+        userInfoExport = data.exportUserDataBase
         userInfoExport.removeValue(forKey: "Style")
         XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
     }
@@ -125,20 +126,20 @@ class UserInfoTest: XCTestCase {
     func testurlStringIsEmpty_AddURLString_URLStringIsNotEmpty(){
         XCTAssert(userInfo.stringUrl == "")
         
-        if userInfo.addAllInfo(exportUserDataBase){
+        if userInfo.addAllInfo(data.exportUserDataBase){
             userInfo.addUrlString(userInfo.publicInfoUser["YoutubeUrl"] as! String)
             XCTAssert(userInfo.stringUrl == "6U2SuAGRj4s")
         }
     }
     
     func testUserInfoIsNotEmpty_CheckIfItsABandOrMusician_HaveAReturn(){
-        if userInfo.addAllInfo(exportUserDataBase){
+        if userInfo.addAllInfo(data.exportUserDataBase){
             XCTAssert(userInfo.checkIfItsBandOrMusician() == "Band")
         }
     }
     
     func testUserInfoIsNotEmpty_ResetAll_UserInfoIsEmpty(){
-        if userInfo.addAllInfo(exportUserDataBase){
+        if userInfo.addAllInfo(data.exportUserDataBase){
             userInfo.resetSingleton()
         }
         

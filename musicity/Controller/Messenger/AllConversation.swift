@@ -9,9 +9,10 @@ import UIKit
 
 class AllConversation: UIViewController {
     
-    var firebaseManager = FirebaseManager()
+    private let firebaseManager = FirebaseManager()
+    private let alerte = AlerteManager()
+    private let ref = FirebaseReference.ref
     var arrayUserMessenger = [ResultInfo]()
-    var alerte = AlerteManager()
     var row = 0
 
 
@@ -40,7 +41,7 @@ class AllConversation: UIViewController {
     private func checkMessengerUserId(){
         for i in 0...UserInfo.shared.activeMessengerUserIdFirebase.count-1{
             let currentUser = ResultInfo()
-            firebaseManager.getAllTheInfoToFirebase(UserInfo.shared.activeMessengerUserIdFirebase[i]) { result in
+            firebaseManager.getAllTheInfoToFirebase(ref, UserInfo.shared.activeMessengerUserIdFirebase[i]) { result in
                 switch result{
                 case .success(let user):
                     //we get a userId and the user information in an array for our table View

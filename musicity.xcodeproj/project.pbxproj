@@ -50,6 +50,7 @@
 		D393538327623CB8000A57B3 /* CustomCreateSecondUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D393538227623CB8000A57B3 /* CustomCreateSecondUIView.swift */; };
 		D3A86925274F9FE400D2BCC8 /* MusicStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */; };
 		D3ACE20C27A7FEDC00896354 /* ResultInfoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACE20B27A7FEDC00896354 /* ResultInfoTest.swift */; };
+		D3ACE21327AA967700896354 /* FirebaseManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACE21227AA967700896354 /* FirebaseManagerTest.swift */; };
 		D3B14CF2275A4B5800BA5876 /* ResultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */; };
 		D3B14CF4275A596300BA5876 /* TileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF3275A596300BA5876 /* TileCollectionViewCell.swift */; };
 		D3C58D45279493E0001073AD /* InputBarAccessoryView in Frameworks */ = {isa = PBXBuildFile; productRef = D3C58D44279493E0001073AD /* InputBarAccessoryView */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -113,6 +114,7 @@
 		D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicStyle.swift; sourceTree = "<group>"; };
 		D3A86926274FA99C00D2BCC8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D3ACE20B27A7FEDC00896354 /* ResultInfoTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultInfoTest.swift; sourceTree = "<group>"; };
+		D3ACE21227AA967700896354 /* FirebaseManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManagerTest.swift; sourceTree = "<group>"; };
 		D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultInfo.swift; sourceTree = "<group>"; };
 		D3B14CF3275A596300BA5876 /* TileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConnextionView.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				D32952E127A30B29009C34CB /* UserInfoTest.swift */,
 				D36A4AC627A727EC0089BF0C /* ExportUserDataBase.swift */,
 				D3ACE20B27A7FEDC00896354 /* ResultInfoTest.swift */,
+				D3ACE21227AA967700896354 /* FirebaseManagerTest.swift */,
 			);
 			path = musicityUnitTests;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3ACE21327AA967700896354 /* FirebaseManagerTest.swift in Sources */,
 				D3ACE20C27A7FEDC00896354 /* ResultInfoTest.swift in Sources */,
 				D32952E227A30B29009C34CB /* UserInfoTest.swift in Sources */,
 				D36A4AC727A727EC0089BF0C /* ExportUserDataBase.swift in Sources */,

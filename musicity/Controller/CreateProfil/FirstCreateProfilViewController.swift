@@ -11,10 +11,11 @@ class FirstCreateProfilViewController: UIViewController {
 
     @IBOutlet weak var collectionStyle: UICollectionView!
 
-    var isSelectArray = Array(repeating: false,  count: musicStyle.count)
-    var alerte = AlerteManager()
-    var dictStyle = [Int : String]()
-    var fireBaseManager = FirebaseManager()
+    private var isSelectArray = Array(repeating: false,  count: musicStyle.count)
+    private var dictStyle = [Int : String]()
+    private let fireBaseManager = FirebaseManager()
+    private let alerte = AlerteManager()
+    private let ref = FirebaseReference.ref
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class FirstCreateProfilViewController: UIViewController {
             return
         }
         
-        fireBaseManager.setDictionnaryUserInfo(UserInfo.shared.userID, UserInfo.shared.style, .Style) { result in
+        fireBaseManager.setDictionnaryUserInfo(ref, UserInfo.shared.userID, UserInfo.shared.style, .Style) { result in
             switch result{
             case .success(_):
                 self.performSegue(withIdentifier: "goToChoiceInstruSegue", sender: self)

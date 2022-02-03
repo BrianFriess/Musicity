@@ -10,9 +10,10 @@ import Firebase
 
 class LogInViewController: UIViewController {
 
-    var alerte = AlerteManager()
-    var firebaseManager = FirebaseManager()
-    let geolocalisationManager = GeolocalisationManager()
+    private let alerte = AlerteManager()
+    private let firebaseManager = FirebaseManager()
+    private let geolocalisationManager = GeolocalisationManager()
+    private let ref = FirebaseReference.ref
     
     //MARK: Outlet
     @IBOutlet var customView: CustomConnextionView!
@@ -59,7 +60,7 @@ class LogInViewController: UIViewController {
                     case .success(let userId):
                         UserInfo.shared.addUserId(userId)
                         //we read all the information in the DDB
-                        self.firebaseManager.getAllTheInfoToFirebase(userId) { result in
+                        self.firebaseManager.getAllTheInfoToFirebase(self.ref, userId) { result in
                             switch result{
                             case .success(let allInfo):
                                 //if we have all the information, we get the information in the singleton

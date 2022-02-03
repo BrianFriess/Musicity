@@ -5,12 +5,11 @@
 //  Created by Brian Friess on 05/01/2022.
 //
 
-import UIKit
 
 import UIKit
 import IQKeyboardManagerSwift
 import InputBarAccessoryView
-import nanopb
+//import nanopb
 
 //TableView qui se leve trop uniquement la premiere fois
 
@@ -18,16 +17,15 @@ import nanopb
 class TchatViewController: UIViewController {
 
 
-   // @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var tableView: UITableView!
-   // @IBOutlet weak var sentButton: UIButton!
     
     private let keyboardManager = KeyboardManager()
     private let inputBar = InputBarAccessoryView()
-    var firebaseManager = FirebaseManager()
+    private let firebaseManager = FirebaseManager()
     var currentUser = ResultInfo()
-    var messages = [[String:Any]]()
-    var alerte = AlerteManager()
+    private var messages = [[String:Any]]()
+    private let alerte = AlerteManager()
+    private let ref = FirebaseReference.ref
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +63,7 @@ class TchatViewController: UIViewController {
     
 
     private func getMessages(){
-        firebaseManager.readInMessengerDataBase(UserInfo.shared.userID, currentUser.userID) { result in
+        firebaseManager.readInMessengerDataBase(FirebaseReference.ref, UserInfo.shared.userID, currentUser.userID) { result in
             switch result{
             case .success(let messages):
                 self.messages.append(messages)
@@ -138,7 +136,7 @@ class TchatViewController: UIViewController {
         let newMessage: [String:Any] = ["name": userName,
                                         "message": message]
         //we send the new message in our DDB
-        firebaseManager.setNewMessage(UserInfo.shared.userID, currentUser.userID, newMessage) { [weak self] result in
+        firebaseManager.setNewMessage(ref, UserInfo.shared.userID, currentUser.userID, newMessage) { [weak self] result in
             switch result{
             case .success(_):
                 self?.inputBar.inputTextView.text = ""
@@ -160,7 +158,7 @@ class TchatViewController: UIViewController {
             //we set our value in a dictionnary for set the DDB
             UserInfo.shared.activeMessengerUserId[String(countUserIdMessenger)] =  self.currentUser.userID
             //we add the new id in our DDB
-            firebaseManager.setTheUserIdMessengerInDdb(UserInfo.shared.userID, UserInfo.shared.activeMessengerUserId) { result in
+            firebaseManager.setTheUserIdMessengerInDdb(ref, UserInfo.shared.userID, UserInfo.shared.activeMessengerUserId) { result in
                 switch result{
                 case .success(_):
                     //we recover the new id in our Array in local
@@ -174,7 +172,7 @@ class TchatViewController: UIViewController {
     
     
     private func getTheUserIdFromDatabase() {
-        self.firebaseManager.getTheUserIdMessengerToDdb(UserInfo.shared.userID) { result in
+        self.firebaseManager.getTheUserIdMessengerToDdb(ref, UserInfo.shared.userID) { result in
             switch result{
             case .success(let userIdArray):
                 self.addNewUserInTheOtherUserListMessenger()
@@ -191,7 +189,7 @@ class TchatViewController: UIViewController {
     //if we add the userId in the lise of messenger active in the UserInfo, we need to do the same thing in the currentUserResult
     private func addNewUserInTheOtherUserListMessenger(){
         //we get all the user in the messenger Id
-        firebaseManager.getTheUserIdMessengerToDdb(currentUser.userID) { result in
+        firebaseManager.getTheUserIdMessengerToDdb(ref, currentUser.userID) { result in
             switch result{
             case .success(let arrayUser):
                 print(arrayUser)
@@ -201,7 +199,7 @@ class TchatViewController: UIViewController {
                 //we send the array for transform this in  dictionnary for firebase
                 self.currentUser.addAllUserMessenger(arrayUserAndCurrentUserInfo)
                 //we set the new dictionnaty in firebase
-                self.firebaseManager.setTheUserIdMessengerInDdb(self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
+                self.firebaseManager.setTheUserIdMessengerInDdb(self.ref, self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
             switch result{
                 case .success(_):
                 break 
@@ -214,7 +212,7 @@ class TchatViewController: UIViewController {
             case .failure(_):
                 self.currentUser.addAllUserMessenger([UserInfo.shared.userID])
                 //we set the dictionnary in our database
-                self.firebaseManager.setTheUserIdMessengerInDdb(self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
+                self.firebaseManager.setTheUserIdMessengerInDdb(self.ref, self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
                     switch result{
                         case .success(_):
                         break
@@ -240,6 +238,8 @@ class TchatViewController: UIViewController {
     }*/
     
 }
+
+
 
 
 extension TchatViewController :  UITableViewDataSource, UITableViewDelegate{
@@ -289,17 +289,3 @@ extension TchatViewController: InputBarAccessoryViewDelegate {
     }
 }
 
-
-// extension for pagination for close the keyboard
-/*extension TchatViewController :  UIScrollViewDelegate{
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-        if position < (tableView.contentSize.height-800-scrollView.frame.size.height) {
-
-           // inputBar.inputTextView.resignFirstResponder()
-
-        }
-    }
-    
-}*/

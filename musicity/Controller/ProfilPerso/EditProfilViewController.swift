@@ -13,11 +13,12 @@ class EditProfilViewController: UIViewController {
     @IBOutlet var editUserView: EditProfilCustomView!
     @IBOutlet weak var bioLabel: UITextView!
     @IBOutlet weak var youtubeTextField: UITextField!
-    var youtubeManager = YoutubeManager()
-    
 
-    var alerte = AlerteManager()
-    var fireBaseManager = FirebaseManager()
+    
+    private var youtubeManager = YoutubeManager()
+    private var alerte = AlerteManager()
+    private var fireBaseManager = FirebaseManager()
+    private var ref = FirebaseReference.ref
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +47,7 @@ class EditProfilViewController: UIViewController {
     
     //we check if bio is empty when we push save, if yes, we give the value in our dataBase
     func checkIfBioIsEmptyOrNotWhenWePushSave(){
-        fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, editUserView.bioLabelText.text, .publicInfoUser, .Bio) { result in
+        fireBaseManager.setAndGetSingleUserInfo(ref, UserInfo.shared.userID, editUserView.bioLabelText.text, .publicInfoUser, .Bio) { result in
             switch result{
             case .success(let bio):
                 UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath]  = bio
@@ -64,7 +65,7 @@ class EditProfilViewController: UIViewController {
                 switch result{
                 case .success(let url):
                         //if yes, we get the youtube URL in our Database
-                    self.fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, url, .publicInfoUser, .YoutubeUrl) { result in
+                    self.fireBaseManager.setAndGetSingleUserInfo(self.ref, UserInfo.shared.userID, url, .publicInfoUser, .YoutubeUrl) { result in
                         switch result{
                         case .success(let urlSuffix):
                             UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] = urlSuffix

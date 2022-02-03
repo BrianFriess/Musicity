@@ -23,13 +23,15 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
     private let geolocalisationManager = GeolocalisationManager()
     private let firebaseManager = FirebaseManager()
+    private let ref = FirebaseReference.ref
+    private let alerte = AlerteManager()
     private var latitude = 0.0
     private var longitude = 0.0
-    private let alerte = AlerteManager()
     private var arrayUser = [ResultInfo]()
     private var currentUser = ResultInfo()
     private var checkFilterDistance = 0.0
     private var checkFilterSearch = ""
+
     
     
 
@@ -75,7 +77,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
             case .success(let userId):
                 UserInfo.shared.addUserId(userId)
                 //we read all the information in the DDB
-                self.firebaseManager.getAllTheInfoToFirebase(userId) { result in
+                self.firebaseManager.getAllTheInfoToFirebase(self.ref, userId) { result in
                     switch result{
                     case .success(let allInfo):
                         //if we have all the information, we get the information in the singleton
@@ -193,7 +195,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                 userResult.addUserId(resultArrayGeo["idResult"]!)
                 userResult.addDistance(resultArrayGeo["distance"]!)
                 //network call for check if the result is band or Musician
-                self.firebaseManager.getSingleInfoUserToFirebase(resultArrayGeo["idResult"]!, .publicInfoUser, .BandOrMusician) { result in
+                self.firebaseManager.getSingleInfoUserToFirebase(self.ref, resultArrayGeo["idResult"]!, .publicInfoUser, .BandOrMusician) { result in
                     switch result{
                     case .success(let checkBandOrMusician):
                         //we get the url image of the result
@@ -319,7 +321,7 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
         
         //we check if we already have the user's information in our array
         if arrayUser[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] == nil{
-            self.firebaseManager .getAllTheInfoToFirebase(arrayUser[indexPath.row].userID) { result in
+            self.firebaseManager .getAllTheInfoToFirebase(ref, arrayUser[indexPath.row].userID) { result in
                 switch result{
                 case .success(let allInfo):
                     self.arrayUser[indexPath.row].addAllInfo(allInfo)

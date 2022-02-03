@@ -9,7 +9,9 @@ import Foundation
 import UIKit
 
 
-let exportUserDataBase = [
+struct fakeDataUnitTest{
+
+    let exportUserDataBase = [
             "Instrument" :
                 [ "guitare acoustique", "chant", "guitare electrique", "basse", "batterie" ],
             "MessengerUserId" :
@@ -25,4 +27,7 @@ let exportUserDataBase = [
                 ]
             ] as [String : Any]
 
-let image = UIImage()
+    let image = UIImage()
+
+    let dictUserIdForTchat = ["0" :"GsI6eSkvjFT3gppDVNYanVLuwXr1"]
+}

@@ -829,7 +829,7 @@
                                 <action selector="disconnectButton:" destination="WH2-e7-KYs" id="vM2-aG-1F8"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="square.and.pencil" catalog="system" style="done" id="VBK-Ps-BgS">
+                        <barButtonItem key="rightBarButtonItem" image="line.3.horizontal.decrease.circle" catalog="system" style="done" id="VBK-Ps-BgS">
                             <color key="tintColor" red="0.2588235438" green="0.28627452250000002" blue="0.31764706970000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <segue destination="A9s-5j-Whe" kind="presentation" identifier="segueToFilter" modalPresentationStyle="fullScreen" id="5mo-xE-ogZ"/>
@@ -1563,7 +1563,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="UrS-QN-Zg9">
-                                <rect key="frame" x="67.666666666666686" y="202.66666666666663" width="293" height="128"/>
+                                <rect key="frame" x="67.666666666666686" y="201.66666666666663" width="293" height="128"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="a3z-Ub-vgk">
                                         <rect key="frame" x="0.0" y="0.0" width="293" height="44"/>
@@ -1616,7 +1616,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Musicity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Heb-CP-1ly">
-                                <rect key="frame" x="152.66666666666666" y="94" width="122.99999999999997" height="38.666666666666657"/>
+                                <rect key="frame" x="137.66666666666666" y="94" width="152.99999999999997" height="37.666666666666657"/>
                                 <color key="backgroundColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Archistico-Bold" family="Archistico" pointSize="33"/>
                                 <color key="textColor" red="0.098039209840000002" green="0.1294117719" blue="0.1686274707" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1818,10 +1818,10 @@
         <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="bubble.left" catalog="system" width="128" height="110"/>
         <image name="clear" catalog="system" width="128" height="114"/>
+        <image name="line.3.horizontal.decrease.circle" catalog="system" width="128" height="121"/>
         <image name="music.quarternote.3" catalog="system" width="128" height="103"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
