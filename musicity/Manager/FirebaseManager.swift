@@ -21,6 +21,7 @@ enum FirebaseError : Error{
 struct FirebaseReference{
     //reference for firebase
    static let storage = Storage.storage(url : "gs://musicity-ff6d8.appspot.com").reference()
+   static let storageSimulator = Storage.storage(url : "gs://default-bucket/").reference()
    static let ref = Database.database(url: "https://musicity-ff6d8-default-rtdb.europe-west1.firebasedatabase.app").reference()
     //use this for the unitTest
     static let refSimulator = Database.database(url: "http://localhost:9000/?ns=musicity-ff6d8").reference()
@@ -30,11 +31,12 @@ struct FirebaseReference{
 struct FirebaseManager{
     
     //reference for firebase
-    let storage = Storage.storage(url : "gs://musicity-ff6d8.appspot.com").reference()
-    
+    //let storage = Storage.storage(url : "gs://musicity-ff6d8.appspot.com").reference()
+//    let auth: Void = Auth.auth().useEmulator(withHost:"localhost", port:9099)
     
     //function for create new user
    func createNewUser(_ ref : DatabaseReference, _ email : String, _ password : String, _ userName : String,_ segmented : Int, completion : @escaping(Result<Void, FirebaseError>) -> Void) {
+       
         Auth.auth().createUser(withEmail: email, password: password){ authResult, error in
             if error != nil{
                 completion(.failure(.createUserError))
@@ -67,6 +69,7 @@ struct FirebaseManager{
     
     //this function is for check email and password for the connexion
     func connexionUser(_ email : String,_ password : String, completion : @escaping(Result<Void, FirebaseError>) -> Void) {
+        
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if error != nil{
                 completion(.failure(.connexionError))
@@ -145,7 +148,6 @@ struct FirebaseManager{
         ref.child("Messages").observeSingleEvent(of: .value, with: { (snapshot) in
              if snapshot.hasChild(userId+resultUserId){
                  completion(.success(userId+resultUserId))
-
              }else{
                  completion(.success(resultUserId+userId))
              }
@@ -217,7 +219,6 @@ struct FirebaseManager{
     func setSingleUserInfo(_ ref : DatabaseReference,_ userId : String,_ firstChild : DataBaseAccessPath, _ secondChild : DataBaseAccessPath, _ infoUser: String, completion : @escaping(Result<Void, FirebaseError>)-> Void){
         ref.child("users").child(userId).child("\(firstChild.returnAccessPath)").child(secondChild.returnAccessPath).setValue(infoUser)
         completion(.success(()))
-        
     }
     
     //get a single info to firebase
@@ -259,14 +260,14 @@ struct FirebaseManager{
     //MARK: configure image in fireBase
     
     // we set an image in firebase
-    func setImageInFirebaseAndGetUrl(_ userId : String, _ imageData : Data, completion : @escaping(Result<String, FirebaseError>) -> Void ){
+    func setImageInFirebaseAndGetUrl(_ storage : StorageReference, _ userId : String, _ imageData : Data, completion : @escaping(Result<String, FirebaseError>) -> Void ){
         storage.child(userId).child("ProfilImage/profilImage.png").putData(imageData, metadata: nil, completion: { _, error in
             guard error == nil else{
                 completion(.failure(.connexionError))
                 return
             }
             //we get the url of the image
-            getUrlImageToFirebase(userId) { result in
+            getUrlImageToFirebase(storage, userId) { result in
                 switch result{
                 case .success(let urlImage):
                     completion(.success(urlImage))
@@ -279,8 +280,8 @@ struct FirebaseManager{
 
     
     //we get the urlImage for profil Picture
-    func getUrlImageToFirebase(_ userId : String, completion : @escaping(Result<String, FirebaseError>) -> Void){
-        self.storage.child(userId).child("ProfilImage/profilImage.png").downloadURL { url, error in
+    func getUrlImageToFirebase(_ storage : StorageReference, _ userId : String, completion : @escaping(Result<String, FirebaseError>) -> Void){
+        storage.child(userId).child("ProfilImage/profilImage.png").downloadURL { url, error in
             guard let url = url, error == nil else{
                 completion(.failure(.connexionError))
                 return
@@ -293,7 +294,7 @@ struct FirebaseManager{
     
     
     // we get an image with an URL
-    func getImageToFirebase(_ urlString : String, completion : @escaping(Result<UIImage,FirebaseError>) -> Void){
+    func getImageToFirebase(_ storage : StorageReference, _ urlString : String, completion : @escaping(Result<UIImage,FirebaseError>) -> Void){
         guard let url = URL(string: urlString) else{
             return
         }

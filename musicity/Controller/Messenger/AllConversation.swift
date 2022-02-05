@@ -12,6 +12,8 @@ class AllConversation: UIViewController {
     private let firebaseManager = FirebaseManager()
     private let alerte = AlerteManager()
     private let ref = FirebaseReference.ref
+    private let storage = FirebaseReference.storage
+    
     var arrayUserMessenger = [ResultInfo]()
     var row = 0
 
@@ -105,11 +107,11 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
 
         
         if self.arrayUserMessenger[indexPath.row].profilPicture == nil {
-        self.firebaseManager.getUrlImageToFirebase(arrayUserMessenger[indexPath.row].userID) { resultUrl in
+        self.firebaseManager.getUrlImageToFirebase(storage, arrayUserMessenger[indexPath.row].userID) { resultUrl in
             switch resultUrl{
             case .success(let url):
                 self.arrayUserMessenger[indexPath.row].addUrlString(url)
-                    self.firebaseManager.getImageToFirebase(self.arrayUserMessenger[indexPath.row].stringUrl) { result in
+                self.firebaseManager.getImageToFirebase(self.storage, self.arrayUserMessenger[indexPath.row].stringUrl) { result in
                         switch result{
                         case .success(let image):
                             self.arrayUserMessenger[indexPath.row].addProfilPicture(image)

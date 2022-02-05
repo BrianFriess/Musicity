@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GameKit
 
 enum YoutubeError : Error{
     case errorLink
@@ -13,25 +14,26 @@ enum YoutubeError : Error{
 
 class YoutubeManager{
     
+    private var session : URLSession
+    
+    init (session : URLSession){
+        self.session = session
+    }
+    
     func checkYoutubeLink(_ url :String, completion : @escaping(Result<String, YoutubeError>) -> Void){
         
         let youtubeSuffix = url.suffix(11)
         let youtubePrefixNavigator = "https://www.youtube.com/watch?v="
-       // let youtubePrefixMobile = "https://youtu.be/"
-        
+
+        // we check if it's a right youtube URL
         guard url.count == 43 || url.count == 28 else {
             completion(.failure(.errorLink))
             return
         }
         
-        guard let youtubeUrl = URL(string: youtubePrefixNavigator + youtubeSuffix) else {
-            completion(.failure(.errorLink))
-            return
-        }
+        let youtubeUrl = URL(string: youtubePrefixNavigator + youtubeSuffix)
         
-        let session = URLSession(configuration: .default)
-        
-        let task = session.dataTask(with : youtubeUrl) { (data, response, error) in
+        let task = self.session.dataTask(with : youtubeUrl!) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let response = response  as? HTTPURLResponse, response.statusCode == 200, error == nil else{
                     completion(.failure(.errorLink))

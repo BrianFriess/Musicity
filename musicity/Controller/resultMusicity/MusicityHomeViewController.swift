@@ -25,6 +25,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     private let firebaseManager = FirebaseManager()
     private let ref = FirebaseReference.ref
     private let alerte = AlerteManager()
+    private let storage = FirebaseReference.storage
     private var latitude = 0.0
     private var longitude = 0.0
     private var arrayUser = [ResultInfo]()
@@ -84,7 +85,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                         let allInfoIsGet = UserInfo.shared.addAllInfo(allInfo)
                         if allInfoIsGet {
                             //get the url profil picture
-                            self.firebaseManager.getUrlImageToFirebase(userId) { resultImage in
+                            self.firebaseManager.getUrlImageToFirebase(self.storage, userId) { resultImage in
                                 switch resultImage{
                                 case .success(let imageUrl):
                                     //get the profil Picture url in the singleton and go to the next page
@@ -199,7 +200,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                     switch result{
                     case .success(let checkBandOrMusician):
                         //we get the url image of the result
-                        self.firebaseManager.getUrlImageToFirebase(resultArrayGeo["idResult"]!) { resultUrl in
+                        self.firebaseManager.getUrlImageToFirebase(self.storage, resultArrayGeo["idResult"]!) { resultUrl in
                             switch resultUrl{
                             case .success(let url):
                                 userResult.addUrlString(url)
@@ -326,7 +327,7 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
                 case .success(let allInfo):
                     self.arrayUser[indexPath.row].addAllInfo(allInfo)
                     if self.arrayUser[indexPath.row].profilPicture == nil{
-                        self.firebaseManager.getImageToFirebase(self.arrayUser[indexPath.row].stringUrl) { result in
+                        self.firebaseManager.getImageToFirebase(self.storage, self.arrayUser[indexPath.row].stringUrl) { result in
                             switch result{
                             case .success(let image):
                                 self.arrayUser[indexPath.row].addProfilPicture(image)

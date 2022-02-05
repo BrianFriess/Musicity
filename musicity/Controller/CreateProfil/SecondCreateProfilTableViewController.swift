@@ -20,6 +20,7 @@ class SecondCreateProfilTableViewController: UIViewController {
     private let alerte = AlerteManager()
     private let fireBaseManager = FirebaseManager()
     private let ref = FirebaseReference.ref
+    private let storage = FirebaseReference.storage
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,7 +147,7 @@ extension SecondCreateProfilTableViewController : UIImagePickerControllerDelegat
         }
         
         //we set the profilPicture in firebase and we get the url in our Segue
-        fireBaseManager.setImageInFirebaseAndGetUrl(UserInfo.shared.userID, imageData) { result in
+        fireBaseManager.setImageInFirebaseAndGetUrl(storage, UserInfo.shared.userID, imageData) { result in
             switch result{
             case .success(let urlImage):
                 UserInfo.shared.addUrlString(urlImage)

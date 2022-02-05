@@ -29,5 +29,8 @@ struct fakeDataUnitTest{
 
     let image = UIImage()
 
+
     let dictUserIdForTchat = ["0" :"GsI6eSkvjFT3gppDVNYanVLuwXr1"]
+    
+    let dictInstrument = [ "0":"guitare acoustique", "1":"chant", "2":"guitare electrique", "3":"basse", "4":"batterie" ]
 }

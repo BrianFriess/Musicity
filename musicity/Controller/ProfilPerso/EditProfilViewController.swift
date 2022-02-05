@@ -15,10 +15,11 @@ class EditProfilViewController: UIViewController {
     @IBOutlet weak var youtubeTextField: UITextField!
 
     
-    private var youtubeManager = YoutubeManager()
-    private var alerte = AlerteManager()
-    private var fireBaseManager = FirebaseManager()
-    private var ref = FirebaseReference.ref
+    private let youtubeManager = YoutubeManager(session: URLSession(configuration: .default))
+    private let alerte = AlerteManager()
+    private let fireBaseManager = FirebaseManager()
+    private let ref = FirebaseReference.ref
+    private let storage = FirebaseReference.storage
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,11 +157,11 @@ extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigati
         }
         
         //we set the profilPicture in firebase and we get the url in our Segue
-        fireBaseManager.setImageInFirebaseAndGetUrl(UserInfo.shared.userID, imageData) { result in
+        fireBaseManager.setImageInFirebaseAndGetUrl(storage,UserInfo.shared.userID, imageData) { result in
             switch result{
             case .success(let urlImage):
                 UserInfo.shared.addUrlString(urlImage)
-                self.fireBaseManager.getImageToFirebase(urlImage) { imageResult in
+                self.fireBaseManager.getImageToFirebase(self.storage, urlImage) { imageResult in
                     switch imageResult{
                     case .success(let profilPicture):
                         self.editUserView.profilPicture.setImage(profilPicture, for: .normal)

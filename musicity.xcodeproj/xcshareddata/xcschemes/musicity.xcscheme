@@ -43,31 +43,16 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D37D920A2747B72100D59BC5"
-               BuildableName = "musicityTests.xctest"
-               BlueprintName = "musicityTests"
-               ReferencedContainer = "container:musicity.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D37D92142747B72100D59BC5"
-               BuildableName = "musicityUITests.xctest"
-               BlueprintName = "musicityUITests"
-               ReferencedContainer = "container:musicity.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "D32952D727A30A6B009C34CB"
                BuildableName = "musicityUnitTests.xctest"
                BlueprintName = "musicityUnitTests"
                ReferencedContainer = "container:musicity.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "FirebaseManagerTest">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

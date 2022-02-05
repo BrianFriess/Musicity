@@ -15,9 +15,10 @@ class ProfilUserViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UILabel!
     @IBOutlet weak var youtubePlayer: WKYTPlayerView!
     @IBOutlet weak var nbMember: UILabel!
-    var firebaseManager = FirebaseManager()
     @IBOutlet weak var bioLabel: UILabel!
     
+    private let firebaseManager = FirebaseManager()
+    private let storage = FirebaseReference.storage
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +55,7 @@ class ProfilUserViewController: UIViewController {
     // network call for display the profil picture 
     func configureProfilPicture(){
         profilUserView.loadSpinner(.isInLoading)
-            firebaseManager.getImageToFirebase(UserInfo.shared.stringUrl) { result in
+            firebaseManager.getImageToFirebase(storage, UserInfo.shared.stringUrl) { result in
                 switch result{
                 case .success(let profilPictureResult):
                     UserInfo.shared.addProfilPicture(profilPictureResult)

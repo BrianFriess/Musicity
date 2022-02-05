@@ -21,11 +21,6 @@ struct AlerteManager{
         case FalseEmail
         case ErrorConnexion
         case emptyPassword
-        case emptyFirstname
-        case emptyLastename
-        case emptyAge
-        case emptyCity
-        case emptyCountry
         case emptyNbInstrument
         case emptyNbMembre
         case errorGetInfo
@@ -60,16 +55,6 @@ struct AlerteManager{
                 return "Problème de connexion"
             case .emptyPassword:
                 return "Problème de connexion"
-            case .emptyFirstname:
-                return "Champs vide"
-            case .emptyLastename:
-                return "Champs vide"
-            case .emptyAge:
-                return "Champs vide"
-            case .emptyCity:
-                return "Champs vide"
-            case .emptyCountry:
-                return "Champs vide"
             case .emptyNbInstrument:
                 return "Champs vide"
             case .emptyNbMembre:
@@ -121,16 +106,6 @@ struct AlerteManager{
                 return "E-mail ou mot de passe eroné"
             case .emptyPassword:
                 return "Le champs mot de passe est vide"
-            case .emptyFirstname:
-                return "Le champs prenom est vide"
-            case .emptyLastename:
-                return "Le champs nom de famille est vide"
-            case .emptyAge:
-                return "Le champs age est vide"
-            case .emptyCity:
-                return "Le champs ville est vide"
-            case .emptyCountry:
-                return "Le champs pays est vide"
             case .emptyNbInstrument:
                 return "Il manque le nombre d'instrument"
             case .errorGetInfo:

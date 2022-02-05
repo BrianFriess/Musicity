@@ -49,9 +49,9 @@ class TchatViewController: UIViewController {
     }
     
     @objc private func keyboardWillShow(notification: NSNotification) {
-     //   let keyboardSiz = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSValue)?.cgRectValue
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue, tableView.contentInset == .zero {
-            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 70 , right: 0)
+        
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue, tableView.contentInset == .zero {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height , right: 0)
         }
         scrollAtTheEndOfTableView()
     }
