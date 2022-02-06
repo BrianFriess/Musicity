@@ -29,6 +29,12 @@ struct fakeDataUnitTest{
 
     let image = UIImage()
 
+    let email = "FakeEmail@mail.com"
+    let password = "password"
+    let username = "fakeUser"
+    let userId = "EE26Vbno8YglrpQ1PWCzdOTqtpN2"
+    let otherUserId = "d8Imq5hvdaX1cUjKOeSZPwfrN4i2"
+    let fakeId = "Fake"
 
     let dictUserIdForTchat = ["0" :"GsI6eSkvjFT3gppDVNYanVLuwXr1"]
     
