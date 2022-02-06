@@ -7,6 +7,8 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
+import FirebaseStorage
 import IQKeyboardManagerSwift
 import InputBarAccessoryView
 
@@ -14,20 +16,51 @@ import InputBarAccessoryView
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var ref : DatabaseReference?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        configureIqKeyboard()
+        FirebaseApp.configure()
+        configureFirbaseEmulators()
+        return true
+    }
+    
+    
+    
+    func configureFirbaseEmulators(){
+        #if EMULATORS
+        print(
+        """
+        ****************************
+        Emulator
+        ****************************
+        """
+        )
+        Storage.storage().useEmulator(withHost:"localhost", port:9199)
+        Auth.auth().useEmulator(withHost:"localhost", port:9099)
+        ref = Database.database(url:"http://localhost:9000?ns=musicity-ff6d8").reference()
+        
+        #elseif DEBUG
+        print(
+        """
+        ****************************
+        DEBUG
+        ****************************
+        """)
+        ref = Database.database(url: "https://musicity-ff6d8-default-rtdb.europe-west1.firebasedatabase.app").reference()
+        #endif
+    }
+    
+    
+    
+    private func configureIqKeyboard(){
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = true
         IQKeyboardManager.shared.toolbarTintColor = .label
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 60
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-        
-        
-        FirebaseApp.configure()
-
-        return true
     }
 
     // MARK: UISceneSession Lifecycle
@@ -43,7 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
 
     // set orientations you want to be allowed in this property by default
     var orientationLock = UIInterfaceOrientationMask.all

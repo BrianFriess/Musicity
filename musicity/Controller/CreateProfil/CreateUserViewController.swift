@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import Firebase
+
 
 class CreateUserViewController: UIViewController {
     
     private let alerte = AlerteManager()
     private let firebaseManager = FirebaseManager()
-    private let ref = FirebaseReference.ref
+
 
     
     //MARK: Outlet
@@ -51,7 +51,7 @@ class CreateUserViewController: UIViewController {
         }
         
         //create a new user
-        firebaseManager.createNewUser(ref, emailUser, passwordUser, username, SegmentedControl.selectedSegmentIndex) { result in
+        firebaseManager.createNewUser(emailUser, passwordUser, username, SegmentedControl.selectedSegmentIndex) { result in
                 switch result{
                 case .success(_):
                     //we recover the userID in the singleton
@@ -60,7 +60,7 @@ class CreateUserViewController: UIViewController {
                         case .success(let userId):
                             UserInfo.shared.addUserId(userId)
                             //we recover the public Info in the singleton
-                            self.firebaseManager.getDictionnaryInfoUserToFirebase( self.ref, UserInfo.shared.userID, .publicInfoUser) { result in
+                            self.firebaseManager.getDictionnaryInfoUserToFirebase(UserInfo.shared.userID, .publicInfoUser) { result in
                                  switch result{
                                  case .success(let infoUser):
                                      UserInfo.shared.addPublicInfo(infoUser)

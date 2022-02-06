@@ -25,7 +25,6 @@ class TchatViewController: UIViewController {
     var currentUser = ResultInfo()
     private var messages = [[String:Any]]()
     private let alerte = AlerteManager()
-    private let ref = FirebaseReference.ref
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +62,7 @@ class TchatViewController: UIViewController {
     
 
     private func getMessages(){
-        firebaseManager.readInMessengerDataBase(FirebaseReference.ref, UserInfo.shared.userID, currentUser.userID) { result in
+        firebaseManager.readInMessengerDataBase(UserInfo.shared.userID, currentUser.userID) { result in
             switch result{
             case .success(let messages):
                 self.messages.append(messages)
@@ -136,7 +135,7 @@ class TchatViewController: UIViewController {
         let newMessage: [String:Any] = ["name": userName,
                                         "message": message]
         //we send the new message in our DDB
-        firebaseManager.setNewMessage(ref, UserInfo.shared.userID, currentUser.userID, newMessage) { [weak self] result in
+        firebaseManager.setNewMessage(UserInfo.shared.userID, currentUser.userID, newMessage) { [weak self] result in
             switch result{
             case .success(_):
                 self?.inputBar.inputTextView.text = ""
@@ -158,7 +157,7 @@ class TchatViewController: UIViewController {
             //we set our value in a dictionnary for set the DDB
             UserInfo.shared.activeMessengerUserId[String(countUserIdMessenger)] =  self.currentUser.userID
             //we add the new id in our DDB
-            firebaseManager.setTheUserIdMessengerInDdb(ref, UserInfo.shared.userID, UserInfo.shared.activeMessengerUserId) { result in
+            firebaseManager.setTheUserIdMessengerInDdb(UserInfo.shared.userID, UserInfo.shared.activeMessengerUserId) { result in
                 switch result{
                 case .success(_):
                     //we recover the new id in our Array in local
@@ -172,7 +171,7 @@ class TchatViewController: UIViewController {
     
     
     private func getTheUserIdFromDatabase() {
-        self.firebaseManager.getTheUserIdMessengerToDdb(ref, UserInfo.shared.userID) { result in
+        self.firebaseManager.getTheUserIdMessengerToDdb(UserInfo.shared.userID) { result in
             switch result{
             case .success(let userIdArray):
                 self.addNewUserInTheOtherUserListMessenger()
@@ -189,7 +188,7 @@ class TchatViewController: UIViewController {
     //if we add the userId in the lise of messenger active in the UserInfo, we need to do the same thing in the currentUserResult
     private func addNewUserInTheOtherUserListMessenger(){
         //we get all the user in the messenger Id
-        firebaseManager.getTheUserIdMessengerToDdb(ref, currentUser.userID) { result in
+        firebaseManager.getTheUserIdMessengerToDdb(currentUser.userID) { result in
             switch result{
             case .success(let arrayUser):
                 print(arrayUser)
@@ -199,7 +198,7 @@ class TchatViewController: UIViewController {
                 //we send the array for transform this in  dictionnary for firebase
                 self.currentUser.addAllUserMessenger(arrayUserAndCurrentUserInfo)
                 //we set the new dictionnaty in firebase
-                self.firebaseManager.setTheUserIdMessengerInDdb(self.ref, self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
+                self.firebaseManager.setTheUserIdMessengerInDdb(self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
             switch result{
                 case .success(_):
                 break 
@@ -212,7 +211,7 @@ class TchatViewController: UIViewController {
             case .failure(_):
                 self.currentUser.addAllUserMessenger([UserInfo.shared.userID])
                 //we set the dictionnary in our database
-                self.firebaseManager.setTheUserIdMessengerInDdb(self.ref, self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
+                self.firebaseManager.setTheUserIdMessengerInDdb(self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
                     switch result{
                         case .success(_):
                         break
@@ -225,17 +224,6 @@ class TchatViewController: UIViewController {
         }
     }
     
-/*    func addNotificationInTheOtherUserDdb(_ otherUserId : String){
-        let notification = [UserInfo.shared.userID : true]
-        firebaseManager.setTheNotificationInDdb(otherUserId, notification) { result in
-            switch result{
-            case .success(_):
-                print("ok")
-            case .failure(_):
-                print("nok")
-            }
-        }
-    }*/
     
 }
 

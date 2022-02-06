@@ -13,9 +13,9 @@ class FirstCreateProfilViewController: UIViewController {
 
     private var isSelectArray = Array(repeating: false,  count: musicStyle.count)
     private var dictStyle = [Int : String]()
+    
     private let fireBaseManager = FirebaseManager()
     private let alerte = AlerteManager()
-    private let ref = FirebaseReference.ref
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class FirstCreateProfilViewController: UIViewController {
             return
         }
         
-        fireBaseManager.setDictionnaryUserInfo(ref, UserInfo.shared.userID, UserInfo.shared.style, .Style) { result in
+        fireBaseManager.setDictionnaryUserInfo(UserInfo.shared.userID, UserInfo.shared.style, .Style) { result in
             switch result{
             case .success(_):
                 self.performSegue(withIdentifier: "goToChoiceInstruSegue", sender: self)

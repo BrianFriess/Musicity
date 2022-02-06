@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import GameKit
+//import GameKit
 
 enum YoutubeError : Error{
     case errorLink

@@ -17,7 +17,6 @@ class ResultUserProfilViewController: UIViewController {
     private let firebaseManager = FirebaseManager()
     private let alerteManager = AlerteManager()
     var currentUser = ResultInfo()
-    private let storage = FirebaseReference.storage
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +59,7 @@ class ResultUserProfilViewController: UIViewController {
     func checkIfProfilPictureIsAlreadyLoad(){
         if currentUser.profilPicture == nil{
             customeResultProfilPageView.loadSpinner(.isInLoading)
-            firebaseManager.getImageToFirebase(storage, currentUser.stringUrl) { result in
+            firebaseManager.getImageToFirebase( currentUser.stringUrl) { result in
                 switch result{
                 case .success(let image):
                     self.customeResultProfilPageView.loadSpinner(.isLoad)

@@ -11,8 +11,6 @@ class AllConversation: UIViewController {
     
     private let firebaseManager = FirebaseManager()
     private let alerte = AlerteManager()
-    private let ref = FirebaseReference.ref
-    private let storage = FirebaseReference.storage
     
     var arrayUserMessenger = [ResultInfo]()
     var row = 0
@@ -43,7 +41,7 @@ class AllConversation: UIViewController {
     private func checkMessengerUserId(){
         for i in 0...UserInfo.shared.activeMessengerUserIdFirebase.count-1{
             let currentUser = ResultInfo()
-            firebaseManager.getAllTheInfoToFirebase(ref, UserInfo.shared.activeMessengerUserIdFirebase[i]) { result in
+            firebaseManager.getAllTheInfoToFirebase(UserInfo.shared.activeMessengerUserIdFirebase[i]) { result in
                 switch result{
                 case .success(let user):
                     //we get a userId and the user information in an array for our table View
@@ -107,26 +105,24 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
 
         
         if self.arrayUserMessenger[indexPath.row].profilPicture == nil {
-        self.firebaseManager.getUrlImageToFirebase(storage, arrayUserMessenger[indexPath.row].userID) { resultUrl in
-            switch resultUrl{
-            case .success(let url):
-                self.arrayUserMessenger[indexPath.row].addUrlString(url)
-                self.firebaseManager.getImageToFirebase(self.storage, self.arrayUserMessenger[indexPath.row].stringUrl) { result in
-                        switch result{
-                        case .success(let image):
-                            self.arrayUserMessenger[indexPath.row].addProfilPicture(image)
-                            self.tableView.reloadRows(at: [indexPath], with: .fade)
-                        case .failure(_):
-                            self.alerte.alerteVc(.errorCheckAroundUs, self)
+            self.firebaseManager.getUrlImageToFirebase(arrayUserMessenger[indexPath.row].userID) { resultUrl in
+                switch resultUrl{
+                case .success(let url):
+                    self.arrayUserMessenger[indexPath.row].addUrlString(url)
+                    self.firebaseManager.getImageToFirebase(self.arrayUserMessenger[indexPath.row].stringUrl) { result in
+                            switch result{
+                            case .success(let image):
+                                self.arrayUserMessenger[indexPath.row].addProfilPicture(image)
+                                self.tableView.reloadRows(at: [indexPath], with: .fade)
+                            case .failure(_):
+                                self.alerte.alerteVc(.errorCheckAroundUs, self)
+                            }
                         }
-                    }
-            case .failure(_):
-                self.alerte.alerteVc(.errorCheckAroundUs, self)
+                case .failure(_):
+                    self.alerte.alerteVc(.errorCheckAroundUs, self)
+                }
             }
         }
-        }
-        
     }
-    
     
 }

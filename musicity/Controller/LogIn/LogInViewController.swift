@@ -6,15 +6,14 @@
 //
 
 import UIKit
-import Firebase
+
 
 class LogInViewController: UIViewController {
 
     private let alerte = AlerteManager()
     private let firebaseManager = FirebaseManager()
     private let geolocalisationManager = GeolocalisationManager()
-    private let ref = FirebaseReference.ref
-    private let storage = FirebaseReference.storage
+
     
     //MARK: Outlet
     @IBOutlet var customView: CustomConnextionView!
@@ -61,14 +60,14 @@ class LogInViewController: UIViewController {
                     case .success(let userId):
                         UserInfo.shared.addUserId(userId)
                         //we read all the information in the DDB
-                        self.firebaseManager.getAllTheInfoToFirebase(self.ref, userId) { result in
+                        self.firebaseManager.getAllTheInfoToFirebase(userId) { result in
                             switch result{
                             case .success(let allInfo):
                                 //if we have all the information, we get the information in the singleton
                                 let allInfoIsGet = UserInfo.shared.addAllInfo(allInfo)
                                 if allInfoIsGet {
                                     //get the url profil picture
-                                    self.firebaseManager.getUrlImageToFirebase(self.storage ,userId) { resultImage in
+                                    self.firebaseManager.getUrlImageToFirebase(userId) { resultImage in
                                         switch resultImage{
                                         case .success(let imageUrl):
                                             //get the profil Picture url in the singleton and go to the next page

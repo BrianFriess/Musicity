@@ -18,7 +18,6 @@ class ProfilUserViewController: UIViewController {
     @IBOutlet weak var bioLabel: UILabel!
     
     private let firebaseManager = FirebaseManager()
-    private let storage = FirebaseReference.storage
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +54,7 @@ class ProfilUserViewController: UIViewController {
     // network call for display the profil picture 
     func configureProfilPicture(){
         profilUserView.loadSpinner(.isInLoading)
-            firebaseManager.getImageToFirebase(storage, UserInfo.shared.stringUrl) { result in
+            firebaseManager.getImageToFirebase(UserInfo.shared.stringUrl) { result in
                 switch result{
                 case .success(let profilPictureResult):
                     UserInfo.shared.addProfilPicture(profilPictureResult)

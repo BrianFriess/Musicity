@@ -11,11 +11,10 @@ class WelcomeViewController: UIViewController {
     
     private let firebaseManager = FirebaseManager()
     private let alerte = AlerteManager()
-    private let ref = FirebaseReference.ref
     
     //we get all the info to firebase 
     @IBAction func letsgoButton(_ sender: Any) {
-        firebaseManager.getAllTheInfoToFirebase(ref, UserInfo.shared.userID) { result in
+        firebaseManager.getAllTheInfoToFirebase(UserInfo.shared.userID) { result in
             switch result{
             case .success(let allInfo):
                 guard UserInfo.shared.addAllInfo(allInfo) else {

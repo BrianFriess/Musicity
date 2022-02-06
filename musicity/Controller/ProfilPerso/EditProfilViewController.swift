@@ -18,8 +18,7 @@ class EditProfilViewController: UIViewController {
     private let youtubeManager = YoutubeManager(session: URLSession(configuration: .default))
     private let alerte = AlerteManager()
     private let fireBaseManager = FirebaseManager()
-    private let ref = FirebaseReference.ref
-    private let storage = FirebaseReference.storage
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +47,7 @@ class EditProfilViewController: UIViewController {
     
     //we check if bio is empty when we push save, if yes, we give the value in our dataBase
     func checkIfBioIsEmptyOrNotWhenWePushSave(){
-        fireBaseManager.setAndGetSingleUserInfo(ref, UserInfo.shared.userID, editUserView.bioLabelText.text, .publicInfoUser, .Bio) { result in
+        fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, editUserView.bioLabelText.text, .publicInfoUser, .Bio) { result in
             switch result{
             case .success(let bio):
                 UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath]  = bio
@@ -66,7 +65,7 @@ class EditProfilViewController: UIViewController {
                 switch result{
                 case .success(let url):
                         //if yes, we get the youtube URL in our Database
-                    self.fireBaseManager.setAndGetSingleUserInfo(self.ref, UserInfo.shared.userID, url, .publicInfoUser, .YoutubeUrl) { result in
+                    self.fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, url, .publicInfoUser, .YoutubeUrl) { result in
                         switch result{
                         case .success(let urlSuffix):
                             UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] = urlSuffix
@@ -157,11 +156,11 @@ extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigati
         }
         
         //we set the profilPicture in firebase and we get the url in our Segue
-        fireBaseManager.setImageInFirebaseAndGetUrl(storage,UserInfo.shared.userID, imageData) { result in
+        fireBaseManager.setImageInFirebaseAndGetUrl(UserInfo.shared.userID, imageData) { result in
             switch result{
             case .success(let urlImage):
                 UserInfo.shared.addUrlString(urlImage)
-                self.fireBaseManager.getImageToFirebase(self.storage, urlImage) { imageResult in
+                self.fireBaseManager.getImageToFirebase(urlImage) { imageResult in
                     switch imageResult{
                     case .success(let profilPicture):
                         self.editUserView.profilPicture.setImage(profilPicture, for: .normal)

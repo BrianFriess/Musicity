@@ -19,8 +19,6 @@ class SecondCreateProfilTableViewController: UIViewController {
     private var dictInstrument = [Int : String]()
     private let alerte = AlerteManager()
     private let fireBaseManager = FirebaseManager()
-    private let ref = FirebaseReference.ref
-    private let storage = FirebaseReference.storage
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +53,7 @@ class SecondCreateProfilTableViewController: UIViewController {
                 alerte.alerteVc(.emptyNbMembre, self)
                 return
             }
-            fireBaseManager.setSingleUserInfo(ref, UserInfo.shared.userID, .publicInfoUser, .NbMember, nbMemberLabel.text!) { result in
+            fireBaseManager.setSingleUserInfo(UserInfo.shared.userID, .publicInfoUser, .NbMember, nbMemberLabel.text!) { result in
                 switch result{
                 case .success(_):
                     break
@@ -65,7 +63,7 @@ class SecondCreateProfilTableViewController: UIViewController {
             }
         }
         
-        fireBaseManager.setDictionnaryUserInfo(ref, UserInfo.shared.userID, UserInfo.shared.instrument, .Instrument) { result in
+        fireBaseManager.setDictionnaryUserInfo( UserInfo.shared.userID, UserInfo.shared.instrument, .Instrument) { result in
             switch result{
             case .success(_):
                 self.performSegue(withIdentifier: "goToWelcomeSegue", sender: self)
@@ -147,7 +145,7 @@ extension SecondCreateProfilTableViewController : UIImagePickerControllerDelegat
         }
         
         //we set the profilPicture in firebase and we get the url in our Segue
-        fireBaseManager.setImageInFirebaseAndGetUrl(storage, UserInfo.shared.userID, imageData) { result in
+        fireBaseManager.setImageInFirebaseAndGetUrl(UserInfo.shared.userID, imageData) { result in
             switch result{
             case .success(let urlImage):
                 UserInfo.shared.addUrlString(urlImage)

@@ -8,8 +8,8 @@
 import UIKit
 import CoreLocation
 import Firebase
-import GeoFire
-import WebKit
+//import GeoFire
+//import WebKit
 
 
 
@@ -23,9 +23,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
     private let geolocalisationManager = GeolocalisationManager()
     private let firebaseManager = FirebaseManager()
-    private let ref = FirebaseReference.ref
     private let alerte = AlerteManager()
-    private let storage = FirebaseReference.storage
     private var latitude = 0.0
     private var longitude = 0.0
     private var arrayUser = [ResultInfo]()
@@ -78,14 +76,14 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
             case .success(let userId):
                 UserInfo.shared.addUserId(userId)
                 //we read all the information in the DDB
-                self.firebaseManager.getAllTheInfoToFirebase(self.ref, userId) { result in
+                self.firebaseManager.getAllTheInfoToFirebase(userId) { result in
                     switch result{
                     case .success(let allInfo):
                         //if we have all the information, we get the information in the singleton
                         let allInfoIsGet = UserInfo.shared.addAllInfo(allInfo)
                         if allInfoIsGet {
                             //get the url profil picture
-                            self.firebaseManager.getUrlImageToFirebase(self.storage, userId) { resultImage in
+                            self.firebaseManager.getUrlImageToFirebase(userId) { resultImage in
                                 switch resultImage{
                                 case .success(let imageUrl):
                                     //get the profil Picture url in the singleton and go to the next page
@@ -196,11 +194,11 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                 userResult.addUserId(resultArrayGeo["idResult"]!)
                 userResult.addDistance(resultArrayGeo["distance"]!)
                 //network call for check if the result is band or Musician
-                self.firebaseManager.getSingleInfoUserToFirebase(self.ref, resultArrayGeo["idResult"]!, .publicInfoUser, .BandOrMusician) { result in
+                self.firebaseManager.getSingleInfoUserToFirebase(resultArrayGeo["idResult"]!, .publicInfoUser, .BandOrMusician) { result in
                     switch result{
                     case .success(let checkBandOrMusician):
                         //we get the url image of the result
-                        self.firebaseManager.getUrlImageToFirebase(self.storage, resultArrayGeo["idResult"]!) { resultUrl in
+                        self.firebaseManager.getUrlImageToFirebase( resultArrayGeo["idResult"]!) { resultUrl in
                             switch resultUrl{
                             case .success(let url):
                                 userResult.addUrlString(url)
@@ -322,12 +320,12 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
         
         //we check if we already have the user's information in our array
         if arrayUser[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] == nil{
-            self.firebaseManager .getAllTheInfoToFirebase(ref, arrayUser[indexPath.row].userID) { result in
+            self.firebaseManager .getAllTheInfoToFirebase(arrayUser[indexPath.row].userID) { result in
                 switch result{
                 case .success(let allInfo):
                     self.arrayUser[indexPath.row].addAllInfo(allInfo)
                     if self.arrayUser[indexPath.row].profilPicture == nil{
-                        self.firebaseManager.getImageToFirebase(self.storage, self.arrayUser[indexPath.row].stringUrl) { result in
+                        self.firebaseManager.getImageToFirebase(self.arrayUser[indexPath.row].stringUrl) { result in
                             switch result{
                             case .success(let image):
                                 self.arrayUser[indexPath.row].addProfilPicture(image)
