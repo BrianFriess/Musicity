@@ -1,14 +1,15 @@
 # Musicity
 
 
-Dernier projet de mon parcours OpenClassrooms. 
-Projet Libre à impact social 
+Dernier projet de mon parcours OpenClassrooms. Projet Libre à impact social
 
-Musicity est une application de mise en relation entre musiciens et groupes en fonction de leurs positions geographiques. 
+!!!!!!!!!Pour les tests unitaire Firebase --> Besoin d'installer un emulateur. Les tests automatique de Firebase sont désactivés !!!!!!!!
+
+Musicity est une application de mise en relation entre musiciens et groupes en fonction de leurs positions geographiques.
 
 Lecture et écritude dans une base de données FireBase
 
-Utilisation de données géographique 
+Utilisation de données géographique
 
 Utilisation d'appel réseaux
 
@@ -16,9 +17,7 @@ Utilisation de service d'authentification Firebase
 
 Creation et gestion de profil
 
+Reste à faire :
 
-Reste à faire : 
-Correction du clavier (tchat)
-Refactorisation du code pour les appels réseaux 
-Notification push à l'envoi d'un nouveau message 
-Terminer les Test Unitaires 
+Refactorisation du code,
+Bandeau de notification à la reception d'un tchat, Terminer les Tests Unitaires.

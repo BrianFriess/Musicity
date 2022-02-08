@@ -9,9 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 import InputBarAccessoryView
-//import nanopb
 
-//TableView qui se leve trop uniquement la premiere fois
 
 
 class TchatViewController: UIViewController {
@@ -28,12 +26,12 @@ class TchatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getMessages()
         view.addSubview(inputBar)
+        
+        getMessages()
         configureKeyboard()
         configureInputBar()
         configureKeyboardNotification()
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -105,6 +103,7 @@ class TchatViewController: UIViewController {
         sendButton.setSize(CGSize(width: 30, height: 30), animated: true)
     }
     
+    
     private func configureKeyboard() {
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.enable = false
@@ -142,6 +141,7 @@ class TchatViewController: UIViewController {
                 self?.inputBar.inputTextView.resignFirstResponder()
                 self?.scrollAtTheEndOfTableView()
                 self?.addNewUserIdInUserListMessenger()
+                self?.getANotificationInTheDDB()
             case .failure(_):
                 break
             }
@@ -182,6 +182,12 @@ class TchatViewController: UIViewController {
         }
     }
     
+    private func getANotificationInTheDDB(){
+        firebaseManager.setNotification(currentUser.userID,UserInfo.shared.userID, [UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as! String : 1]  as [String : Any]) { result in
+        }
+        
+    }
+    
     
     
     
@@ -191,40 +197,34 @@ class TchatViewController: UIViewController {
         firebaseManager.getTheUserIdMessengerToDdb(currentUser.userID) { result in
             switch result{
             case .success(let arrayUser):
-                print(arrayUser)
                 //we create an array of user Id
                 var arrayUserAndCurrentUserInfo = arrayUser
                 arrayUserAndCurrentUserInfo.append(UserInfo.shared.userID)
-                //we send the array for transform this in  dictionnary for firebase
-                self.currentUser.addAllUserMessenger(arrayUserAndCurrentUserInfo)
-                //we set the new dictionnaty in firebase
-                self.firebaseManager.setTheUserIdMessengerInDdb(self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
-            switch result{
-                case .success(_):
-                break 
-              //  self.addNotificationInTheOtherUserDdb(self.currentUser.userID)
-            case .failure(_):
-                self.alerte.alerteVc(.messageError, self)
-            }
-        }
+                //we send the array firebase
+                self.configureANewArrayUserInMessenger(arrayUserAndCurrentUserInfo)
                 //if we don't have a userMessengerId in our database, we create an dictionnary just with the UserInfo
             case .failure(_):
-                self.currentUser.addAllUserMessenger([UserInfo.shared.userID])
                 //we set the dictionnary in our database
-                self.firebaseManager.setTheUserIdMessengerInDdb(self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
-                    switch result{
-                        case .success(_):
-                        break
-                      //  self.addNotificationInTheOtherUserDdb(self.currentUser.userID)
-                    case .failure(_):
-                        self.alerte.alerteVc(.messageError, self)
-                    }
-                }
+                self.configureANewArrayUserInMessenger([UserInfo.shared.userID])
             }
         }
     }
     
     
+    private func configureANewArrayUserInMessenger(_ arrayUser : [String]){
+        self.currentUser.addAllUserMessenger(arrayUser)
+        //we set the dictionnary in our database
+        self.firebaseManager.setTheUserIdMessengerInDdb(self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
+            switch result{
+                case .success(_):
+                break
+            case .failure(_):
+                self.alerte.alerteVc(.messageError, self)
+            }
+        }
+        
+    }
+
 }
 
 
@@ -273,7 +273,6 @@ extension TchatViewController: InputBarAccessoryViewDelegate {
         self.sendMessage(text)
         inputBar.inputTextView.text = ""
         inputBar.inputTextView.resignFirstResponder()
-
     }
 }
 

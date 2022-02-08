@@ -8,8 +8,11 @@
 import Foundation
 import UIKit
 
-class ResultInfo {
-
+class ResultInfo : Equatable {
+    
+    static func == (lhs: ResultInfo, rhs: ResultInfo) -> Bool {
+        return true
+    }
 
     var userID = ""
     var publicInfoUser = [String:Any]()

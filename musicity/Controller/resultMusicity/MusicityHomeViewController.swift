@@ -8,10 +8,7 @@
 import UIKit
 import CoreLocation
 import Firebase
-//import GeoFire
-//import WebKit
-
-
+import NotificationBannerSwift
 
 
 class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
@@ -19,6 +16,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var customView: MusicityHomeCustomView!
     
+
     
     private let manager = CLLocationManager()
     private let geolocalisationManager = GeolocalisationManager()
@@ -31,8 +29,6 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     private var checkFilterDistance = 0.0
     private var checkFilterSearch = ""
 
-    
-    
 
     
     //call the geolocalisation
@@ -41,6 +37,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         checkIfWeAlreadyConnect()
         manager.delegate = self
         AppUtility.lockOrientation(.portrait)
+        checkIfWeHaveNewMessage()
     }
     
     
@@ -171,7 +168,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     private func checkFilter(){
         if UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] == nil{
             //if we haven't filter, the distance by default is 25
-            checkAroundUsWithFilter(25.0, "All")
+            checkAroundUsWithFilter(50.0, "All")
         }
         else if UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] as! Double != checkFilterDistance || UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] as? String != checkFilterSearch  {
             checkFilterDistance = UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] as! Double
@@ -185,12 +182,13 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
     //we cbeck the user around use thanks to "distance"
     private func checkAroundUsWithFilter(_ distance : Double, _ bandOrMusicianFilter : String){
-        geolocalisationManager.checkAround(latitude, longitude, distance ) { result in
+        geolocalisationManager.checkAround(latitude, longitude, distance + 0.99 ) { result in
             //we create an instance of ResultInfo and we get all the value in
             let userResult = ResultInfo()
             switch result{
                 //we get the result user Id and the distance
             case .success(let resultArrayGeo):
+              //  print(resultArrayGeo)
                 userResult.addUserId(resultArrayGeo["idResult"]!)
                 userResult.addDistance(resultArrayGeo["distance"]!)
                 //network call for check if the result is band or Musician
@@ -204,6 +202,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                                 userResult.addUrlString(url)
                                 //we check if this user is already in our array of Result if not, we add a new userResut in our array
                                 self.updateArrayOfUserResult(checkBandOrMusician, userResult, bandOrMusicianFilter)
+                                self.checkIfArraysIsEmpty()
                             case .failure(_):
                                 break
                             }
@@ -218,6 +217,16 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    
+    //we check after 4 seconds if we have a result or not
+    func checkIfArraysIsEmpty(){
+        let seconds = 4.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds){
+            if self.arrayUser == []{
+                self.alerte.alerteVc(.errorCheckAroundUs, self)
+            }
+        }
+    }
 
     //we check if this user is already in our array of Result if not, we add a new userResut in our array
     func updateArrayOfUserResult(_ checkBandOrMusician : String, _ userResult : ResultInfo, _ bandOrMusicianFilter : String ){
@@ -227,6 +236,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                 self.collectionView.reloadData()
             }
         }
+
     }
     
     
@@ -261,8 +271,6 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
-
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrayUser.count
@@ -342,6 +350,7 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
         }
     }
     
+    
     //set the value at the cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenSize : CGSize = UIScreen.main.bounds.size
@@ -369,7 +378,20 @@ extension MusicityHomeViewController :  UIScrollViewDelegate{
     
 }
 
-
+extension  MusicityHomeViewController {
+        
+    func checkIfWeHaveNewMessage(){
+        firebaseManager.checkNotification(UserInfo.shared.userID) { result in
+           switch result{
+            case .success(_):
+               let notificationBanner = GrowingNotificationBanner(title: "Nouveau message !", subtitle: "", leftView: nil, rightView: nil, style: .success, colors: nil)
+                    notificationBanner.show()
+            case .failure(_):
+                break
+            }
+        }
+    }
+}
 
 
 

@@ -26,14 +26,15 @@
 		D3497CB727566F7C00D69D08 /* MusicityHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3497CB627566F7C00D69D08 /* MusicityHomeViewController.swift */; };
 		D3497CB927567A5100D69D08 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3497CB827567A5100D69D08 /* WelcomeViewController.swift */; };
 		D34B1E702748E0D600A7B77F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D34B1E6F2748E0D600A7B77F /* GoogleService-Info.plist */; };
+		D34C7BB827B02FF300BA5D21 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D34C7BB727B02FF300BA5D21 /* FirebaseAuth */; };
+		D34C7BBE27B0307500BA5D21 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D34C7BBD27B0307500BA5D21 /* FirebaseDatabase */; };
+		D34C7BC027B0307D00BA5D21 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D34C7BBF27B0307D00BA5D21 /* FirebaseStorage */; };
+		D34C7BC327B0431700BA5D21 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D34C7BC227B0431700BA5D21 /* NotificationBannerSwift */; };
 		D35075262772513900DD3365 /* YoutubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35075252772513900DD3365 /* YoutubeManager.swift */; };
 		D36292192761225400328090 /* ChoiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36292182761225400328090 /* ChoiceCollectionViewCell.swift */; };
 		D36A4AC727A727EC0089BF0C /* FakeDataUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36A4AC627A727EC0089BF0C /* FakeDataUnitTest.swift */; };
 		D36F0BE8275FA652009D5A69 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */; };
-		D372FE73275E28D300DC5298 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE72275E28D300DC5298 /* FirebaseDatabase */; settings = {ATTRIBUTES = (Required, ); }; };
-		D372FE75275E28DE00DC5298 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE74275E28DE00DC5298 /* FirebaseAuth */; settings = {ATTRIBUTES = (Required, ); }; };
 		D372FE77275E28E900DC5298 /* GeoFire in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE76275E28E900DC5298 /* GeoFire */; settings = {ATTRIBUTES = (Required, ); }; };
-		D372FE7D275E28FB00DC5298 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE7C275E28FB00DC5298 /* FirebaseStorage */; settings = {ATTRIBUTES = (Required, ); }; };
 		D372FE84275E300900DC5298 /* YoutubePlayer-in-WKWebView in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE83275E300900DC5298 /* YoutubePlayer-in-WKWebView */; settings = {ATTRIBUTES = (Required, ); }; };
 		D37D91F92747B72000D59BC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D91F82747B72000D59BC5 /* AppDelegate.swift */; };
 		D37D91FB2747B72000D59BC5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37D91FA2747B72000D59BC5 /* SceneDelegate.swift */; };
@@ -145,12 +146,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D372FE84275E300900DC5298 /* YoutubePlayer-in-WKWebView in Frameworks */,
+				D34C7BB827B02FF300BA5D21 /* FirebaseAuth in Frameworks */,
 				D372FE77275E28E900DC5298 /* GeoFire in Frameworks */,
-				D372FE73275E28D300DC5298 /* FirebaseDatabase in Frameworks */,
 				D3C58D45279493E0001073AD /* InputBarAccessoryView in Frameworks */,
-				D372FE75275E28DE00DC5298 /* FirebaseAuth in Frameworks */,
 				D3452178279458200074BBBB /* IQKeyboardManagerSwift in Frameworks */,
-				D372FE7D275E28FB00DC5298 /* FirebaseStorage in Frameworks */,
+				D34C7BC027B0307D00BA5D21 /* FirebaseStorage in Frameworks */,
+				D34C7BBE27B0307500BA5D21 /* FirebaseDatabase in Frameworks */,
+				D34C7BC327B0431700BA5D21 /* NotificationBannerSwift in Frameworks */,
 				D3100F10275E258C004BB3BF /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,13 +414,14 @@
 			);
 			name = musicity;
 			packageProductDependencies = (
-				D372FE72275E28D300DC5298 /* FirebaseDatabase */,
-				D372FE74275E28DE00DC5298 /* FirebaseAuth */,
 				D372FE76275E28E900DC5298 /* GeoFire */,
-				D372FE7C275E28FB00DC5298 /* FirebaseStorage */,
 				D372FE83275E300900DC5298 /* YoutubePlayer-in-WKWebView */,
 				D3452177279458200074BBBB /* IQKeyboardManagerSwift */,
 				D3C58D44279493E0001073AD /* InputBarAccessoryView */,
+				D34C7BB727B02FF300BA5D21 /* FirebaseAuth */,
+				D34C7BBD27B0307500BA5D21 /* FirebaseDatabase */,
+				D34C7BBF27B0307D00BA5D21 /* FirebaseStorage */,
+				D34C7BC227B0431700BA5D21 /* NotificationBannerSwift */,
 			);
 			productName = musicity;
 			productReference = D37D91F52747B72000D59BC5 /* musicity.app */;
@@ -454,11 +457,12 @@
 			);
 			mainGroup = D37D91EC2747B72000D59BC5;
 			packageReferences = (
-				D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D3497CBC27579C0B00D69D08 /* XCRemoteSwiftPackageReference "geofire-objc" */,
 				D372FE82275E300900DC5298 /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */,
 				D3452176279458200074BBBB /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				D3C58D43279493E0001073AD /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */,
+				D34C7BB627B02FF300BA5D21 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D34C7BC127B0431700BA5D21 /* XCRemoteSwiftPackageReference "NotificationBanner" */,
 			);
 			productRefGroup = D37D91F62747B72000D59BC5 /* Products */;
 			projectDirPath = "";
@@ -1012,9 +1016,17 @@
 				minimumVersion = 4.0.0;
 			};
 		};
-		D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		D34C7BB627B02FF300BA5D21 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+		D34C7BC127B0431700BA5D21 /* XCRemoteSwiftPackageReference "NotificationBanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Daltron/NotificationBanner.git";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -1044,25 +1056,30 @@
 			package = D3452176279458200074BBBB /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
 		};
-		D372FE72275E28D300DC5298 /* FirebaseDatabase */ = {
+		D34C7BB727B02FF300BA5D21 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = D34C7BB627B02FF300BA5D21 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		D34C7BBD27B0307500BA5D21 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D34C7BB627B02FF300BA5D21 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabase;
 		};
-		D372FE74275E28DE00DC5298 /* FirebaseAuth */ = {
+		D34C7BBF27B0307D00BA5D21 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
+			package = D34C7BB627B02FF300BA5D21 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		D34C7BC227B0431700BA5D21 /* NotificationBannerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D34C7BC127B0431700BA5D21 /* XCRemoteSwiftPackageReference "NotificationBanner" */;
+			productName = NotificationBannerSwift;
 		};
 		D372FE76275E28E900DC5298 /* GeoFire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D3497CBC27579C0B00D69D08 /* XCRemoteSwiftPackageReference "geofire-objc" */;
 			productName = GeoFire;
-		};
-		D372FE7C275E28FB00DC5298 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D34B1E712748E7BD00A7B77F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
 		};
 		D372FE83275E300900DC5298 /* YoutubePlayer-in-WKWebView */ = {
 			isa = XCSwiftPackageProductDependency;

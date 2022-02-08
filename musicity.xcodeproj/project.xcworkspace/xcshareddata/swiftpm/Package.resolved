@@ -23,9 +23,9 @@
         "package": "Firebase",
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk",
         "state": {
-          "branch": "master",
-          "revision": "e486b478e65c9a02a868226e12562da5f3de1f39",
-          "version": null
+          "branch": null,
+          "revision": "5344857522053b5d4403ec8173ec0d23200a97ea",
+          "version": "8.11.0"
         }
       },
       {
@@ -110,6 +110,15 @@
         }
       },
       {
+        "package": "MarqueeLabel",
+        "repositoryURL": "https://github.com/cbpowell/MarqueeLabel",
+        "state": {
+          "branch": null,
+          "revision": "f2c72a5f8568579dade6350dc26a482076d3d346",
+          "version": "4.3.0"
+        }
+      },
+      {
         "package": "nanopb",
         "repositoryURL": "https://github.com/firebase/nanopb.git",
         "state": {
@@ -119,12 +128,30 @@
         }
       },
       {
+        "package": "NotificationBannerSwift",
+        "repositoryURL": "https://github.com/Daltron/NotificationBanner.git",
+        "state": {
+          "branch": "master",
+          "revision": "2ce5c49d8ee4865f01a3ce3bbe078664c78c7a3c",
+          "version": null
+        }
+      },
+      {
         "package": "Promises",
         "repositoryURL": "https://github.com/google/promises.git",
         "state": {
           "branch": null,
           "revision": "611337c330350c9c1823ad6d671e7f936af5ee13",
           "version": "2.0.0"
+        }
+      },
+      {
+        "package": "SnapKit",
+        "repositoryURL": "https://github.com/SnapKit/SnapKit",
+        "state": {
+          "branch": null,
+          "revision": "d458564516e5676af9c70b4f4b2a9178294f1bc6",
+          "version": "5.0.1"
         }
       },
       {

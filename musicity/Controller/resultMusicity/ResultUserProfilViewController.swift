@@ -18,10 +18,10 @@ class ResultUserProfilViewController: UIViewController {
     private let alerteManager = AlerteManager()
     var currentUser = ResultInfo()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        
     }
     
     //we use this function for configure the view with all the info in the model
@@ -131,8 +131,8 @@ extension ResultUserProfilViewController : UICollectionViewDelegate, UICollectio
         print(indexPath.row)
     }
     
-    
 }
+
 
 
 

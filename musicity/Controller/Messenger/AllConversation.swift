@@ -20,6 +20,7 @@ class AllConversation: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,7 +51,7 @@ class AllConversation: UIViewController {
                     self.arrayUserMessenger.append(currentUser)
                     self.tableView.reloadData()
                 case .failure(_):
-                    print("fail")
+                    break
                 }
             }
         }
@@ -98,12 +99,8 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
     }
     
     
-
-    
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
-        
         if self.arrayUserMessenger[indexPath.row].profilPicture == nil {
             self.firebaseManager.getUrlImageToFirebase(arrayUserMessenger[indexPath.row].userID) { resultUrl in
                 switch resultUrl{
@@ -126,3 +123,5 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
     }
     
 }
+
+

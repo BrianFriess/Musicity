@@ -7,6 +7,8 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
+import FirebaseAuth
 import UIKit
 
 
@@ -23,8 +25,6 @@ struct FirebaseManager{
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
-    
-   // let ref = AppDelegate.ref!
     // Get a reference to the storage
     let storage = Storage.storage().reference()
     
@@ -135,7 +135,7 @@ struct FirebaseManager{
         }
     }
     
-    
+
     
     //we check if the child bewteen 2 users in messenger already exist
     private func observeKeyMessenger(_ userId : String,_ resultUserId : String, completion : @escaping(Result<String,FirebaseError>)-> Void){
@@ -166,6 +166,26 @@ struct FirebaseManager{
                 completion(.failure(.InfoError))
             }
         }
+    }
+    
+    func checkNotification(_ userId : String, completion : @escaping(Result<[String : Any], FirebaseError>) -> Void ){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).observe(.childAdded, with: { (snapshot) -> Void in
+            if let value = snapshot.value as?[String : Any]{
+                completion(.success(value))
+            } else {
+                completion(.failure(.InfoError))
+            }
+           })
+    }
+    
+    func setNotification(_ userId : String,_ otherUserId : String, _ infoUser : [String : Any],  completion : @escaping(Result<Void, FirebaseError>)-> Void) {
+       /* appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).childByAutoId().setValue(infoUser) { errorInfo, _ in
+            guard errorInfo == nil else {
+                completion(.failure(.connexionError))
+                return
+            }
+        }
+        completion(.success(()))*/
     }
     
     
