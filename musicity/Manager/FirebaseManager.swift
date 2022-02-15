@@ -24,9 +24,9 @@ enum FirebaseError : Error{
 struct FirebaseManager{
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
     // Get a reference to the storage
     let storage = Storage.storage().reference()
+    
     
     //function for create new user
    func createNewUser(_ email : String, _ password : String, _ userName : String,_ segmented : Int, completion : @escaping(Result<Void, FirebaseError>) -> Void) {
@@ -168,6 +168,7 @@ struct FirebaseManager{
         }
     }
     
+    //we create a new observer for check if we have a new notification in our database and we return the name
     func checkNotification(_ userId : String, completion : @escaping(Result<[String : Any], FirebaseError>) -> Void ){
         appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).observe(.childAdded, with: { (snapshot) -> Void in
             if let value = snapshot.value as?[String : Any]{
@@ -178,16 +179,27 @@ struct FirebaseManager{
            })
     }
     
+    
+    //we remove the notification when the iphone observe him in the ddb
+    func removeNotification(_ userId : String){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).removeValue()
+    }
+    
+    //we create a new notification in the ddb with the name of the user who send the message
     func setNotification(_ userId : String,_ otherUserId : String, _ infoUser : [String : Any],  completion : @escaping(Result<Void, FirebaseError>)-> Void) {
-       /* appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).childByAutoId().setValue(infoUser) { errorInfo, _ in
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).childByAutoId().setValue(infoUser) { errorInfo, _ in
             guard errorInfo == nil else {
                 completion(.failure(.connexionError))
                 return
             }
         }
-        completion(.success(()))*/
+        completion(.success(()))
     }
     
+    //we remove the observer with this function, for exemple, when the user disconnect him
+    func removeNotificationObserver(_ userId : String){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).removeAllObservers()
+    }
     
     
     

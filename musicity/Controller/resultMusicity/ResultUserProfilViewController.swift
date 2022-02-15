@@ -55,6 +55,7 @@ class ResultUserProfilViewController: UIViewController {
         }
     }
     
+    
     //we check if the profilPicture is already load in the front page, if not, we use our network call for display the profil picture
     func checkIfProfilPictureIsAlreadyLoad(){
         if currentUser.profilPicture == nil{
@@ -74,6 +75,7 @@ class ResultUserProfilViewController: UIViewController {
         }
     }
     
+    
     //we check the user have already a bio
     func checkIfBioIsEmpty(){
         if currentUser.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String == "" || currentUser.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] == nil{
@@ -84,6 +86,7 @@ class ResultUserProfilViewController: UIViewController {
         }
     }
     
+    
     //we prepare the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SegueToFirstTimeMessenger"{
@@ -92,11 +95,10 @@ class ResultUserProfilViewController: UIViewController {
         }
     }
     
+    
     @IBAction func contactButton(_ sender: Any) {
        performSegue(withIdentifier: "SegueToFirstTimeMessenger", sender: self)
     }
-        
-    
 
 }
 
@@ -125,10 +127,6 @@ extension ResultUserProfilViewController : UICollectionViewDelegate, UICollectio
         }
         
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
     }
     
 }

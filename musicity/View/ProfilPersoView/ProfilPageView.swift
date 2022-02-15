@@ -15,10 +15,11 @@ class ProfilPageView: UIView {
     @IBOutlet weak var nbMemberLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var bandOrMusicianLabel: UILabel!
-    @IBOutlet weak var bioLabelText: UILabel!
+    //@IBOutlet weak var bioLabelText: UILabel!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var editActivityIndcator: UIActivityIndicatorView!
     @IBOutlet weak var youtubePlayer: WKYTPlayerView!
+    @IBOutlet weak var bioLabelText: UITextView!
     
     
     enum BandOrMusician{

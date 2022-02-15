@@ -23,16 +23,23 @@ class FirstCreateProfilViewController: UIViewController {
     }
  
     
+    
     @IBAction func pressNextButton(_ sender: Any) {
         UserInfo.shared.addStyle(dictStyle)
         UserInfo.shared.checkStyle(dictStyle.count, dictStyle)
-        
         //we check if the user have choice one style or more
         guard UserInfo.shared.checkIfStyleIsEmpty() else {
             alerte.alerteVc(.emptyStyle, self)
             return
         }
-        
+        //we set a dictionnay with the choice style in firebase
+        setStyleInDDB()
+    }
+    
+    
+    
+    //we set a dictionnay with the choive style in firebase
+    private func setStyleInDDB(){
         fireBaseManager.setDictionnaryUserInfo(UserInfo.shared.userID, UserInfo.shared.style, .Style) { result in
             switch result{
             case .success(_):

@@ -29,6 +29,10 @@ class LogInViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(true)
+        //if the user Is disconnect, we remove The observer for the notification
+        if UserInfo.shared.userID != "" {
+            firebaseManager.removeNotificationObserver(UserInfo.shared.userID)
+        }
         UserInfo.shared.resetSingleton()
     }
     
@@ -54,55 +58,14 @@ class LogInViewController: UIViewController {
         firebaseManager.connexionUser(email, password) { result in
             switch result{
             case .success(_):
-                //we get the userID
-                self.firebaseManager.getUserId { result in
-                    switch result{
-                    case .success(let userId):
-                        UserInfo.shared.addUserId(userId)
-                        //we read all the information in the DDB
-                        self.firebaseManager.getAllTheInfoToFirebase(userId) { result in
-                            switch result{
-                            case .success(let allInfo):
-                                //if we have all the information, we get the information in the singleton
-                                let allInfoIsGet = UserInfo.shared.addAllInfo(allInfo)
-                                if allInfoIsGet {
-                                    //get the url profil picture
-                                    self.firebaseManager.getUrlImageToFirebase(userId) { resultImage in
-                                        switch resultImage{
-                                        case .success(let imageUrl):
-                                            //get the profil Picture url in the singleton and go to the next page
-                                            UserInfo.shared.addUrlString(imageUrl)
-                                            self.performSegue(withIdentifier: "GoToMusicitySegue", sender: self)
-                                            self.customView.connexionIsLoadOrNot(.isLoad)
-                                        case .failure(_):
-                                            self.alerte.alerteVc(.errorGetInfo, self)
-                                            self.customView.connexionIsLoadOrNot(.isLoad)
-                                        }
-                                    }
-                                } else {
-                                    self.logInButMissInformation()
-                                    self.customView.connexionIsLoadOrNot(.isLoad)
-                                }
-                            case .failure(_):
-                                self.alerte.alerteVc(.errorGetInfo, self)
-                                self.customView.connexionIsLoadOrNot(.isLoad)
-                            }
-                        }
-                    case .failure(_):
-                        self.alerte.alerteVc(.errorGetInfo, self)
-                        self.customView.connexionIsLoadOrNot(.isLoad)
-                    }
-                }
+                self.performSegue(withIdentifier: "GoToMusicitySegue", sender: self)
+                self.customView.connexionIsLoadOrNot(.isLoad)
             case .failure(_):
                 self.alerte.alerteVc(.ErrorConnexion, self)
                 self.customView.connexionIsLoadOrNot(.isLoad)
             }
         }
-    }
-    
-    func logInButMissInformation(){
-        //we go to the viewController for enter all the informations
-        self.performSegue(withIdentifier: "goToHomeConnexion", sender: self)
+        
     }
     
 }

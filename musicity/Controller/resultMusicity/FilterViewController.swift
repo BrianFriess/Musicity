@@ -24,6 +24,7 @@ class FilterViewController: UIViewController {
         chooseSegmentedFilter()
     }
     
+    
     // we check in our segue if we have already a value for our filter for display in our segment
     func displaySegmentedAtStart(){
         if let bandOrMusician = UserInfo.shared.filter["Search"]{
@@ -45,10 +46,12 @@ class FilterViewController: UIViewController {
         labelKm.text = "\(Int(sliderKm.value * 100)) Km"
     }
     
+    
     //when we choose a new segment, we call the function chooseSegmentedFilter
     @IBAction func changeSegmentedFilter(_ sender: Any) {
         chooseSegmentedFilter()
     }
+    
     
     //when we choose a new segment, we get the value at our segue
     func chooseSegmentedFilter(){

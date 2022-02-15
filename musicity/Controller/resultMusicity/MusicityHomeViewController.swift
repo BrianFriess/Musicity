@@ -10,7 +10,6 @@ import CoreLocation
 import Firebase
 import NotificationBannerSwift
 
-
 class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -28,7 +27,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     private var currentUser = ResultInfo()
     private var checkFilterDistance = 0.0
     private var checkFilterSearch = ""
-
+    
 
     
     //call the geolocalisation
@@ -37,7 +36,6 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         checkIfWeAlreadyConnect()
         manager.delegate = self
         AppUtility.lockOrientation(.portrait)
-        checkIfWeHaveNewMessage()
     }
     
     
@@ -47,7 +45,6 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
     
     func configureGeolocalisation(){
-        
         manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
@@ -62,6 +59,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         } else {
             configureGeolocalisation()
             getAllValueOfUserIfWeAreAlreadyConnect()
+            checkIfWeHaveNewMessage()
         }
     }
     
@@ -90,7 +88,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                                 }
                             }
                         } else {
-                            self.disconnect()
+                            self.logInButMissInformation()
                         }
                     case .failure(_):
                         self.alerte.alerteVc(.errorGetInfo, self)
@@ -100,6 +98,14 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                 self.alerte.alerteVc(.errorGetInfo, self)
             }
         }
+    }
+    
+    
+    
+    private func logInButMissInformation(){
+        //we go to the viewController for enter all the informations
+        firebaseManager.removeNotificationObserver(UserInfo.shared.userID)
+        self.performSegue(withIdentifier: "goToMissInformation", sender: self)
     }
     
     
@@ -167,9 +173,10 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     //we check if the user use a filter or not
     private func checkFilter(){
         if UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] == nil{
-            //if we haven't filter, the distance by default is 25
+            //if we haven't filter, the distance by default is 50
             checkAroundUsWithFilter(50.0, "All")
         }
+        //if we have a filter, arrayUser is empty and we reload our collectionView With nothing before load  new informations
         else if UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] as! Double != checkFilterDistance || UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] as? String != checkFilterSearch  {
             checkFilterDistance = UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] as! Double
             checkFilterSearch = (UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] as! String)
@@ -326,7 +333,7 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        //we check if we already have the user's information in our array
+        //we check if we already have the user's information in our array or not before dislpay information in the cell
         if arrayUser[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] == nil{
             self.firebaseManager .getAllTheInfoToFirebase(arrayUser[indexPath.row].userID) { result in
                 switch result{
@@ -351,14 +358,12 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
     }
     
     
-    //set the value at the cell
+    //set the size of the cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenSize : CGSize = UIScreen.main.bounds.size
         let heightSize  = view.safeAreaLayoutGuide.layoutFrame.size.height
         return CGSize(width: screenSize.width , height: heightSize)
     }
-    
-    
 }
 
 
@@ -367,30 +372,56 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
 
 // extension for pagination
 extension MusicityHomeViewController :  UIScrollViewDelegate{
-    
+    //if the user scroll at the right when the last user result is display, we reload a new data
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if (scrollView.contentOffset.x == collectionView.contentSize.width - scrollView.frame.size.width)
         {
             checkIfGeolocalisationIsActive()
-
         }
     }
-    
 }
 
+
+
+//extension for activate the notification in the app
 extension  MusicityHomeViewController {
-        
     func checkIfWeHaveNewMessage(){
+        //we check when we have a new notification in our DDB
         firebaseManager.checkNotification(UserInfo.shared.userID) { result in
            switch result{
-            case .success(_):
-               let notificationBanner = GrowingNotificationBanner(title: "Nouveau message !", subtitle: "", leftView: nil, rightView: nil, style: .success, colors: nil)
-                    notificationBanner.show()
+               //when we have, we recover the name of the user who send a new message
+            case .success(let notif):
+               if let name = notif["Notification"] {
+                   //creation and display the notification banner
+                   self.configureNotificationBanner(with : name as! String)
+               }
+               self.firebaseManager.removeNotification(UserInfo.shared.userID)
             case .failure(_):
                 break
             }
         }
     }
+    
+    //we  create and display the notification with the name
+    func configureNotificationBanner(with name : String){
+        
+        //create the banner
+        let notificationBanner = GrowingNotificationBanner(title: "Nouveau message!", subtitle: "de \(name)", leftView: nil, rightView: nil, style: .warning, colors: nil)
+        notificationBanner.dismissOnTap = true
+        notificationBanner.dismissOnSwipeUp = true
+        notificationBanner.animationDuration = 0.4
+        
+        //show the banner
+        notificationBanner.show()
+        
+        //dismiss the banner
+        //after 1.5 sec the banner is automaticaly dismiss
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            notificationBanner.dismiss()
+        }
+
+    }
+    
 }
 
 

@@ -16,7 +16,7 @@ enum GeolocalisationError : Error{
 
 class GeolocalisationManager{
     
-    let manager = CLLocationManager()
+    private let manager = CLLocationManager()
     
     private let geofireRef = Database.database(url: "https://musicity-ff6d8-default-rtdb.europe-west1.firebasedatabase.app").reference().child(DataBaseAccessPath.userLocation.returnAccessPath)
     

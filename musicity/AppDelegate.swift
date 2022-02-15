@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ref = Database.database(url:"http://localhost:9000?ns=musicity-ff6d8").reference()
         
         #elseif DEBUG
+        
         print(
         """
         ****************************
@@ -64,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
     }
 
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

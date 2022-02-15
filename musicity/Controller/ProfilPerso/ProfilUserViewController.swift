@@ -67,6 +67,7 @@ class ProfilUserViewController: UIViewController {
             }
     }
     
+    
     //we check if the user have already a youtubeVideo
     func youtubeVideoOrNot(){
         if UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] as? String  == "" || UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] == nil {
@@ -114,10 +115,4 @@ extension ProfilUserViewController : UICollectionViewDelegate, UICollectionViewD
         
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
-    }
-    
-    
 }

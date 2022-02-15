@@ -32,6 +32,7 @@ class CreateUserViewController: UIViewController {
     @IBAction func inscrireButton(_ sender: UIButton) {
         customView.connexionIsLoadOrNot(.isOnLoad)
         
+        //we check if the 3 textField is empty or not
         guard emailTextField.text != "", let emailUser = emailTextField.text  else{
             alerte.alerteVc(.EmptyEmail, self)
             customView.connexionIsLoadOrNot(.isLoad)
@@ -52,36 +53,49 @@ class CreateUserViewController: UIViewController {
         
         //create a new user
         firebaseManager.createNewUser(emailUser, passwordUser, username, SegmentedControl.selectedSegmentIndex) { result in
-                switch result{
-                case .success(_):
-                    //we recover the userID in the singleton
-                    self.firebaseManager.getUserId { result in
-                        switch result{
-                        case .success(let userId):
-                            UserInfo.shared.addUserId(userId)
-                            //we recover the public Info in the singleton
-                            self.firebaseManager.getDictionnaryInfoUserToFirebase(UserInfo.shared.userID, .publicInfoUser) { result in
-                                 switch result{
-                                 case .success(let infoUser):
-                                     UserInfo.shared.addPublicInfo(infoUser)
-                                     self.performSegue(withIdentifier: "goToFirstConnexionSegue", sender: self)
-                                     self.customView.connexionIsLoadOrNot(.isLoad)
-                                 case.failure(_):
-                                     self.alerte.alerteVc(.errorCreateUser, self)
-                                     self.customView.connexionIsLoadOrNot(.isLoad)
-                                 }
-                             }
-                        case .failure(_):
-                            self.alerte.alerteVc(.errorCreateUser, self)
-                            self.customView.connexionIsLoadOrNot(.isLoad)
-                        }
+            switch result{
+            case .success(_):
+                //we recover the userID in the singleton
+                self.firebaseManager.getUserId { result in
+                    switch result{
+                    case .success(let userId):
+                        UserInfo.shared.addUserId(userId)
+                        //we recover all the info of the user to ddb
+                        self.getAllTheUserInfoToDDB()
+                    case .failure(_):
+                        self.alerte.alerteVc(.errorCreateUser, self)
+                        self.customView.connexionIsLoadOrNot(.isLoad)
                     }
-                case .failure(_):
-                    self.alerte.alerteVc(.FalseEmail, self)
-                    self.customView.connexionIsLoadOrNot(.isLoad)
                 }
+            case .failure(_):
+                self.alerte.alerteVc(.FalseEmail, self)
+                self.customView.connexionIsLoadOrNot(.isLoad)
             }
+        }
     }
+    
+    
+    func getAllTheUserInfoToDDB(){
+        self.firebaseManager.getDictionnaryInfoUserToFirebase(UserInfo.shared.userID, .publicInfoUser) { result in
+             switch result{
+             case .success(let infoUser):
+                 //we recover the public Info in the singleton
+                 self.addAllInfoOfUserInTheSingletonAndGoToTheSegue(infoUser)
+             case.failure(_):
+                 self.alerte.alerteVc(.errorCreateUser, self)
+                 self.customView.connexionIsLoadOrNot(.isLoad)
+             }
+         }
+    }
+    
+    //we recover the public Info in the singleton
+    func addAllInfoOfUserInTheSingletonAndGoToTheSegue(_ infoUser : [String :Any]){
+        UserInfo.shared.addPublicInfo(infoUser)
+        performSegue(withIdentifier: "goToFirstConnexionSegue", sender: self)
+        customView.connexionIsLoadOrNot(.isLoad)
+    }
+    
+    
     
     @IBAction func pushSegmentedControl(_ sender: UISegmentedControl) {
         customView.configureBandOrMusicien()

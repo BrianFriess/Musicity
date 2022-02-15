@@ -11,13 +11,14 @@ import YoutubePlayer_in_WKWebView
 class ResultProfilPage: UIView {
 
     @IBOutlet weak var profilPicture: UIImageView!
-    @IBOutlet weak var bioLabelText: UILabel!
+   //@IBOutlet weak var bioLabelText: UILabel!
     @IBOutlet weak var nbMemberLabel: UILabel!
     @IBOutlet weak var bandOrMusicianLabel: UILabel!
     @IBOutlet weak var usernameTextField: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var contactButton: UIButton!
     @IBOutlet weak var youtubePlayer: WKYTPlayerView!
+    @IBOutlet weak var bioLabelText: UITextView!
     
     
     enum BandOrMusician{

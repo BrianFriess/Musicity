@@ -34,10 +34,12 @@ class SecondCreateProfilTableViewController: UIViewController {
         }
     }
     
+    
     @IBAction func pressFinishButton(_ sender: Any) {
         UserInfo.shared.addInstrument(dictInstrument)
         UserInfo.shared.checkInstrument(dictInstrument.count, dictInstrument)
         
+        //we check if wa have all informations
         guard UserInfo.shared.checkUrlProfilPicture() else {
             alerte.alerteVc(.emptyProfilPicture, self)
             return
@@ -48,11 +50,22 @@ class SecondCreateProfilTableViewController: UIViewController {
             return
         }
         
+        //we check if it's band or musician
+        bandOrMusician()
+        //we set a dictionnary with all the instruments in firebase
+        setInstrumentInDDB()
+    }
+    
+    
+    
+    //we check if it's band or musician
+    private func bandOrMusician(){
         if UserInfo.shared.checkIfItsBandOrMusician() == "Band"{
             guard nbMemberLabel.text != "Membre(s)" else {
                 alerte.alerteVc(.emptyNbMembre, self)
                 return
             }
+            //if it's a band, we set the number of member in the band in firebase
             fireBaseManager.setSingleUserInfo(UserInfo.shared.userID, .publicInfoUser, .NbMember, nbMemberLabel.text!) { result in
                 switch result{
                 case .success(_):
@@ -62,7 +75,11 @@ class SecondCreateProfilTableViewController: UIViewController {
                 }
             }
         }
-        
+    }
+    
+    
+    //we set a dictionnary with all the instruments in firebase
+    private func setInstrumentInDDB(){
         fireBaseManager.setDictionnaryUserInfo( UserInfo.shared.userID, UserInfo.shared.instrument, .Instrument) { result in
             switch result{
             case .success(_):
@@ -71,8 +88,8 @@ class SecondCreateProfilTableViewController: UIViewController {
                 self.alerte.alerteVc(.errorSetInfo, self)
             }
         }
-        print(UserInfo.shared.instrument)
     }
+    
     
     //set the value thanks to the stepper
     @IBAction func stepperBand(_ sender: UIStepper) {
@@ -133,6 +150,15 @@ extension SecondCreateProfilTableViewController : UIImagePickerControllerDelegat
         self.present(imagePicker, animated: true, completion: nil)
     }
     
+    //we add the picture in the segue and we display the picture when she's load
+    private func displayProfilPictureAndAddInTheSegue(_ urlImage : String,_ imageData : Data){
+        UserInfo.shared.addUrlString(urlImage)
+        self.photoButton.setImage(UIImage(data: imageData), for: .normal)
+        self.photoButton.imageView?.contentMode = .scaleAspectFill
+        self.photoButton.clipsToBounds = true
+        self.customView.loadPhoto(.isLoad)
+    }
+    
     //this function is for choose one picture in the photo Library
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         //if we choose an image, the image of chooseButton changes
@@ -148,11 +174,8 @@ extension SecondCreateProfilTableViewController : UIImagePickerControllerDelegat
         fireBaseManager.setImageInFirebaseAndGetUrl(UserInfo.shared.userID, imageData) { result in
             switch result{
             case .success(let urlImage):
-                UserInfo.shared.addUrlString(urlImage)
-                self.photoButton.setImage(UIImage(data: imageData), for: .normal)
-                self.photoButton.imageView?.contentMode = .scaleAspectFill
-                self.photoButton.clipsToBounds = true
-                self.customView.loadPhoto(.isLoad)
+                //we add the picture in the segue and we display the picture when she's load 
+                self.displayProfilPictureAndAddInTheSegue(urlImage , imageData)
             case .failure(_):
                 self.alerte.alerteVc(.errorImage, self)
                 self.customView.loadPhoto(.isLoad)
@@ -161,10 +184,12 @@ extension SecondCreateProfilTableViewController : UIImagePickerControllerDelegat
         dismiss(animated: true, completion: nil)
     }
     
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.customView.loadPhoto(.isLoad)
         dismiss(animated: true, completion: nil)
     }
+    
 }
 
 

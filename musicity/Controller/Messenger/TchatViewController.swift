@@ -27,12 +27,13 @@ class TchatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(inputBar)
-        
         getMessages()
         configureKeyboard()
         configureInputBar()
         configureKeyboardNotification()
+       // removeNotificationToDataBase()
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -40,6 +41,10 @@ class TchatViewController: UIViewController {
         IQKeyboardManager.shared.enableAutoToolbar = true
     }
 
+   /* func removeNotificationToDataBase(){
+        firebaseManager.removeNotification(UserInfo.shared.userID, currentUser.userID)
+    }*/
+    
     func configureKeyboardNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -183,11 +188,9 @@ class TchatViewController: UIViewController {
     }
     
     private func getANotificationInTheDDB(){
-        firebaseManager.setNotification(currentUser.userID,UserInfo.shared.userID, [UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as! String : 1]  as [String : Any]) { result in
+        firebaseManager.setNotification(currentUser.userID,UserInfo.shared.userID, ["Notification":UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as Any]) { result in
         }
-        
     }
-    
     
     
     

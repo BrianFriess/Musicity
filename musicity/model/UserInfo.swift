@@ -12,7 +12,6 @@ class UserInfo{
     
     static var shared = UserInfo()
     private init() {}
-    
     var userID = ""
     var publicInfoUser = [String:Any]()
     

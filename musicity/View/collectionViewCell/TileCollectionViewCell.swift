@@ -109,6 +109,7 @@ class TileCollectionViewCell: UICollectionViewCell {
         return paddyY
     }
     
+    
     func configureBandOrMusicianLabel(_ bandOrMusician : String){
         if bandOrMusician == "Band"{
             bandOrMusicianLabel.text = "Groupe"

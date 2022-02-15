@@ -11,6 +11,7 @@ enum YoutubeError : Error{
     case errorLink
 }
 
+
 class YoutubeManager{
     
     private var session : URLSession
@@ -32,7 +33,7 @@ class YoutubeManager{
         
         let youtubeUrl = URL(string: youtubePrefixNavigator + youtubeSuffix)
         
-        let task = self.session.dataTask(with : youtubeUrl!) { (data, response, error) in
+        let task = self.session.dataTask(with : youtubeUrl!) { (_, response, error) in
             DispatchQueue.main.async {
                 guard let response = response  as? HTTPURLResponse, response.statusCode == 200, error == nil else{
                     completion(.failure(.errorLink))
@@ -43,7 +44,4 @@ class YoutubeManager{
         }
         task.resume()
     }
-    
-    
-    
 }

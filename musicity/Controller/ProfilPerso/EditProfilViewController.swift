@@ -37,6 +37,7 @@ class EditProfilViewController: UIViewController {
         }
     }
     
+    
     //we check if the youtube link is empty or not in our segue
     func checkIfYoutubeLinkIsEmptyOrNot(){
         if  UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] != nil {
@@ -56,6 +57,7 @@ class EditProfilViewController: UIViewController {
             }
         }
     }
+    
     
     //we check if we have an url in the youtube Text Field
     func checkIfYoutubeUrlIsEmpty(){
@@ -83,9 +85,10 @@ class EditProfilViewController: UIViewController {
         }
     }
     
+    
     //we call the function for call our network call and dismiss the page
     @IBAction func pushSaveBUtton(_ sender: Any) {
-        if editUserView.bioLabelText.text.count < 500 {
+        if editUserView.bioLabelText.text.count < 1500 {
             checkIfBioIsEmptyOrNotWhenWePushSave()
             checkIfYoutubeUrlIsEmpty()
         } else {
@@ -144,6 +147,15 @@ extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigati
         self.present(imagePicker, animated: true, completion: nil)
     }
     
+    //we display a new profil picture and we add the picture in our segue
+    private func displayProfilPictureAndAddInTheSegue(_ profilPicture : UIImage){
+        self.editUserView.profilPicture.setImage(profilPicture, for: .normal)
+        self.editUserView.profilPicture.imageView?.contentMode = .scaleAspectFill
+        self.editUserView.profilPicture.clipsToBounds = true
+        UserInfo.shared.profilPicture = profilPicture
+        self.editUserView.loadPhoto(.isLoad)
+    }
+    
     //this function is for choose one picture in the photo Library
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         //if we choose an image, the image of chooseButton changes
@@ -163,11 +175,8 @@ extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigati
                 self.fireBaseManager.getImageToFirebase(urlImage) { imageResult in
                     switch imageResult{
                     case .success(let profilPicture):
-                        self.editUserView.profilPicture.setImage(profilPicture, for: .normal)
-                        self.editUserView.profilPicture.imageView?.contentMode = .scaleAspectFill
-                        self.editUserView.profilPicture.clipsToBounds = true
-                        UserInfo.shared.profilPicture = profilPicture
-                        self.editUserView.loadPhoto(.isLoad)
+                        //we display a new profil picture and we add the picture in our segue
+                        self.displayProfilPictureAndAddInTheSegue(profilPicture)
                     case .failure(_):
                         self.alerte.alerteVc(.errorImage, self)
                         self.editUserView.loadPhoto(.isLoad)
