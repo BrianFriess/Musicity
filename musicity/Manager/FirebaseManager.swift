@@ -215,6 +215,10 @@ struct FirebaseManager{
     }
     
     
+    func removeGetAllValueToFirebase(_ userId:String){
+        appDelegate.ref!.child("users").child(userId).removeAllObservers()
+    }
+    
     
     //get a dictionnary to firebase like all instrument or all style etc ...
     func getDictionnaryInfoUserToFirebase(_ userId : String, _ infoProfil : DataBaseAccessPath, completion : @escaping(Result<[String : Any], FirebaseError>)-> Void) {

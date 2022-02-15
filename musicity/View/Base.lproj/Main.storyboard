@@ -636,7 +636,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Message" id="p4s-6i-9g3"/>
                     <connections>
-                        <outlet property="tableView" destination="d0x-BP-AD9" id="MTS-sn-yfF"/>
+                        <outlet property="tableView" destination="d0x-BP-AD9" id="kI2-hW-Vzy"/>
                         <segue destination="HB5-yK-9ZT" kind="show" identifier="segueToMessenger" id="YUh-fu-5QA"/>
                     </connections>
                 </viewController>
@@ -1807,7 +1807,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="z3h-Bi-7SB"/>
         <segue reference="Z65-NL-mh6"/>
-        <segue reference="zQP-dn-fFU"/>
+        <segue reference="YUh-fu-5QA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="98"/>

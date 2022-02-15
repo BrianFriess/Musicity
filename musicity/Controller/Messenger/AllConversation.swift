@@ -9,26 +9,27 @@ import UIKit
 
 class AllConversation: UIViewController {
     
+    @IBOutlet weak var tableView: UITableView!
+    
     private let firebaseManager = FirebaseManager()
     private let alerte = AlerteManager()
     
     var arrayUserMessenger = [ResultInfo]()
     var row = 0
 
-
-    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         checkIfWeHaveAMessengerUser()
     }
     
+    
     //we check if we have an user Id before read all the user id
     private func checkIfWeHaveAMessengerUser(){
+        //if we have already a active messenger user in firebase we check for get the name and the profil picture in another function
         if arrayUserMessenger.count != UserInfo.shared.activeMessengerUserIdFirebase.count{
             if UserInfo.shared.activeMessengerUserIdFirebase.count != 0{
                 arrayUserMessenger = []
@@ -48,15 +49,34 @@ class AllConversation: UIViewController {
                     //we get a userId and the user information in an array for our table View
                     currentUser.addAllInfo(user)
                     currentUser.addUserId(UserInfo.shared.activeMessengerUserIdFirebase[i])
-                    self.arrayUserMessenger.append(currentUser)
-                    self.tableView.reloadData()
+                    //we add the new user in our array
+                    self.addUserInArrayForTableView(currentUser)
                 case .failure(_):
                     break
                 }
             }
         }
     }
+    
+    private func addUserInArrayForTableView(_ currentUser : ResultInfo){
+        if !self.checkIfUserAlreadyHere(currentUser, self.arrayUserMessenger){
+            self.arrayUserMessenger.append(currentUser)
+            self.tableView.reloadData()
+        }
+    }
+    
+    
+    //before set the id of the user in our array, we check if he already exists in the array
+    private func checkIfUserAlreadyHere(_ user : ResultInfo, _ arrayUser : [ResultInfo]) -> Bool{
+        for currentUserId in arrayUser{
+            if currentUserId.userID == user.userID{
+                return true
+            }
+        }
+        return false
+    }
 
+    
 
 }
 
@@ -121,6 +141,8 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
             }
         }
     }
+    
+    
     
 }
 
