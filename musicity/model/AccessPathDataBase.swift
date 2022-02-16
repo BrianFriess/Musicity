@@ -22,6 +22,7 @@ enum DataBaseAccessPath {
     case distance
     case search
     case notification
+    case notificationBanner
     
     var returnAccessPath : String{
         switch self{
@@ -53,6 +54,8 @@ enum DataBaseAccessPath {
             return "Search"
         case .notification:
             return "Notification"
+        case .notificationBanner:
+            return "NotificationBanner"
         }
     }
 }

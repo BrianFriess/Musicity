@@ -15,7 +15,6 @@ class ProfilUserViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UILabel!
     @IBOutlet weak var youtubePlayer: WKYTPlayerView!
     @IBOutlet weak var nbMember: UILabel!
-    @IBOutlet weak var bioLabel: UILabel!
     
     private let firebaseManager = FirebaseManager()
     

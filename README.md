@@ -25,4 +25,4 @@ Creation d'un tchat en temps réel
 
 Reste à faire :
 
-Refactorisation du code, modification de la table View à la reception d'un nouveau chat. 
+Refactorisation du code / modification de la table View à la reception d'un nouveau chat pour passer le nouveau tchat en 1er dans la table View/si l'utilisateur est déjà sur le tchat, ne pas regriser le tchat dans la liste des tchats / Enlever "contacter" quand l'utilisateur regarde le profil en passant d'abord par le tchat. 

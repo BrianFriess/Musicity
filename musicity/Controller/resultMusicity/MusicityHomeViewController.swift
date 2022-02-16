@@ -78,15 +78,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                         let allInfoIsGet = UserInfo.shared.addAllInfo(allInfo)
                         if allInfoIsGet {
                             //get the url profil picture
-                            self.firebaseManager.getUrlImageToFirebase(userId) { resultImage in
-                                switch resultImage{
-                                case .success(let imageUrl):
-                                    //get the profil Picture url in the singleton and go to the next page
-                                    UserInfo.shared.addUrlString(imageUrl)
-                                case .failure(_):
-                                    self.alerte.alerteVc(.errorGetInfo, self)
-                                }
-                            }
+                            self.getUrlImageAtTheStart(userId)
                         } else {
                             self.logInButMissInformation()
                         }
@@ -101,6 +93,18 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
+    
+    func getUrlImageAtTheStart(_ userId : String){
+        self.firebaseManager.getUrlImageToFirebase(userId) { resultImage in
+            switch resultImage{
+            case .success(let imageUrl):
+                //get the profil Picture url in the singleton and go to the next page
+                UserInfo.shared.addUrlString(imageUrl)
+            case .failure(_):
+                self.alerte.alerteVc(.errorGetInfo, self)
+            }
+        }
+    }
     
     private func logInButMissInformation(){
         //we go to the viewController for enter all the informations
@@ -387,20 +391,22 @@ extension MusicityHomeViewController :  UIScrollViewDelegate{
 extension  MusicityHomeViewController {
     func checkIfWeHaveNewMessage(){
         //we check when we have a new notification in our DDB
-        firebaseManager.checkNotification(UserInfo.shared.userID) { result in
+        firebaseManager.checkNotificationBanner(UserInfo.shared.userID) { result in
            switch result{
                //when we have, we recover the name of the user who send a new message
             case .success(let notif):
-               if let name = notif["Notification"] {
+               if let name = notif[DataBaseAccessPath.notificationBanner.returnAccessPath] {
                    //creation and display the notification banner
                    self.configureNotificationBanner(with : name as! String)
                }
-               self.firebaseManager.removeNotification(UserInfo.shared.userID)
+               self.firebaseManager.removeNotificationBanner(UserInfo.shared.userID)
             case .failure(_):
                 break
             }
         }
     }
+
+    
     
     //we  create and display the notification with the name
     func configureNotificationBanner(with name : String){
@@ -414,7 +420,6 @@ extension  MusicityHomeViewController {
         //show the banner
         notificationBanner.show()
         
-        //dismiss the banner
         //after 1.5 sec the banner is automaticaly dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             notificationBanner.dismiss()

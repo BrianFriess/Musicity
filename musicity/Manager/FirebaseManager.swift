@@ -28,6 +28,9 @@ struct FirebaseManager{
     let storage = Storage.storage().reference()
     
     
+    //MARK: Account Creation And Login / logout
+    
+    
     //function for create new user
    func createNewUser(_ email : String, _ password : String, _ userName : String,_ segmented : Int, completion : @escaping(Result<Void, FirebaseError>) -> Void) {
        
@@ -73,6 +76,7 @@ struct FirebaseManager{
         }
     }
     
+    
     func logOut(completion : @escaping(Result<Void, FirebaseError>) -> Void)  {
         do {
             try Auth.auth().signOut()
@@ -82,6 +86,7 @@ struct FirebaseManager{
         }
     }
 
+    
     //we use this function for get the user id
     func getUserId(completion : @escaping(Result<String, FirebaseError>) -> Void) {
         if let userID = Auth.auth().currentUser?.uid{
@@ -92,9 +97,9 @@ struct FirebaseManager{
     }
     
     
-    //MARK: Configure Data in fireBase
+    //MARK: Function for messenger
   
-    
+    //recover the userId in our ddb
     func getTheUserIdMessengerToDdb(_ userId : String, completion : @escaping(Result<[String],FirebaseError>) -> Void){
         appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.messengerUserId.returnAccessPath).observeSingleEvent(of: .value) { snapshot in
             if let value = snapshot.value as? [String]{
@@ -106,6 +111,8 @@ struct FirebaseManager{
     }
     
     
+    
+    //we use this function for set an userId in the ddb for create a new contact in the tchat
     func setTheUserIdMessengerInDdb(_ userId : String, _ userIdMessenger : [String:Any] , completion : @escaping(Result<Void, FirebaseError>)-> Void){
         appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.messengerUserId.returnAccessPath).setValue(userIdMessenger){ errorInfo, _ in
             guard errorInfo == nil else {
@@ -168,9 +175,14 @@ struct FirebaseManager{
         }
     }
     
+    
+    
+    
+    //MARK: Notification Push
+    
     //we create a new observer for check if we have a new notification in our database and we return the name
-    func checkNotification(_ userId : String, completion : @escaping(Result<[String : Any], FirebaseError>) -> Void ){
-        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).observe(.childAdded, with: { (snapshot) -> Void in
+    func checkNotificationBanner(_ userId : String, completion : @escaping(Result<[String : Any], FirebaseError>) -> Void ){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notificationBanner.returnAccessPath).observe(.childAdded, with: { (snapshot) -> Void in
             if let value = snapshot.value as?[String : Any]{
                 completion(.success(value))
             } else {
@@ -180,14 +192,15 @@ struct FirebaseManager{
     }
     
     
-    //we remove the notification when the iphone observe him in the ddb
-    func removeNotification(_ userId : String){
-        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).removeValue()
+    //we remove the notification when she's display on the phone of the other user
+    func removeNotificationBanner(_ userId : String){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notificationBanner.returnAccessPath).removeValue()
     }
     
+    
     //we create a new notification in the ddb with the name of the user who send the message
-    func setNotification(_ userId : String,_ otherUserId : String, _ infoUser : [String : Any],  completion : @escaping(Result<Void, FirebaseError>)-> Void) {
-        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).childByAutoId().setValue(infoUser) { errorInfo, _ in
+    func setNotificationBanner(_ userId : String,_ otherUserId : String, _ infoUser : [String : Any],  completion : @escaping(Result<Void, FirebaseError>)-> Void) {
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notificationBanner.returnAccessPath).childByAutoId().setValue(infoUser) { errorInfo, _ in
             guard errorInfo == nil else {
                 completion(.failure(.connexionError))
                 return
@@ -196,11 +209,51 @@ struct FirebaseManager{
         completion(.success(()))
     }
     
-    //we remove the observer with this function, for exemple, when the user disconnect him
+    
+    //we remove the observer with this function, for exemple, when the user disconnects
     func removeNotificationObserver(_ userId : String){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notificationBanner.returnAccessPath).removeAllObservers()
         appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).removeAllObservers()
     }
     
+    //MARK: Notification when we receive a new message for display the new message first in tableView
+    
+    //we set a new notification in the other user DDB for have our name in bold in messenger when we sent a new message
+    func setNewUserNotification(_ userId : String, _ otherUserId : String,  completion : @escaping(Result<Void, FirebaseError>)-> Void){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).setValue([DataBaseAccessPath.notification.returnAccessPath:otherUserId]) { errorInfo, _ in
+            guard errorInfo == nil else {
+                completion(.failure(.connexionError))
+                return
+            }
+        }
+        completion(.success(()))
+    }
+    
+    
+    //We check if the notification is set or is remove
+    func checkNewUserNotification(_ userId : String,_ otherUserId : String,  completion : @escaping(Result<Bool, FirebaseError>)-> Void){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).observe(.childAdded, with: { (snapshot) -> Void in
+            if snapshot.value != nil{
+                completion(.success(true))
+            }
+        })
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).observe(.childRemoved, with: { (snapshot) -> Void in
+            if snapshot.value != nil {
+                completion(.success(false))
+            }
+        })
+        completion(.failure(.connexionError))
+    }
+    
+    
+    
+    //we remove the notification the user open the conversation
+    func removeNotification(_ userId : String, _ otherUserId : String){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).removeValue()
+    }
+    
+    
+    //MARK: Set And Get Value of the users in DDB
     
     
     //we get all dictionnarys info of one user to fireBase
@@ -214,10 +267,6 @@ struct FirebaseManager{
         }
     }
     
-    
-    func removeGetAllValueToFirebase(_ userId:String){
-        appDelegate.ref!.child("users").child(userId).removeAllObservers()
-    }
     
     
     //get a dictionnary to firebase like all instrument or all style etc ...
@@ -251,6 +300,7 @@ struct FirebaseManager{
         completion(.success(()))
     }
     
+    
     //get a single info to firebase
     func getSingleInfoUserToFirebase(_ userId : String, _ firstChild : DataBaseAccessPath,_ secondChild : DataBaseAccessPath, completion : @escaping(Result<String, FirebaseError>)-> Void){
         appDelegate.ref!.child("users").child(userId).child("\(firstChild.returnAccessPath)").child(secondChild.returnAccessPath).observeSingleEvent(of: .value) { snapshot in
@@ -280,12 +330,11 @@ struct FirebaseManager{
                 completion(.failure(.connexionError))
             }
         }
+       
     }
     
 
-    
-    
-    
+ 
     
     //MARK: configure image in fireBase
     
@@ -309,6 +358,7 @@ struct FirebaseManager{
     }
 
     
+    
     //we get the urlImage for profil Picture
     func getUrlImageToFirebase( _ userId : String, completion : @escaping(Result<String, FirebaseError>) -> Void){
         storage.child(userId).child("ProfilImage/profilImage.png").downloadURL { url, error in
@@ -321,6 +371,7 @@ struct FirebaseManager{
         }
     }
 
+    
     
     
     // we get an image with an URL

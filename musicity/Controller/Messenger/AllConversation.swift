@@ -24,6 +24,7 @@ class AllConversation: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         checkIfWeHaveAMessengerUser()
+      //  self.tableView.reloadData()
     }
     
     
@@ -75,6 +76,24 @@ class AllConversation: UIViewController {
         }
         return false
     }
+    
+    //we check if the name in tableView is in bold or not
+    func testBold(_ userId : String,_ nameLabel : UILabel){
+        firebaseManager.checkNewUserNotification(UserInfo.shared.userID, userId) { result in
+            switch result{
+            case .success(let addOrRemove):
+                if addOrRemove{
+                nameLabel.font = .boldSystemFont(ofSize: 22)
+                nameLabel.textColor = .darkText
+                } else {
+                    nameLabel.font = .systemFont(ofSize: 20)
+                    nameLabel.textColor = .systemOrange
+                }
+            case .failure(_):
+                break
+            }
+        }
+    }
 
     
 
@@ -88,11 +107,16 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "messengerCell", for : indexPath) as? MessengerTableViewCell else {
             return UITableViewCell()
         }
         
         cell.nameLabel.text = arrayUserMessenger[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String
+        
+        
+        testBold(arrayUserMessenger[indexPath.row].userID, cell.nameLabel)
+        
         
         if arrayUserMessenger[indexPath.row].profilPicture == nil{
             cell.loadingPicture(.isNotLoad)
@@ -100,10 +124,10 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
             cell.picture.image = arrayUserMessenger[indexPath.row].profilPicture
             cell.loadingPicture(.isLoad)
         }
-        
         return cell
     }
 
+    
         //we prepare our userId in the segue for load the conversation with the right user
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToMessenger"{
@@ -111,6 +135,7 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
             successVC.currentUser = arrayUserMessenger[row]
         }
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         row = indexPath.row
@@ -141,8 +166,6 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
             }
         }
     }
-    
-    
     
 }
 

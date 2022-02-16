@@ -10,8 +10,6 @@ import UIKit
 import IQKeyboardManagerSwift
 import InputBarAccessoryView
 
-
-
 class TchatViewController: UIViewController {
 
 
@@ -31,7 +29,7 @@ class TchatViewController: UIViewController {
         configureKeyboard()
         configureInputBar()
         configureKeyboardNotification()
-       // removeNotificationToDataBase()
+        removeNotificationToDataBase()
     }
     
     
@@ -41,9 +39,9 @@ class TchatViewController: UIViewController {
         IQKeyboardManager.shared.enableAutoToolbar = true
     }
 
-   /* func removeNotificationToDataBase(){
+    func removeNotificationToDataBase(){
         firebaseManager.removeNotification(UserInfo.shared.userID, currentUser.userID)
-    }*/
+    }
     
     func configureKeyboardNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -188,7 +186,9 @@ class TchatViewController: UIViewController {
     }
     
     private func getANotificationInTheDDB(){
-        firebaseManager.setNotification(currentUser.userID,UserInfo.shared.userID, ["Notification":UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as Any]) { result in
+        firebaseManager.setNotificationBanner(currentUser.userID,UserInfo.shared.userID, [DataBaseAccessPath.notificationBanner.returnAccessPath : UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as Any]) { result in
+        }
+        firebaseManager.setNewUserNotification(currentUser.userID, UserInfo.shared.userID) { result in
         }
     }
     
@@ -228,6 +228,17 @@ class TchatViewController: UIViewController {
         
     }
 
+    //we prepare the segue
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SegueToViewProfil"{
+            let successVC = segue.destination as! ResultUserProfilViewController
+            successVC.currentUser = currentUser
+        }
+    }
+    
+    @IBAction func tapProfilButton(_ sender: Any) {
+        performSegue(withIdentifier: "SegueToViewProfil", sender: self)
+    }
 }
 
 
