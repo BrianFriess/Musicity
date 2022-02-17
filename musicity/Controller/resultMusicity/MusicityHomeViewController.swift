@@ -14,7 +14,6 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var customView: MusicityHomeCustomView!
-    
 
     
     private let manager = CLLocationManager()

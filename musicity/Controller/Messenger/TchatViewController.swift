@@ -225,7 +225,6 @@ class TchatViewController: UIViewController {
                 self.alerte.alerteVc(.messageError, self)
             }
         }
-        
     }
 
     //we prepare the segue
@@ -233,6 +232,7 @@ class TchatViewController: UIViewController {
         if segue.identifier == "SegueToViewProfil"{
             let successVC = segue.destination as! ResultUserProfilViewController
             successVC.currentUser = currentUser
+            successVC.isAfterTchat = true
         }
     }
     

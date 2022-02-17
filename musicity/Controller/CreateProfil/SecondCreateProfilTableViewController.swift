@@ -49,7 +49,6 @@ class SecondCreateProfilTableViewController: UIViewController {
             alerte.alerteVc(.emptyInstrument, self)
             return
         }
-        
         //we check if it's band or musician
         bandOrMusician()
         //we set a dictionnary with all the instruments in firebase

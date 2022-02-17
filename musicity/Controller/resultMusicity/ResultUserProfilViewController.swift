@@ -17,6 +17,7 @@ class ResultUserProfilViewController: UIViewController {
     private let firebaseManager = FirebaseManager()
     private let alerteManager = AlerteManager()
     var currentUser = ResultInfo()
+    var isAfterTchat = false
     
     
     override func viewDidLoad() {
@@ -31,8 +32,15 @@ class ResultUserProfilViewController: UIViewController {
         customeResultProfilPageView.configLabelUsername(currentUser.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as! String)
         bandOrMusician()
         youtubeVideoOrNot()
+        hideContactButtonOrNot()
     }
     
+    //if before this controller the user is in the tchat, we hide the "contact" button 
+    func hideContactButtonOrNot(){
+        if isAfterTchat {
+            customeResultProfilPageView.contactButton.isHidden = true
+        }
+    }
 
     
     //we check if it's band or musician profil
