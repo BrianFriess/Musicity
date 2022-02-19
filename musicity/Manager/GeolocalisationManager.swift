@@ -18,7 +18,7 @@ class GeolocalisationManager{
     
     private let manager = CLLocationManager()
     
-    private let geofireRef = Database.database(url: "https://musicity-ff6d8-default-rtdb.europe-west1.firebasedatabase.app").reference().child(DataBaseAccessPath.userLocation.returnAccessPath)
+    private let geofireRef = Database.database(url: "https://musicity2-a2eb0-default-rtdb.europe-west1.firebasedatabase.app").reference().child(DataBaseAccessPath.userLocation.returnAccessPath)
     
     
     enum AccessGeolocalisation{

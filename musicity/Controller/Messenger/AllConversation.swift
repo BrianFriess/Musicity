@@ -24,7 +24,7 @@ class AllConversation: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         checkIfWeHaveAMessengerUser()
-      //  self.tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     
@@ -83,6 +83,7 @@ class AllConversation: UIViewController {
             switch result{
             case .success(let addOrRemove):
                 if addOrRemove{
+
                 nameLabel.font = .boldSystemFont(ofSize: 22)
                 nameLabel.textColor = .darkText
                 } else {

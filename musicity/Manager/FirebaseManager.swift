@@ -230,6 +230,7 @@ struct FirebaseManager{
     }
     
     
+    
     //We check if the notification is set or is remove
     func checkNewUserNotification(_ userId : String,_ otherUserId : String,  completion : @escaping(Result<Bool, FirebaseError>)-> Void){
         appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).observe(.childAdded, with: { (snapshot) -> Void in
@@ -248,8 +249,12 @@ struct FirebaseManager{
     
     
     //we remove the notification the user open the conversation
-    func removeNotification(_ userId : String, _ otherUserId : String){
+    func removeNotificationUser(_ userId : String, _ otherUserId : String){
         appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).removeValue()
+    }
+    
+    func removeNotificationUserObserver(_ userId : String , _ otherUserId : String){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).removeAllObservers()
     }
     
     

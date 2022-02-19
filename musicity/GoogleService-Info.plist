@@ -3,32 +3,34 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>769082692469-6ep9ms2a9ej7oac0rojbv8ffm51c8f2h.apps.googleusercontent.com</string>
+	<string>101258644461-v8a6ab4362006s8bqsbpmeo4iv3itsao.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.769082692469-6ep9ms2a9ej7oac0rojbv8ffm51c8f2h</string>
+	<string>com.googleusercontent.apps.101258644461-v8a6ab4362006s8bqsbpmeo4iv3itsao</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBTIbRfezpuTzharoogg82Mi4P5caZ6AC0</string>
+	<string>AIzaSyBy1n2jdjwO1TCNU2ajLlTMcDtzw1uNFX0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>769082692469</string>
+	<string>101258644461</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>fr.FriessBrian.musicity</string>
 	<key>PROJECT_ID</key>
-	<string>musicity-ff6d8</string>
+	<string>musicity2-a2eb0</string>
 	<key>STORAGE_BUCKET</key>
-	<string>musicity-ff6d8.appspot.com</string>
+	<string>musicity2-a2eb0.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:769082692469:ios:1d90436b9ff99ebbb2393c</string>
+	<string>1:101258644461:ios:1eb5ed4a0b4b2ff172f5e4</string>
+	<key>DATABASE_URL</key>
+	<string>https://musicity2-a2eb0-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

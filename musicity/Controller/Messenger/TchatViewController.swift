@@ -30,6 +30,7 @@ class TchatViewController: UIViewController {
         configureInputBar()
         configureKeyboardNotification()
         removeNotificationToDataBase()
+        checkIfWeHaveAnewNotificationForRemove()
     }
     
     
@@ -37,10 +38,22 @@ class TchatViewController: UIViewController {
         super.viewWillDisappear(animated)
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = true
+        firebaseManager.removeNotificationUserObserver(UserInfo.shared.userID, currentUser.userID)
     }
 
     func removeNotificationToDataBase(){
-        firebaseManager.removeNotification(UserInfo.shared.userID, currentUser.userID)
+        firebaseManager.removeNotificationUser(UserInfo.shared.userID, currentUser.userID)
+    }
+    
+    func checkIfWeHaveAnewNotificationForRemove(){
+        firebaseManager.checkNewUserNotification(UserInfo.shared.userID, currentUser.userID) { result in
+            switch result{
+            case .success(_):
+                self.removeNotificationToDataBase()
+            case .failure(_):
+                break
+            }
+        }
     }
     
     func configureKeyboardNotification(){

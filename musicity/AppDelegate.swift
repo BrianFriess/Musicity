@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DEBUG
         ****************************
         """)
-        ref = Database.database(url: "https://musicity-ff6d8-default-rtdb.europe-west1.firebasedatabase.app").reference()
+        ref = Database.database(url: "https://musicity2-a2eb0-default-rtdb.europe-west1.firebasedatabase.app").reference()
         #endif
     }
     
