@@ -78,14 +78,13 @@ class AllConversation: UIViewController {
     }
     
     //we check if the name in tableView is in bold or not
-    func testBold(_ userId : String,_ nameLabel : UILabel){
+    func testBold(_ userId : String, _ nameLabel : UILabel){
         firebaseManager.checkNewUserNotification(UserInfo.shared.userID, userId) { result in
             switch result{
             case .success(let addOrRemove):
                 if addOrRemove{
-
-                nameLabel.font = .boldSystemFont(ofSize: 22)
-                nameLabel.textColor = .darkText
+                    nameLabel.font = .boldSystemFont(ofSize: 22)
+                    nameLabel.textColor = .darkText
                 } else {
                     nameLabel.font = .systemFont(ofSize: 20)
                     nameLabel.textColor = .systemOrange

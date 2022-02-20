@@ -21,6 +21,8 @@ Creation de notification Banner
 
 Creation d'un tchat en temps réel
 
+Utilisation de MapKit pour Visualiser la filtre geographique de l'utilisateur
+
 Reste à faire :
 
 Refactorisation du code / modification de la table View à la reception d'un nouveau chat pour passer le nouveau tchat en 1er dans la table View

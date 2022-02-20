@@ -129,7 +129,13 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         disconnect()
     }
     
-
+    
+    @IBAction func filterButton(_ sender: Any) {
+        performSegue(withIdentifier: "segueToFilter", sender: nil)
+    }
+    
+    
+    
     //we get the localisation of the iPhone
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.first{
@@ -323,6 +329,12 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
         if segue.identifier == "goToViewUserProfil"{
             let successVC = segue.destination as! ResultUserProfilViewController
             successVC.currentUser = currentUser
+        }
+        
+        if segue.identifier == "segueToFilter"{
+            let successVC = segue.destination as! FilterViewController
+            successVC.latitude = latitude
+            successVC.longitude = longitude
         }
     }
     

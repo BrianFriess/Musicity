@@ -30,6 +30,7 @@ class ResultInfo : Equatable {
     
     var activeMessengerUserId = [String : Any]()
     var activeMessengerUserIdFirebase = [String]()
+    var haveNotification = false
     
 
     func addAllUserMessenger(_ idUserMessenger : [String]){
