@@ -43,7 +43,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    func configureGeolocalisation(){
+    private func configureGeolocalisation(){
         manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
@@ -52,7 +52,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     
     
     //we check in firebase if the user is already connect
-    func checkIfWeAlreadyConnect(){
+    private func checkIfWeAlreadyConnect(){
         if Firebase.Auth.auth().currentUser == nil {
             self.performSegue(withIdentifier: "segueDisconnect", sender: nil)
         } else {
@@ -63,7 +63,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     //if the user is already connect, we get all the info at the start
-    func getAllValueOfUserIfWeAreAlreadyConnect(){
+    private func getAllValueOfUserIfWeAreAlreadyConnect(){
                 //we get the userID
         self.firebaseManager.getUserId { result in
             switch result{
@@ -74,13 +74,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                     switch result{
                     case .success(let allInfo):
                         //if we have all the information, we get the information in the singleton
-                        let allInfoIsGet = UserInfo.shared.addAllInfo(allInfo)
-                        if allInfoIsGet {
-                            //get the url profil picture
-                            self.getUrlImageAtTheStart(userId)
-                        } else {
-                            self.logInButMissInformation()
-                        }
+                        self.checkIfWeHaveAllInformations(allInfo, userId)
                     case .failure(_):
                         self.alerte.alerteVc(.errorGetInfo, self)
                     }
@@ -92,8 +86,19 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
+    //if we have all the information, we get the information in the singleton
+    private func checkIfWeHaveAllInformations(_ allInfo : [String:Any], _ userId : String){
+        let allInfoIsGet = UserInfo.shared.addAllInfo(allInfo)
+        if allInfoIsGet {
+            //get the url profil picture
+            self.getUrlImageAtTheStart(userId)
+        } else {
+            self.logInButMissInformation()
+        }
+    }
     
-    func getUrlImageAtTheStart(_ userId : String){
+    
+    private func getUrlImageAtTheStart(_ userId : String){
         self.firebaseManager.getUrlImageToFirebase(userId) { resultImage in
             switch resultImage{
             case .success(let imageUrl):
@@ -130,6 +135,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
+    //when we click on the filter button
     @IBAction func filterButton(_ sender: Any) {
         performSegue(withIdentifier: "segueToFilter", sender: nil)
     }
@@ -208,25 +214,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
                 userResult.addUserId(resultArrayGeo["idResult"]!)
                 userResult.addDistance(resultArrayGeo["distance"]!)
                 //network call for check if the result is band or Musician
-                self.firebaseManager.getSingleInfoUserToFirebase(resultArrayGeo["idResult"]!, .publicInfoUser, .BandOrMusician) { result in
-                    switch result{
-                    case .success(let checkBandOrMusician):
-                        //we get the url image of the result
-                        self.firebaseManager.getUrlImageToFirebase( resultArrayGeo["idResult"]!) { resultUrl in
-                            switch resultUrl{
-                            case .success(let url):
-                                userResult.addUrlString(url)
-                                //we check if this user is already in our array of Result if not, we add a new userResut in our array
-                                self.updateArrayOfUserResult(checkBandOrMusician, userResult, bandOrMusicianFilter)
-                                self.checkIfArraysIsEmpty()
-                            case .failure(_):
-                                break
-                            }
-                        }
-                    case .failure(_):
-                        self.alerte.alerteVc(.errorCheckAroundUs, self)
-                    }
-                }
+                self.checkIfItsBandOrMusician(resultArrayGeo, userResult, bandOrMusicianFilter)
             case .failure(_):
             self.alerte.alerteVc(.errorCheckAroundUs, self)
             }
@@ -234,8 +222,40 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
+    //check if the result is a band or musician
+    private func checkIfItsBandOrMusician(_ resultArrayGeo : [String:String],_ userResult : ResultInfo,_ bandOrMusicianFilter : String){
+        self.firebaseManager.getSingleInfoUserToFirebase(resultArrayGeo["idResult"]!, .publicInfoUser, .BandOrMusician) { result in
+            switch result{
+            case .success(let checkBandOrMusician):
+                //we get the url image of the result
+                self.getTheUrlImage(resultArrayGeo, userResult, checkBandOrMusician, bandOrMusicianFilter)
+            case .failure(_):
+                self.alerte.alerteVc(.errorCheckAroundUs, self)
+            }
+        }
+    }
+    
+    
+    private func getTheUrlImage(_ resultArrayGeo : [String:String], _ userResult : ResultInfo,_ checkBandOrMusician : String, _ bandOrMusicianFilter : String){
+        //we get the url image of the result
+        self.firebaseManager.getUrlImageToFirebase( resultArrayGeo["idResult"]!) { resultUrl in
+            switch resultUrl{
+            case .success(let url):
+                userResult.addUrlString(url)
+                //we check if this user is already in our array of Result if not, we add a new userResut in our array
+                self.updateArrayOfUserResult(checkBandOrMusician, userResult, bandOrMusicianFilter)
+                self.checkIfArraysIsEmpty()
+            case .failure(_):
+                break
+            }
+        }
+    }
+    
+    
+    
+    
     //we check after 4 seconds if we have a result or not
-    func checkIfArraysIsEmpty(){
+    private func checkIfArraysIsEmpty(){
         let seconds = 4.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds){
             if self.arrayUser == []{
@@ -245,14 +265,13 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     //we check if this user is already in our array of Result if not, we add a new userResut in our array
-    func updateArrayOfUserResult(_ checkBandOrMusician : String, _ userResult : ResultInfo, _ bandOrMusicianFilter : String ){
+    private func updateArrayOfUserResult(_ checkBandOrMusician : String, _ userResult : ResultInfo, _ bandOrMusicianFilter : String ){
         if !self.checkIfUserAlreadyHere(userResult){
             if userResult.userID != UserInfo.shared.userID{
             self.filterBandOrMusician(checkBandOrMusician, bandOrMusicianFilter, userResult)
                 self.collectionView.reloadData()
             }
         }
-
     }
     
     
@@ -266,6 +285,8 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         return false
     }
     
+    
+    
     // we check with the network call result and the filter if we want Band or Musician or All
     func filterBandOrMusician(_ checkBandOrMusician : String, _ bandOrMusicianFilter : String, _ userResult : ResultInfo){
         if checkBandOrMusician == bandOrMusicianFilter{
@@ -275,10 +296,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    
 }
-
-
 
 
 
@@ -436,7 +454,6 @@ extension  MusicityHomeViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             notificationBanner.dismiss()
         }
-
     }
     
 }

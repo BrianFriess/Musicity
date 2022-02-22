@@ -185,8 +185,8 @@
             filePath = "musicity/Controller/resultMusicity/MusicityHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "checkAroundUsWithFilter(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -217,8 +217,8 @@
             filePath = "musicity/Controller/resultMusicity/MusicityHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "checkAroundUsWithFilter(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -297,8 +297,8 @@
             filePath = "musicity/Controller/resultMusicity/MusicityHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "414"
-            endingLineNumber = "414"
+            startingLineNumber = "432"
+            endingLineNumber = "432"
             landmarkName = "checkIfWeHaveNewMessage()"
             landmarkType = "7">
          </BreakpointContent>

@@ -16,11 +16,6 @@ class FirstCreateProfilViewController: UIViewController {
     
     private let fireBaseManager = FirebaseManager()
     private let alerte = AlerteManager()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-    }
  
     
     

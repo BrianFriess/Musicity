@@ -53,17 +53,17 @@ class ProfilUserViewController: UIViewController {
     // network call for display the profil picture 
     func configureProfilPicture(){
         profilUserView.loadSpinner(.isInLoading)
-            firebaseManager.getImageToFirebase(UserInfo.shared.stringUrl) { result in
-                switch result{
-                case .success(let profilPictureResult):
-                    UserInfo.shared.addProfilPicture(profilPictureResult)
-                    self.profilUserView.loadSpinner(.isLoad)
-                    self.profilPicture.image = UserInfo.shared.profilPicture
-                case .failure(_):
-                    self.profilUserView.loadSpinner(.isLoad)
-                    self.profilPicture.image = UIImage(systemName: "questionmark.circle.fill")!
-                }
+        firebaseManager.getImageToFirebase(UserInfo.shared.stringUrl) { result in
+            switch result{
+            case .success(let profilPictureResult):
+                UserInfo.shared.addProfilPicture(profilPictureResult)
+                self.profilUserView.loadSpinner(.isLoad)
+                self.profilPicture.image = UserInfo.shared.profilPicture
+            case .failure(_):
+                self.profilUserView.loadSpinner(.isLoad)
+                self.profilPicture.image = UIImage(systemName: "questionmark.circle.fill")!
             }
+        }
     }
     
     
@@ -87,6 +87,7 @@ class ProfilUserViewController: UIViewController {
             profilUserView.bioLabelText.text = UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String
         }
     }
+    
 
 }
 
@@ -97,6 +98,7 @@ extension ProfilUserViewController : UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return UserInfo.shared.instrumentFireBase.count + UserInfo.shared.styleFirbase.count
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCollectionCell", for : indexPath) as? TagCollectionViewCell else {
@@ -111,7 +113,7 @@ extension ProfilUserViewController : UICollectionViewDelegate, UICollectionViewD
             //second, the style
             cell.tagLabel.text = UserInfo.shared.styleFirbase[indexPath.row - UserInfo.shared.instrumentFireBase.count]
         }
-        
         return cell
     }
+    
 }

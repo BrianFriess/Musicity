@@ -33,6 +33,8 @@ class UserInfo{
     var activeMessengerUserId = [String : Any]()
     var activeMessengerUserIdFirebase = [String]()
     
+    var allNotification = [String : Any]()
+    
 
     func resetSingleton(){
         userID = ""
@@ -118,7 +120,13 @@ class UserInfo{
             addAllUserMessenger(allIdMessenger)
             setDictionnaryUserIdMessenger()
         }
+        
+        if let notificationUser = allinfo[DataBaseAccessPath.notification.returnAccessPath] as? [String : Any]{
+            addAllNotification(notificationUser)
+            print(notificationUser)
+        }
         return true
+        
     }
     
     
@@ -145,6 +153,10 @@ class UserInfo{
     
     func addAllUserMessenger(_ idUserMessenger : [String]){
         self.activeMessengerUserIdFirebase = idUserMessenger
+    }
+    
+    func addAllNotification(_ notificationUser : [String : Any]){
+        self.allNotification = notificationUser
     }
     
     private func addAllStyle(_ style : [String]){

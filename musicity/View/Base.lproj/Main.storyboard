@@ -238,8 +238,8 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mbx-AN-nG3">
                                 <rect key="frame" x="2" y="114" width="316" height="349"/>
-                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
-                                <color key="tintColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                                <color key="backgroundColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DP7-Kn-dBK">
                                     <size key="itemSize" width="86" height="55"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -320,7 +320,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CdF-gh-mT0"/>
-                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="0.99999994039999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="nH9-ag-PZY" firstAttribute="top" secondItem="CdF-gh-mT0" secondAttribute="top" constant="10" id="CP4-Wz-7XT"/>
                             <constraint firstItem="CdF-gh-mT0" firstAttribute="trailing" secondItem="mbx-AN-nG3" secondAttribute="trailing" constant="2" id="Hdw-fh-WmO"/>
@@ -482,7 +482,7 @@
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2td-KJ-Ng6"/>
-                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                        <color key="backgroundColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wbM-8S-uPb" firstAttribute="centerX" secondItem="bmH-Uj-UDq" secondAttribute="centerX" id="5eN-md-Y9o"/>
                             <constraint firstItem="2td-KJ-Ng6" firstAttribute="bottom" secondItem="gFm-Ec-OK7" secondAttribute="bottom" constant="40" id="EjK-xP-Iay"/>
@@ -1188,7 +1188,7 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wCD-jU-u9q">
                                         <rect key="frame" x="0.0" y="140" width="320" height="109"/>
                                         <color key="backgroundColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="textColor" systemColor="labelColor"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -1316,7 +1316,7 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27c-of-hLk">
                                         <rect key="frame" x="0.0" y="142" width="320" height="150"/>
                                         <color key="backgroundColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="textColor" systemColor="labelColor"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -1772,7 +1772,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Pwv-h2-tRe"/>
-                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                        <color key="backgroundColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EMc-hZ-pfC" firstAttribute="centerX" secondItem="Dft-Yw-95q" secondAttribute="centerX" id="8DS-fa-Tdl"/>
                             <constraint firstItem="HUo-65-843" firstAttribute="centerX" secondItem="Dft-Yw-95q" secondAttribute="centerX" id="BO0-8z-QR1"/>
@@ -1800,7 +1800,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7ky-yh-TD3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
+                        <color key="backgroundColor" red="0.89071965220000004" green="0.89098316430000002" blue="0.90902525190000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" systemColor="systemOrangeColor"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
@@ -1828,7 +1828,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="z3h-Bi-7SB"/>
+        <segue reference="re9-qK-yAt"/>
         <segue reference="Z65-NL-mh6"/>
         <segue reference="D2N-pl-nUq"/>
         <segue reference="zQP-dn-fFU"/>
@@ -1841,9 +1841,6 @@
         <image name="music.quarternote.3" catalog="system" width="128" height="103"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

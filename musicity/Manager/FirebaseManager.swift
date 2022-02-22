@@ -231,20 +231,30 @@ struct FirebaseManager{
     
     
     
-    //We check if the notification is set or is remove
-    func checkNewUserNotification(_ userId : String,_ otherUserId : String,  completion : @escaping(Result<Bool, FirebaseError>)-> Void){
-        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).observe(.childAdded, with: { (snapshot) -> Void in
-            if snapshot.value != nil{
-                completion(.success(true))
+    //We check if the notification is set
+    func checkNewUserNotification(_ userId : String,  completion : @escaping(Result<[String:Any], FirebaseError>)-> Void){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).observe(.childAdded, with: { (snapshot) -> Void in
+            if let value = snapshot.value as?[String : Any]{
+                completion(.success(value))
+            } else {
+                completion(.failure(.InfoError))
             }
-        })
-        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).observe(.childRemoved, with: { (snapshot) -> Void in
-            if snapshot.value != nil {
-                completion(.success(false))
-            }
-        })
+           })
         completion(.failure(.connexionError))
     }
+    
+    
+    //We check if the notification is remove
+   /*func checkRemoveUserNotification(_ userId : String,  completion : @escaping(Result<[String:Any], FirebaseError>)-> Void){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).observe(.childRemoved, with: { (snapshot) -> Void in
+            if let value = snapshot.value as?[String : Any]{
+                completion(.success(value))
+            } else {
+                completion(.failure(.InfoError))
+            }
+           })
+        completion(.failure(.connexionError))
+    }*/
     
     
     
@@ -253,8 +263,8 @@ struct FirebaseManager{
         appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).removeValue()
     }
     
-    func removeNotificationUserObserver(_ userId : String , _ otherUserId : String){
-        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).removeAllObservers()
+    func removeNotificationUserObserver(_ userId : String ){
+        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).removeAllObservers()
     }
     
     

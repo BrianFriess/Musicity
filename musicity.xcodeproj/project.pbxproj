@@ -32,7 +32,6 @@
 		D35075262772513900DD3365 /* YoutubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35075252772513900DD3365 /* YoutubeManager.swift */; };
 		D36292192761225400328090 /* ChoiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36292182761225400328090 /* ChoiceCollectionViewCell.swift */; };
 		D36A4AC727A727EC0089BF0C /* FakeDataUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36A4AC627A727EC0089BF0C /* FakeDataUnitTest.swift */; };
-		D36DF73527C13985005ADEE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D36DF73427C13985005ADEE2 /* GoogleService-Info.plist */; };
 		D36F0BE8275FA652009D5A69 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */; };
 		D372FE77275E28E900DC5298 /* GeoFire in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE76275E28E900DC5298 /* GeoFire */; settings = {ATTRIBUTES = (Required, ); }; };
 		D372FE84275E300900DC5298 /* YoutubePlayer-in-WKWebView in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE83275E300900DC5298 /* YoutubePlayer-in-WKWebView */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -66,6 +65,7 @@
 		D3ECD6ED276355F900366A1D /* CustomOrangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECD6EC276355F900366A1D /* CustomOrangeButton.swift */; };
 		D3ECD6F22763B9F400366A1D /* CustomProfilPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECD6F12763B9F400366A1D /* CustomProfilPictureView.swift */; };
 		D3ECD6F52763BF6600366A1D /* EditProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECD6F42763BF6600366A1D /* EditProfilViewController.swift */; };
+		D3EE0FA727C556F40027A44C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3EE0FA627C556F40027A44C /* GoogleService-Info.plist */; };
 		D3FF5A5A2770F794000596D7 /* EditProfilCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF5A592770F794000596D7 /* EditProfilCustomView.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,7 +100,6 @@
 		D35075252772513900DD3365 /* YoutubeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeManager.swift; sourceTree = "<group>"; };
 		D36292182761225400328090 /* ChoiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceCollectionViewCell.swift; sourceTree = "<group>"; };
 		D36A4AC627A727EC0089BF0C /* FakeDataUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataUnitTest.swift; sourceTree = "<group>"; };
-		D36DF73427C13985005ADEE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		D374AAA527B7FD3300FF5522 /* UrlTestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlTestProtocol.swift; sourceTree = "<group>"; };
 		D374AAA727B8271100FF5522 /* AccessPathTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessPathTest.swift; sourceTree = "<group>"; };
@@ -134,6 +133,7 @@
 		D3ECD6EC276355F900366A1D /* CustomOrangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOrangeButton.swift; sourceTree = "<group>"; };
 		D3ECD6F12763B9F400366A1D /* CustomProfilPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProfilPictureView.swift; sourceTree = "<group>"; };
 		D3ECD6F42763BF6600366A1D /* EditProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilViewController.swift; sourceTree = "<group>"; };
+		D3EE0FA627C556F40027A44C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3FF5A592770F794000596D7 /* EditProfilCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilCustomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -282,7 +282,7 @@
 				D3348D17274E3C8A00811091 /* Manager */,
 				D37D92282747DF1C00D59BC5 /* View */,
 				D37D92062747B72100D59BC5 /* Info.plist */,
-				D36DF73427C13985005ADEE2 /* GoogleService-Info.plist */,
+				D3EE0FA627C556F40027A44C /* GoogleService-Info.plist */,
 			);
 			path = musicity;
 			sourceTree = "<group>";
@@ -502,7 +502,7 @@
 			files = (
 				D37D92322748080D00D59BC5 /* Archistico_Bold.ttf in Resources */,
 				D37D92052747B72100D59BC5 /* LaunchScreen.storyboard in Resources */,
-				D36DF73527C13985005ADEE2 /* GoogleService-Info.plist in Resources */,
+				D3EE0FA727C556F40027A44C /* GoogleService-Info.plist in Resources */,
 				D37D92022747B72100D59BC5 /* Assets.xcassets in Resources */,
 				D37D92002747B72000D59BC5 /* Main.storyboard in Resources */,
 			);

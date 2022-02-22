@@ -34,7 +34,7 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         displayLocation()
     }
     
-    
+    //set our position in  a CLLocation and display out position on a map
     func displayLocation() {
         mapKit.showsUserLocation = true
         let location = CLLocation(latitude: latitude, longitude: longitude)
@@ -47,7 +47,7 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     }
     
 
-    
+    //add a cicle around our position
     func addCircle(){
         mapKit.removeOverlay(circle)
         let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -55,7 +55,7 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         mapKit.addOverlay(circle)
     }
     
-    
+    //create the circle
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         var circleRenderer = MKCircleRenderer()
         if let overlay = overlay as? MKCircle {
@@ -87,6 +87,7 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     //we set and display the value of the slider
     @IBAction func sliderValueChanged(_ sender: Any) {
         labelKm.text = "\(Int(sliderKm.value * 100)) Km"
+        //if we move the slider, we reload our new position in the map 
         displayLocation()
     }
     

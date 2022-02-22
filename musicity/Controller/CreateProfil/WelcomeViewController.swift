@@ -12,6 +12,7 @@ class WelcomeViewController: UIViewController {
     private let firebaseManager = FirebaseManager()
     private let alerte = AlerteManager()
     
+    
     //we get all the info to firebase 
     @IBAction func letsgoButton(_ sender: Any) {
         firebaseManager.getAllTheInfoToFirebase(UserInfo.shared.userID) { result in
@@ -26,7 +27,7 @@ class WelcomeViewController: UIViewController {
                 self.alerte.alerteVc(.errorGetInfo, self)
             }
         }
-
     }
 
+    
 }

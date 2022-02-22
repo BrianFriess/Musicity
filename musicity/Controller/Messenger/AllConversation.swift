@@ -20,10 +20,12 @@ class AllConversation: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         checkIfWeHaveAMessengerUser()
+        addObserverNotification()
         self.tableView.reloadData()
     }
     
@@ -59,10 +61,11 @@ class AllConversation: UIViewController {
         }
     }
     
+    
     private func addUserInArrayForTableView(_ currentUser : ResultInfo){
         if !self.checkIfUserAlreadyHere(currentUser, self.arrayUserMessenger){
             self.arrayUserMessenger.append(currentUser)
-            self.tableView.reloadData()
+            addObserverNotification()
         }
     }
     
@@ -77,26 +80,33 @@ class AllConversation: UIViewController {
         return false
     }
     
-    //we check if the name in tableView is in bold or not
-    func testBold(_ userId : String, _ nameLabel : UILabel){
-        firebaseManager.checkNewUserNotification(UserInfo.shared.userID, userId) { result in
+    //we add an observer for look if we have a notification user in our ddb for display this user in first in our ddb
+    func addObserverNotification(){
+        firebaseManager.checkNewUserNotification(UserInfo.shared.userID) { result in
             switch result{
-            case .success(let addOrRemove):
-                if addOrRemove{
-                    nameLabel.font = .boldSystemFont(ofSize: 22)
-                    nameLabel.textColor = .darkText
-                } else {
-                    nameLabel.font = .systemFont(ofSize: 20)
-                    nameLabel.textColor = .systemOrange
+            case .success(let userIdNotification):
+                if self.arrayUserMessenger.count != 0{
+                    self.checkIfHaveANotificationUser(userIdNotification[DataBaseAccessPath.notification.returnAccessPath] as! String)
                 }
             case .failure(_):
-                break
+                self.tableView.reloadData()
             }
         }
     }
-
     
-
+    //if we have a new user in our notification, we change the place of the user in our array
+    func checkIfHaveANotificationUser(_ userId : String){
+        for i in 0...arrayUserMessenger.count-1{
+            if userId == arrayUserMessenger[i].userID{
+                let tampUser = arrayUserMessenger[i]
+                arrayUserMessenger.remove(at: i)
+                arrayUserMessenger.insert(tampUser, at: 0)
+                arrayUserMessenger[0].haveNotification = true
+                tableView.reloadData()
+            }
+        }
+    }
+    
 }
 
 extension AllConversation : UITableViewDelegate, UITableViewDataSource{
@@ -112,10 +122,16 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
         }
         
+        if arrayUserMessenger[indexPath.row].haveNotification == true {
+            cell.nameLabel.font = .boldSystemFont(ofSize: 22)
+            cell.nameLabel.textColor = .darkText
+        } else {
+            cell.nameLabel.font = .systemFont(ofSize: 20)
+            cell.nameLabel.textColor = .systemOrange
+        }
+        
+        
         cell.nameLabel.text = arrayUserMessenger[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String
-        
-        
-        testBold(arrayUserMessenger[indexPath.row].userID, cell.nameLabel)
         
         
         if arrayUserMessenger[indexPath.row].profilPicture == nil{
@@ -140,6 +156,8 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         row = indexPath.row
         performSegue(withIdentifier: "segueToMessenger", sender: self)
+        firebaseManager.removeNotificationUser(UserInfo.shared.userID, arrayUserMessenger[indexPath.row].userID)
+        arrayUserMessenger[indexPath.row].haveNotification = false
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -155,7 +173,7 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
                             switch result{
                             case .success(let image):
                                 self.arrayUserMessenger[indexPath.row].addProfilPicture(image)
-                                self.tableView.reloadRows(at: [indexPath], with: .fade)
+                                self.tableView.reloadData()
                             case .failure(_):
                                 self.alerte.alerteVc(.errorCheckAroundUs, self)
                             }

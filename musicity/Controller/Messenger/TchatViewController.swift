@@ -29,7 +29,6 @@ class TchatViewController: UIViewController {
         configureKeyboard()
         configureInputBar()
         configureKeyboardNotification()
-        removeNotificationToDataBase()
         checkIfWeHaveAnewNotificationForRemove()
     }
     
@@ -38,28 +37,37 @@ class TchatViewController: UIViewController {
         super.viewWillDisappear(animated)
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = true
-        firebaseManager.removeNotificationUserObserver(UserInfo.shared.userID, currentUser.userID)
+        firebaseManager.removeNotificationUserObserver(UserInfo.shared.userID)
     }
 
+    
+    //delete the notification
     func removeNotificationToDataBase(){
         firebaseManager.removeNotificationUser(UserInfo.shared.userID, currentUser.userID)
+        currentUser.haveNotification = false
     }
     
+    //if we receive a tchat in the tchatViewConroller, we delete the notification
     func checkIfWeHaveAnewNotificationForRemove(){
-        firebaseManager.checkNewUserNotification(UserInfo.shared.userID, currentUser.userID) { result in
+        firebaseManager.checkNewUserNotification(UserInfo.shared.userID) { result in
             switch result{
-            case .success(_):
+            case .success(let userId):
+                print(userId)
+                if userId[DataBaseAccessPath.notification.returnAccessPath] as! String == self.currentUser.userID{
                 self.removeNotificationToDataBase()
+                }
             case .failure(_):
                 break
             }
         }
     }
     
+    
     func configureKeyboardNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     
     @objc private func keyboardWillShow(notification: NSNotification) {
         
