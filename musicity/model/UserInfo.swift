@@ -121,10 +121,6 @@ class UserInfo{
             setDictionnaryUserIdMessenger()
         }
         
-        if let notificationUser = allinfo[DataBaseAccessPath.notification.returnAccessPath] as? [String : Any]{
-            addAllNotification(notificationUser)
-            print(notificationUser)
-        }
         return true
         
     }
@@ -155,9 +151,6 @@ class UserInfo{
         self.activeMessengerUserIdFirebase = idUserMessenger
     }
     
-    func addAllNotification(_ notificationUser : [String : Any]){
-        self.allNotification = notificationUser
-    }
     
     private func addAllStyle(_ style : [String]){
         self.styleFirbase = style

@@ -25,6 +25,7 @@ class AccessPathTest: XCTestCase {
         XCTAssertEqual(DataBaseAccessPath.distance.returnAccessPath, "Distance")
         XCTAssertEqual(DataBaseAccessPath.search.returnAccessPath, "Search")
         XCTAssertEqual(DataBaseAccessPath.notification.returnAccessPath, "Notification")
+        XCTAssertEqual(DataBaseAccessPath.notificationBanner.returnAccessPath, "NotificationBanner")
     }
 
 }

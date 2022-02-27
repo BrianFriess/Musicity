@@ -26,6 +26,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     private var currentUser = ResultInfo()
     private var checkFilterDistance = 0.0
     private var checkFilterSearch = ""
+   // let defaults = UserDefaults.standard
     
 
     
@@ -35,6 +36,9 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
         checkIfWeAlreadyConnect()
         manager.delegate = self
         AppUtility.lockOrientation(.portrait)
+      /*  UserInfo.shared.filter["Search"] = defaults.object(forKey:"Search")
+        UserInfo.shared.filter["Distance"] = defaults.object(forKey:"Distance")
+        print(UserInfo.shared.filter["Search"])*/
     }
     
     
@@ -252,8 +256,6 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    
-    
     //we check after 4 seconds if we have a result or not
     private func checkIfArraysIsEmpty(){
         let seconds = 4.0
@@ -295,6 +297,7 @@ class MusicityHomeViewController: UIViewController, CLLocationManagerDelegate {
             self.arrayUser.append(userResult)
         }
     }
+    
     
 }
 

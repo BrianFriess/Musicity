@@ -176,8 +176,6 @@ struct FirebaseManager{
     }
     
     
-    
-    
     //MARK: Notification Push
     
     //we create a new observer for check if we have a new notification in our database and we return the name
@@ -244,24 +242,11 @@ struct FirebaseManager{
     }
     
     
-    //We check if the notification is remove
-   /*func checkRemoveUserNotification(_ userId : String,  completion : @escaping(Result<[String:Any], FirebaseError>)-> Void){
-        appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).observe(.childRemoved, with: { (snapshot) -> Void in
-            if let value = snapshot.value as?[String : Any]{
-                completion(.success(value))
-            } else {
-                completion(.failure(.InfoError))
-            }
-           })
-        completion(.failure(.connexionError))
-    }*/
-    
-    
-    
     //we remove the notification the user open the conversation
     func removeNotificationUser(_ userId : String, _ otherUserId : String){
         appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).child(otherUserId).removeValue()
     }
+    
     
     func removeNotificationUserObserver(_ userId : String ){
         appDelegate.ref!.child("users").child(userId).child(DataBaseAccessPath.notification.returnAccessPath).removeAllObservers()
@@ -321,7 +306,7 @@ struct FirebaseManager{
         appDelegate.ref!.child("users").child(userId).child("\(firstChild.returnAccessPath)").child(secondChild.returnAccessPath).observeSingleEvent(of: .value) { snapshot in
             if let value = snapshot.value as? String{
                 completion(.success(value))
-            }else{
+            } else {
                 completion(.failure(.InfoError))
             }
         }
@@ -406,6 +391,7 @@ struct FirebaseManager{
         })
         task.resume()
     }
+    
     
     
 }

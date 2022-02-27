@@ -32,7 +32,7 @@ class TchatViewController: UIViewController {
         checkIfWeHaveAnewNotificationForRemove()
     }
     
-    
+    //when view disappear, we reactivate the package IQKeyboardManager
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         IQKeyboardManager.shared.enable = true
@@ -62,7 +62,7 @@ class TchatViewController: UIViewController {
         }
     }
     
-    
+    //we configure the Keyboard for 
     func configureKeyboardNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -103,6 +103,8 @@ class TchatViewController: UIViewController {
             self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
+    
+    
     
     private func configureInputBar() {
         inputBar.delegate = self
@@ -256,6 +258,7 @@ class TchatViewController: UIViewController {
             successVC.isAfterTchat = true
         }
     }
+    
     
     @IBAction func tapProfilButton(_ sender: Any) {
         performSegue(withIdentifier: "SegueToViewProfil", sender: self)

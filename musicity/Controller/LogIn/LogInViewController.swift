@@ -27,6 +27,7 @@ class LogInViewController: UIViewController {
         AppUtility.lockOrientation(.portrait)
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(true)
         //if the user Is disconnect, we remove The observer for the notification
@@ -47,6 +48,7 @@ class LogInViewController: UIViewController {
             return
         }
         
+        
         //check if email is not empty
         guard emailTextField.text != "", let email = emailTextField.text else{
             alerte.alerteVc(.EmptyEmail, self)
@@ -65,8 +67,8 @@ class LogInViewController: UIViewController {
                 self.customView.connexionIsLoadOrNot(.isLoad)
             }
         }
-        
     }
+    
     
 }
 

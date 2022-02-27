@@ -12,8 +12,7 @@ import Foundation
 class FakeResponseYoutubeVideo{
     
     static let responseOK = HTTPURLResponse(url: URL(string: "https://google.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
-       //faire une rÃ©ponse KO code 500
-       static let responseKO = HTTPURLResponse(url: URL(string: "https://google.com")!, statusCode: 500, httpVersion: nil, headerFields: nil)
+    static let responseKO = HTTPURLResponse(url: URL(string: "https://google.com")!, statusCode: 500, httpVersion: nil, headerFields: nil)
     
     class YoutubeError: Error {}
     static let error = YoutubeError()

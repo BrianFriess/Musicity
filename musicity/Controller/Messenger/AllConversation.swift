@@ -109,6 +109,8 @@ class AllConversation: UIViewController {
     
 }
 
+
+
 extension AllConversation : UITableViewDelegate, UITableViewDataSource{
     
     
@@ -152,7 +154,7 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
         }
     }
     
-    
+    //when we click on a cell, we delete the notification in the DDB
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         row = indexPath.row
         performSegue(withIdentifier: "segueToMessenger", sender: self)
@@ -162,7 +164,7 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
     }
     
     
-    
+    //cache for load the profil picture 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if self.arrayUserMessenger[indexPath.row].profilPicture == nil {
             self.firebaseManager.getUrlImageToFirebase(arrayUserMessenger[indexPath.row].userID) { resultUrl in

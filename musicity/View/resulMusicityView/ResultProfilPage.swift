@@ -47,6 +47,7 @@ class ResultProfilPage: UIView {
         case isInLoading
     }
     
+    
     func loadSpinner(_ isLoading : IsLoading){
         switch isLoading {
         case .isLoad:
@@ -58,10 +59,12 @@ class ResultProfilPage: UIView {
         }
     }
     
+    
     enum IsEmpty{
         case isEmpty
         case isNotEmpty
     }
+    
     
     func bioIsEmpty(_ checkBio : IsEmpty){
         switch checkBio {
@@ -71,6 +74,7 @@ class ResultProfilPage: UIView {
             break
         }
     }
+    
     
     func youtubePlayerIsEmpty(_ checkYoutubeUrl : IsEmpty){
         switch checkYoutubeUrl {

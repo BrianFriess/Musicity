@@ -29,7 +29,7 @@ class EditProfilViewController: UIViewController {
 
     
     //we check if the bio is empty or not in our segue
-    func checkIfBioIsEmptyOrNotAtStart(){
+    private func checkIfBioIsEmptyOrNotAtStart(){
         if UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String == "" || UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] == nil {
             editUserView.bioIsEmpty(.isEmpty)
         } else {
@@ -39,7 +39,7 @@ class EditProfilViewController: UIViewController {
     
     
     //we check if the youtube link is empty or not in our segue
-    func checkIfYoutubeLinkIsEmptyOrNot(){
+    private func checkIfYoutubeLinkIsEmptyOrNot(){
         if  UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] != nil {
             editUserView.youtubeUrlLabel.text = ("https://www.youtube.com/watch?v=\(String(describing: UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] as! String))")
         }
@@ -47,7 +47,7 @@ class EditProfilViewController: UIViewController {
     
     
     //we check if bio is empty when we push save, if yes, we give the value in our dataBase
-    func checkIfBioIsEmptyOrNotWhenWePushSave(){
+    private func checkIfBioIsEmptyOrNotWhenWePushSave(){
         fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, editUserView.bioLabelText.text, .publicInfoUser, .Bio) { result in
             switch result{
             case .success(let bio):
@@ -59,23 +59,17 @@ class EditProfilViewController: UIViewController {
     }
     
     
+    
     //we check if we have an url in the youtube Text Field
-    func checkIfYoutubeUrlIsEmpty(){
-        if youtubeTextField.text != "" && youtubeTextField.text != nil{
+    private func checkIfYoutubeUrlIsEmpty(){
+        if youtubeTextField.text != "" && youtubeTextField.text
+            != nil{
             //if yes, we check if it's a right youtube url
             youtubeManager.checkYoutubeLink(youtubeTextField.text!) { result in
                 switch result{
                 case .success(let url):
                         //if yes, we get the youtube URL in our Database
-                    self.fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, url, .publicInfoUser, .YoutubeUrl) { result in
-                        switch result{
-                        case .success(let urlSuffix):
-                            UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] = urlSuffix
-                            self.dismiss(animated: true, completion: nil)
-                        case .failure(_):
-                            self.alerte.alerteVc(.youtubeLink, self)
-                        }
-                    }
+                    self.getTheYoutubeUrlInDDB(url)
                 case .failure(_):
                     self.alerte.alerteVc(.youtubeLink, self)
                 }
@@ -84,6 +78,22 @@ class EditProfilViewController: UIViewController {
             dismiss(animated: true, completion: nil)
         }
     }
+    
+    
+    
+    private func getTheYoutubeUrlInDDB(_ url : String){
+        self.fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, url, .publicInfoUser, .YoutubeUrl) { result in
+            switch result{
+            case .success(let urlSuffix):
+                UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] = urlSuffix
+                self.dismiss(animated: true, completion: nil)
+            case .failure(_):
+                self.alerte.alerteVc(.youtubeLink, self)
+            }
+        }
+    }
+    
+    
     
     
     //we call the function for call our network call and dismiss the page
@@ -196,6 +206,8 @@ extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigati
         dismiss(animated: true, completion: nil)
     }
 }
+
+
 
 
 //MARK: KeyBoard Manager

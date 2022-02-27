@@ -103,7 +103,7 @@ class ResultUserProfilViewController: UIViewController {
         }
     }
     
-    
+    //we open the tchat View Controller
     @IBAction func contactButton(_ sender: Any) {
        performSegue(withIdentifier: "SegueToFirstTimeMessenger", sender: self)
     }

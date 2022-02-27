@@ -141,7 +141,7 @@ struct AlerteManager{
     }
     
 
-    
+    //we create an alerte VC
     func alerteVc(_ message: AlerteType, _ controller : UIViewController){
         DispatchQueue.main.async {
             let alertVC = UIAlertController(title: "\(message.title)", message: "\(message.description)", preferredStyle: .alert)
@@ -150,7 +150,7 @@ struct AlerteManager{
        }
     }
     
-    
+    //we create an alert and we display the choose for open the setting of the iphone 
     func locationAlerte(_ message: AlerteType, _ controller : UIViewController){
        DispatchQueue.main.async {
             let alertVC = UIAlertController(title: "\(message.title)", message: "\(message.description)", preferredStyle: .alert)

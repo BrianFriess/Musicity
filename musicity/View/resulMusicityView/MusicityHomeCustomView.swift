@@ -20,6 +20,7 @@ class MusicityHomeCustomView: UIView {
         case notActive
     }
     
+    
     func displayLabelGeolocalisation(_ geolocalisation : GeolocalisationIsActive){
         switch geolocalisation {
         case .isActive:

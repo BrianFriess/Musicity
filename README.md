@@ -25,4 +25,4 @@ Utilisation de MapKit pour Visualiser la filtre geographique de l'utilisateur
 
 Reste à faire :
 
-Refactorisation du code 
+Refactorisation du code

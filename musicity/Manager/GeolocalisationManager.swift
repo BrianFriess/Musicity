@@ -61,6 +61,7 @@ class GeolocalisationManager{
         }
     }
     
+    
     //we check around us in the DDB
     func checkAround(_ latitude : Double, _ longitude : Double,_ distance : Double, completion : @escaping(Result<[String : String],GeolocalisationError>) -> Void){
         let geoFire = GeoFire(firebaseRef: geofireRef)

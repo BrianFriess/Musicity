@@ -20,6 +20,8 @@ class YoutubeManager{
         self.session = session
     }
     
+    
+    //we use this function for create a network call for check if the youtube Url exist or not
     func checkYoutubeLink(_ url :String, completion : @escaping(Result<String, YoutubeError>) -> Void){
         
         let youtubeSuffix = url.suffix(11)

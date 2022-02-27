@@ -185,8 +185,8 @@
             filePath = "musicity/Controller/resultMusicity/MusicityHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "checkAroundUsWithFilter(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -217,8 +217,8 @@
             filePath = "musicity/Controller/resultMusicity/MusicityHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
             landmarkName = "checkAroundUsWithFilter(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -249,8 +249,8 @@
             filePath = "musicity/Controller/resultMusicity/MusicityHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "getAllValueOfUserIfWeAreAlreadyConnect()"
             landmarkType = "7">
          </BreakpointContent>
@@ -259,6 +259,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C1B3D291-179A-48BE-BFC8-55765BE90C31"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "musicity/Controller/resultMusicity/MusicityHomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A075F9E7-E0E4-4613-A9D6-4E36DAB6E9B9"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -274,22 +290,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A075F9E7-E0E4-4613-A9D6-4E36DAB6E9B9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "musicity/Controller/resultMusicity/MusicityHomeViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "BB8D4CC2-A557-4BBB-BA39-77073DBA9B02"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -297,8 +297,8 @@
             filePath = "musicity/Controller/resultMusicity/MusicityHomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "435"
+            endingLineNumber = "435"
             landmarkName = "checkIfWeHaveNewMessage()"
             landmarkType = "7">
          </BreakpointContent>

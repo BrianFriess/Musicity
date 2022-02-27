@@ -19,6 +19,7 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     var latitude = 0.0
     var longitude = 0.0
     var circle = MKCircle()
+    //let defaults = UserDefaults.standard
 
     
     override func viewDidLoad() {
@@ -33,6 +34,7 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         mapKit.delegate = self
         displayLocation()
     }
+    
     
     //set our position in  a CLLocation and display out position on a map
     func displayLocation() {
@@ -103,10 +105,13 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         switch segmentedFilter.selectedSegmentIndex{
         case 0:
             UserInfo.shared.filter["Search"] = "Band"
+         //   defaults.set("Band", forKey: "Search")
         case 1:
             UserInfo.shared.filter["Search"] = "Musician"
+       //     defaults.set("Musician", forKey: "Distance")
         case 2:
             UserInfo.shared.filter["Search"] = "All"
+          //  defaults.set("All", forKey: "Distance")
         default:
             break
         }
@@ -116,7 +121,8 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     //when we push the button filter, we get the value of the slider in our segue
     @IBAction func filterButton(_ sender: Any) {
         UserInfo.shared.filter["Distance"] = Double(sliderKm.value * 100)
-            dismiss(animated: true, completion: nil)
+        //defaults.set(Double(sliderKm.value * 100), forKey: "Distance")
+        dismiss(animated: true, completion: nil)
     }
     
 }

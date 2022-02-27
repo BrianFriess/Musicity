@@ -117,12 +117,10 @@ class FirebaseManagerTest: XCTestCase {
         firebaseManager.setTheUserIdMessengerInDdb(data.userId, data.dictUserIdForTchat
        ) { result in
             expectation.fulfill()
-           // XCTAssertNotNil(result)
             switch result{
             case .success(_):
                 XCTAssert(true)
-                self.firebaseManager.getTheUserIdMessengerToDdb(self.data.userId
-               ) { result in
+                self.firebaseManager.getTheUserIdMessengerToDdb(self.data.userId) { result in
                     expectation.fulfill()
                     XCTAssertNotNil(result)
                 }
@@ -137,8 +135,7 @@ class FirebaseManagerTest: XCTestCase {
     
     func testTryToGetTheUserIdForTheTchat_HaveAFakeData_DontGetTheUserIdForTheTchat(){
         let expectation = XCTestExpectation(description: "wait for queue change")
-        firebaseManager.getTheUserIdMessengerToDdb(data.fakeId
-       ) { result in
+        firebaseManager.getTheUserIdMessengerToDdb(data.fakeId) { result in
             expectation.fulfill()
             XCTAssertNotNil(result)
             switch result{
@@ -153,8 +150,7 @@ class FirebaseManagerTest: XCTestCase {
     
     func testTryToSetNewMessage_HaveARightData_SetNewMessage(){
         let expectation = XCTestExpectation(description: "wait for queue change")
-        firebaseManager.setNewMessage(data.userId, data.otherUserId, ["0":"test"]
-        ) { result in
+        firebaseManager.setNewMessage(data.userId, data.otherUserId, ["0":"test"]) { result in
             expectation.fulfill()
             XCTAssertNotNil(result)
         }
@@ -163,8 +159,7 @@ class FirebaseManagerTest: XCTestCase {
     
     func testTryToReadMessageInDDB_HaveARightDataButValueDontChange_ReturnNothing(){
         let expectation = XCTestExpectation(description: "wait for queue change")
-        firebaseManager.readInMessengerDataBase(data.userId, data.otherUserId
-        ) { result in
+        firebaseManager.readInMessengerDataBase(data.userId, data.otherUserId) { result in
             expectation.fulfill()
             XCTAssertNotNil(result)
             switch result{
@@ -182,8 +177,7 @@ class FirebaseManagerTest: XCTestCase {
     func testTryGetAllValueToDataBase_GiveAGoodId_HaveAllData(){
         
         let expectation = XCTestExpectation(description: "wait for queue change")
-        firebaseManager.getAllTheInfoToFirebase(data.userId
-        ) { result in
+        firebaseManager.getAllTheInfoToFirebase(data.userId) { result in
             expectation.fulfill()
             XCTAssertNotNil(result)
             switch result{
@@ -199,8 +193,7 @@ class FirebaseManagerTest: XCTestCase {
    func testTryGetAllValueToDataBase_GiveAFakeId_DontHaveAllData(){
         
         let expectation = XCTestExpectation(description: "wait for queue change")
-       firebaseManager.getAllTheInfoToFirebase(data.fakeId
-        ) { result in
+       firebaseManager.getAllTheInfoToFirebase(data.fakeId) { result in
             expectation.fulfill()
             XCTAssertNotNil(result)
             switch result{
@@ -216,8 +209,7 @@ class FirebaseManagerTest: XCTestCase {
     
     func testGetDictionnaryInDDB_HaveABadValue_DontGetDictionnary(){
         let expectation = XCTestExpectation(description: "wait for queue change")
-        firebaseManager.getDictionnaryInfoUserToFirebase(data.fakeId, .publicInfoUser
-        ) { result in
+        firebaseManager.getDictionnaryInfoUserToFirebase(data.fakeId, .publicInfoUser) { result in
             expectation.fulfill()
             XCTAssertNotNil(result)
             switch result{
@@ -233,8 +225,7 @@ class FirebaseManagerTest: XCTestCase {
     
     func testSetDictionnaryInDDB_HaveAGoodValue_SetDictionnary(){
         let expectation = XCTestExpectation(description: "wait for queue change")
-        firebaseManager.setDictionnaryUserInfo(data.userId, data.dictInstrument, .Instrument
-        ) { result in
+        firebaseManager.setDictionnaryUserInfo(data.userId, data.dictInstrument, .Instrument) { result in
             expectation.fulfill()
             XCTAssertNotNil(result)
             switch result{
@@ -250,8 +241,7 @@ class FirebaseManagerTest: XCTestCase {
     
     func testSetSingleInfoInDDBAndGetADict_HaveAGoodValue_SetSingleInfoAndGetDict(){
         let expectation = XCTestExpectation(description: "wait for queue change")
-        firebaseManager.setSingleUserInfo(data.userId, .publicInfoUser, .username, "testIsOk"
-        ) { result in
+        firebaseManager.setSingleUserInfo(data.userId, .publicInfoUser, .username, "testIsOk") { result in
             //expectation.fulfill()
             XCTAssertNotNil(result)
             switch result{
@@ -278,8 +268,7 @@ class FirebaseManagerTest: XCTestCase {
     
     func testGetSingleInfoInDDB_HaveABadValue_DontGetSingleInfo(){
         let expectation = XCTestExpectation(description: "wait for queue change")
-        firebaseManager.getSingleInfoUserToFirebase(data.fakeId, .publicInfoUser, .username
-        ) { result in
+        firebaseManager.getSingleInfoUserToFirebase(data.fakeId, .publicInfoUser, .username) { result in
             expectation.fulfill()
             XCTAssertNotNil(result)
             switch result{
@@ -356,6 +345,40 @@ class FirebaseManagerTest: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
     
+    func testSetNotificationBannerAndRemoveNotificationBanner_HaveAGoodData_itsWork(){
+        let expectation = XCTestExpectation(description: "wait for queue change")
+        firebaseManager.setNotificationBanner(data.userId, data.otherUserId, ["notification":"Test"]) { result in
+            switch result{
+            case .success(_):
+                self.firebaseManager.checkNotificationBanner(self.data.userId) { result in
+                    self.firebaseManager.removeNotificationBanner(self.data.userId)
+                }
+                self.firebaseManager.removeNotificationObserver(self.data.userId)
+                expectation.fulfill()
+            case .failure(_):
+                XCTFail()
+            }
+        }
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    
+    func testSetNewUserNotificationAndRemoveNotificationUser_HaveAGoodData_itsWork(){
+        let expectation = XCTestExpectation(description: "wait for queue change")
+        firebaseManager.setNewUserNotification(data.userId, data.otherUserId) { result in
+            switch result{
+            case .success(_):
+                self.firebaseManager.checkNewUserNotification(self.data.userId) { result in
+                    self.firebaseManager.removeNotificationUser(self.data.userId, self.data.otherUserId)
+                }
+                self.firebaseManager.removeNotificationUserObserver(self.data.userId)
+                expectation.fulfill()
+            case .failure(_):
+                XCTFail()
+            }
+        }
+        wait(for: [expectation], timeout: 1)
+    }
     
     
 }
