@@ -233,8 +233,8 @@
             filePath = "musicity/Controller/CreateProfil/CreateUserViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "inscrireButton(_:)"
             landmarkType = "7">
          </BreakpointContent>

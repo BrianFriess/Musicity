@@ -68,7 +68,7 @@ class TchatViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    
+    //when the keyboard appear
     @objc private func keyboardWillShow(notification: NSNotification) {
         
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue, tableView.contentInset == .zero {
@@ -77,12 +77,13 @@ class TchatViewController: UIViewController {
         scrollAtTheEndOfTableView()
     }
 
-
+    //when the keyboard disepear
     @objc private func keyboardWillHide(notification: NSNotification) {
         tableView.contentInset = .zero
     }
     
 
+    //display the new message
     private func getMessages(){
         firebaseManager.readInMessengerDataBase(UserInfo.shared.userID, currentUser.userID) { result in
             switch result{
@@ -97,6 +98,7 @@ class TchatViewController: UIViewController {
     }
     
     
+    
     func scrollAtTheEndOfTableView(){
         if messages.count != 0{
             let indexPath = IndexPath(row: (self.messages.count)-1 , section: 0)
@@ -105,7 +107,7 @@ class TchatViewController: UIViewController {
     }
     
     
-    
+
     private func configureInputBar() {
         inputBar.delegate = self
         inputBar.inputTextView.isImagePasteEnabled = false
@@ -128,6 +130,7 @@ class TchatViewController: UIViewController {
         sendButton.title = nil
         sendButton.setSize(CGSize(width: 30, height: 30), animated: true)
     }
+    
     
     
     private func configureKeyboard() {
@@ -196,6 +199,7 @@ class TchatViewController: UIViewController {
     }
     
     
+    //recover the userId of the other user
     private func getTheUserIdFromDatabase() {
         self.firebaseManager.getTheUserIdMessengerToDdb(UserInfo.shared.userID) { result in
             switch result{
@@ -207,6 +211,7 @@ class TchatViewController: UIViewController {
             }
         }
     }
+    
     
     private func getANotificationInTheDDB(){
         firebaseManager.setNotificationBanner(currentUser.userID,UserInfo.shared.userID, [DataBaseAccessPath.notificationBanner.returnAccessPath : UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as Any]) { result in

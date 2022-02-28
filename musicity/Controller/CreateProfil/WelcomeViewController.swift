@@ -13,7 +13,7 @@ class WelcomeViewController: UIViewController {
     private let alerte = AlerteManager()
     
     
-    //we get all the info to firebase 
+    //we get all the info in the singleton
     @IBAction func letsgoButton(_ sender: Any) {
         firebaseManager.getAllTheInfoToFirebase(UserInfo.shared.userID) { result in
             switch result{

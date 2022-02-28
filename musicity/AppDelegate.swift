@@ -29,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     
-    
     func configureFirbaseEmulators(){
         #if EMULATORS
         print(

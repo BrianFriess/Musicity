@@ -49,8 +49,16 @@ class SecondCreateProfilTableViewController: UIViewController {
             alerte.alerteVc(.emptyInstrument, self)
             return
         }
+        
         //we check if it's band or musician
-        bandOrMusician()
+        if UserInfo.shared.checkIfItsBandOrMusician() == "Band"{
+            //check if the label nbMember is not empty
+            guard nbMemberLabel.text != "Membre(s)" else {
+                alerte.alerteVc(.emptyNbMembre, self)
+                return
+            }
+            bandOrMusician()
+        }
         //we set a dictionnary with all the instruments in firebase
         setInstrumentInDDB()
     }
@@ -59,19 +67,13 @@ class SecondCreateProfilTableViewController: UIViewController {
     
     //we check if it's band or musician
     private func bandOrMusician(){
-        if UserInfo.shared.checkIfItsBandOrMusician() == "Band"{
-            guard nbMemberLabel.text != "Membre(s)" else {
-                alerte.alerteVc(.emptyNbMembre, self)
-                return
-            }
-            //if it's a band, we set the number of member in the band in firebase
-            fireBaseManager.setSingleUserInfo(UserInfo.shared.userID, .publicInfoUser, .NbMember, nbMemberLabel.text!) { result in
-                switch result{
-                case .success(_):
-                    break
-                case .failure(_):
-                    self.alerte.alerteVc(.emptyNbMembre, self)
-                }
+        //if it's a band, we set the number of member in the band in firebase
+        fireBaseManager.setSingleUserInfo(UserInfo.shared.userID, .publicInfoUser, .NbMember, nbMemberLabel.text!) { result in
+            switch result{
+            case .success(_):
+                break
+            case .failure(_):
+                self.alerte.alerteVc(.emptyNbMembre, self)
             }
         }
     }

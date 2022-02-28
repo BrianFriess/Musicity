@@ -48,11 +48,6 @@
                BlueprintName = "musicityUnitTests"
                ReferencedContainer = "container:musicity.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "FirebaseManagerTest">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

@@ -14,8 +14,6 @@ class CreateUserViewController: UIViewController {
     private let firebaseManager = FirebaseManager()
 
 
-    
-    //MARK: Outlet
     @IBOutlet var customView: CustomCreateUserView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -28,7 +26,6 @@ class CreateUserViewController: UIViewController {
     }
 
     
-    //MARK: Action
     @IBAction func inscrireButton(_ sender: UIButton) {
         customView.connexionIsLoadOrNot(.isOnLoad)
         
@@ -50,6 +47,7 @@ class CreateUserViewController: UIViewController {
             customView.connexionIsLoadOrNot(.isLoad)
             return
         }
+        
         
         //create a new user
         firebaseManager.createNewUser(emailUser, passwordUser, username, SegmentedControl.selectedSegmentIndex) { result in

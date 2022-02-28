@@ -57,6 +57,7 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         mapKit.addOverlay(circle)
     }
     
+    
     //create the circle
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         var circleRenderer = MKCircleRenderer()
