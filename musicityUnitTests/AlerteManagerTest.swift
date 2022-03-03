@@ -10,7 +10,7 @@ import XCTest
 
 class AlerteManagerTest: XCTestCase {
 
-    let alerteManager = AlerteManager()
+    let alerteManager = AlertManager()
     let viewController = UIViewController()
     
     

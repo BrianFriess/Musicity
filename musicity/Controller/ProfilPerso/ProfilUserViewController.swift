@@ -49,7 +49,6 @@ class ProfilUserViewController: UIViewController {
         usernameTextField.text = UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String
     }
     
-    
     // network call for display the profil picture 
     func configureProfilPicture(){
         profilUserView.loadSpinner(.isInLoading)
@@ -66,7 +65,6 @@ class ProfilUserViewController: UIViewController {
         }
     }
     
-    
     //we check if the user have already a youtubeVideo
     func youtubeVideoOrNot(){
         if UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] as? String  == "" || UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] == nil {
@@ -77,7 +75,6 @@ class ProfilUserViewController: UIViewController {
         }
     }
     
-    
     func checkIfBioIsEmptyOrNot(){
         //we check if the bio is empty or not
         if UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String  == "" || UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] == nil {
@@ -87,8 +84,6 @@ class ProfilUserViewController: UIViewController {
             profilUserView.bioLabelText.text = UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String
         }
     }
-    
-
 }
 
 
@@ -98,7 +93,6 @@ extension ProfilUserViewController : UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return UserInfo.shared.instrumentFireBase.count + UserInfo.shared.styleFirbase.count
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCollectionCell", for : indexPath) as? TagCollectionViewCell else {
@@ -115,5 +109,4 @@ extension ProfilUserViewController : UICollectionViewDelegate, UICollectionViewD
         }
         return cell
     }
-    
 }

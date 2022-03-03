@@ -19,9 +19,7 @@ class TchatTableViewCell: UITableViewCell {
         configure()
     }
 
-    
     func configure(){
         viewCustom.layer.cornerRadius = 10
     }
-
 }

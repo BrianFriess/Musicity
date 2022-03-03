@@ -27,7 +27,6 @@ class ResultInfo : Equatable {
     var activeMessengerUserIdFirebase = [String]()
     var haveNotification = false
     
-
     func addAllUserMessenger(_ idUserMessenger : [String]){
         self.activeMessengerUserIdFirebase = idUserMessenger
         setDictionnaryUserIdMessenger()

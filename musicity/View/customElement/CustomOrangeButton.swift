@@ -14,11 +14,8 @@ class CustomOrangeButton: UIButton {
         configureButton()
     }
     
-
     private func configureButton(){
         layer.cornerRadius = 20
         layer.backgroundColor = UIColor.systemOrange.cgColor
     }
-    
-    
 }

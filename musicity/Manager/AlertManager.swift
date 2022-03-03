@@ -1,5 +1,5 @@
 //
-//  AlerteManager.swift
+//  AlertManager.swift
 //  musicity
 //
 //  Created by Brian Friess on 21/11/2021.
@@ -8,10 +8,9 @@
 import Foundation
 import UIKit
 
-struct AlerteManager{
-    
+struct AlertManager{
     //we create an enumeration for our message alerteVC
-    enum AlerteType{
+    enum AlertType{
         case errorCreateUser
         case LessSixPassword
         case EmptyUsername
@@ -35,7 +34,6 @@ struct AlerteManager{
         case tooMuchCara
         case youtubeLink
         case messageError
-        
         
         var title : String{
             switch self{
@@ -140,9 +138,8 @@ struct AlerteManager{
         }
     }
     
-
-    //we create an alerte VC
-    func alerteVc(_ message: AlerteType, _ controller : UIViewController){
+    //we create an alert VC
+    func alertVc(_ message: AlertType, _ controller : UIViewController){
         DispatchQueue.main.async {
             let alertVC = UIAlertController(title: "\(message.title)", message: "\(message.description)", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -151,7 +148,7 @@ struct AlerteManager{
     }
     
     //we create an alert and we display the choose for open the setting of the iphone 
-    func locationAlerte(_ message: AlerteType, _ controller : UIViewController){
+    func locationAlert(_ message: AlertType, _ controller : UIViewController){
        DispatchQueue.main.async {
             let alertVC = UIAlertController(title: "\(message.title)", message: "\(message.description)", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Annuler", style: .cancel, handler: nil)
@@ -167,6 +164,4 @@ struct AlerteManager{
         controller.present(alertVC, animated : true, completion : nil)
        }
     }
-    
-    
 }

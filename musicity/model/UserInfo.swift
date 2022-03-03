@@ -14,28 +14,21 @@ class UserInfo{
     private init() {}
     var userID = ""
     var publicInfoUser = [String:Any]()
-    
     var profilPicture : UIImage?
     var stringUrl = ""
-    
     //the dictionnary for write in DDB
     var instrument = [String:Any]()
     //the array for read to DDB
     var instrumentFireBase = [String]()
-    
     //the dictionnary for write in DDB
     var style = [String: Any]()
     //the array for read to DDB
     var styleFirbase = [String]()
-    
     var filter = [String: Any]()
-    
     var activeMessengerUserId = [String : Any]()
     var activeMessengerUserIdFirebase = [String]()
-    
     var allNotification = [String : Any]()
     
-
     func resetSingleton(){
         userID = ""
         publicInfoUser = [:]
@@ -73,7 +66,6 @@ class UserInfo{
         }
     }
     
-    
     //creation or changement array instrument
     private func setInstrument(_ row : String,_ instrument : String){
         self.instrument[row] = instrument
@@ -96,44 +88,34 @@ class UserInfo{
         }
     }
     
-    
-    
     //we give all the value at the singleton and we return a bool for check if all info is ok
     func addAllInfo(_ allinfo : [String : Any]) -> Bool{
         guard let publicInfo = allinfo[DataBaseAccessPath.publicInfoUser.returnAccessPath] as? [String : Any] else {
             return false
         }
         addPublicInfo(publicInfo)
-        
         guard let allInstrument = allinfo[DataBaseAccessPath.Instrument.returnAccessPath] as? [String] else {
             return false
         }
         addAllInstrument(allInstrument)
-        
         guard let allStyle = allinfo[DataBaseAccessPath.Style.returnAccessPath] as? [String] else {
             return false
         }
-        
         addAllStyle(allStyle)
-        
         if let allIdMessenger = allinfo[DataBaseAccessPath.messengerUserId.returnAccessPath] as? [String]{
             addAllUserMessenger(allIdMessenger)
             setDictionnaryUserIdMessenger()
         }
-        
         return true
-        
     }
-    
     
     //we convert the array of Id in our DDB in an Dictionnary [String : Any]
     private func setDictionnaryUserIdMessenger(){
-            for i in 0...activeMessengerUserIdFirebase.count-1{
-                activeMessengerUserId[String(i)] = activeMessengerUserIdFirebase[i]
-            }
+        for i in 0...activeMessengerUserIdFirebase.count-1{
+            activeMessengerUserId[String(i)] = activeMessengerUserIdFirebase[i]
+        }
     }
 
-    
     func addUserId(_ userId : String){
         userID = userId
     }
@@ -141,7 +123,6 @@ class UserInfo{
     func addPublicInfo(_ publicInfo : [String : Any]){
         self.publicInfoUser = publicInfo
     }
-
     
     private func addAllInstrument(_ instrument : [String]){
         self.instrumentFireBase = instrument
@@ -151,7 +132,6 @@ class UserInfo{
         self.activeMessengerUserIdFirebase = idUserMessenger
     }
     
-    
     private func addAllStyle(_ style : [String]){
         self.styleFirbase = style
     }
@@ -160,11 +140,9 @@ class UserInfo{
         self.profilPicture = image
     }
     
-    
     func checkIfStyleIsEmpty() -> Bool {
         return !style.isEmpty
     }
-    
     
     func checkUrlProfilPicture() -> Bool{
         return stringUrl != ""
@@ -174,7 +152,6 @@ class UserInfo{
         return !instrument.isEmpty
     }
     
-    
     func addUrlString(_ stringUrlResult : String){
         self.stringUrl = stringUrlResult
     }
@@ -182,5 +159,4 @@ class UserInfo{
     func checkIfItsBandOrMusician() -> String{
         return publicInfoUser[DataBaseAccessPath.BandOrMusician.returnAccessPath] as! String
     }
-        
 }

@@ -21,10 +21,4 @@ class TagCollectionViewCell: UICollectionViewCell{
         tagView.layer.cornerRadius = 12.5
         tagView.layer.backgroundColor = UIColor.systemOrange.cgColor
     }
-    
-
-    
-    
-    
-
 }

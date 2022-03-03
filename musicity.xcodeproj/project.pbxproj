@@ -31,7 +31,9 @@
 		D34C7BC327B0431700BA5D21 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D34C7BC227B0431700BA5D21 /* NotificationBannerSwift */; };
 		D35075262772513900DD3365 /* YoutubeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35075252772513900DD3365 /* YoutubeManager.swift */; };
 		D36292192761225400328090 /* ChoiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36292182761225400328090 /* ChoiceCollectionViewCell.swift */; };
+		D363098F27D0A83900E1F079 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D363098E27D0A83900E1F079 /* ImagePicker.swift */; };
 		D36A4AC727A727EC0089BF0C /* FakeDataUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36A4AC627A727EC0089BF0C /* FakeDataUnitTest.swift */; };
+		D36D333827CF88DE00B5740B /* SegueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36D333727CF88DE00B5740B /* SegueManager.swift */; };
 		D36F0BE8275FA652009D5A69 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */; };
 		D372FE77275E28E900DC5298 /* GeoFire in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE76275E28E900DC5298 /* GeoFire */; settings = {ATTRIBUTES = (Required, ); }; };
 		D372FE84275E300900DC5298 /* YoutubePlayer-in-WKWebView in Frameworks */ = {isa = PBXBuildFile; productRef = D372FE83275E300900DC5298 /* YoutubePlayer-in-WKWebView */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -61,7 +63,7 @@
 		D3C58D45279493E0001073AD /* InputBarAccessoryView in Frameworks */ = {isa = PBXBuildFile; productRef = D3C58D44279493E0001073AD /* InputBarAccessoryView */; settings = {ATTRIBUTES = (Required, ); }; };
 		D3ECCC49274AB020005538E6 /* CustomConnextionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */; };
 		D3ECCC4B274AB2CC005538E6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */; };
-		D3ECCC4D274AC5F7005538E6 /* AlerteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */; };
+		D3ECCC4D274AC5F7005538E6 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4C274AC5F7005538E6 /* AlertManager.swift */; };
 		D3ECD6ED276355F900366A1D /* CustomOrangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECD6EC276355F900366A1D /* CustomOrangeButton.swift */; };
 		D3ECD6F22763B9F400366A1D /* CustomProfilPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECD6F12763B9F400366A1D /* CustomProfilPictureView.swift */; };
 		D3ECD6F52763BF6600366A1D /* EditProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECD6F42763BF6600366A1D /* EditProfilViewController.swift */; };
@@ -99,7 +101,9 @@
 		D3497CB827567A5100D69D08 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		D35075252772513900DD3365 /* YoutubeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeManager.swift; sourceTree = "<group>"; };
 		D36292182761225400328090 /* ChoiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceCollectionViewCell.swift; sourceTree = "<group>"; };
+		D363098E27D0A83900E1F079 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		D36A4AC627A727EC0089BF0C /* FakeDataUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDataUnitTest.swift; sourceTree = "<group>"; };
+		D36D333727CF88DE00B5740B /* SegueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueManager.swift; sourceTree = "<group>"; };
 		D36F0BE7275FA652009D5A69 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		D374AAA527B7FD3300FF5522 /* UrlTestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlTestProtocol.swift; sourceTree = "<group>"; };
 		D374AAA727B8271100FF5522 /* AccessPathTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessPathTest.swift; sourceTree = "<group>"; };
@@ -129,7 +133,7 @@
 		D3B14CF3275A596300BA5876 /* TileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConnextionView.swift; sourceTree = "<group>"; };
 		D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlerteManager.swift; sourceTree = "<group>"; };
+		D3ECCC4C274AC5F7005538E6 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		D3ECD6EC276355F900366A1D /* CustomOrangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOrangeButton.swift; sourceTree = "<group>"; };
 		D3ECD6F12763B9F400366A1D /* CustomProfilPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProfilPictureView.swift; sourceTree = "<group>"; };
 		D3ECD6F42763BF6600366A1D /* EditProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilViewController.swift; sourceTree = "<group>"; };
@@ -218,7 +222,8 @@
 		D3348D17274E3C8A00811091 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				D3ECCC4C274AC5F7005538E6 /* AlerteManager.swift */,
+				D36D333727CF88DE00B5740B /* SegueManager.swift */,
+				D3ECCC4C274AC5F7005538E6 /* AlertManager.swift */,
 				D32E5A22274D659F0045073C /* FirebaseManager.swift */,
 				D337625F2758A8F20083FE53 /* GeolocalisationManager.swift */,
 				D35075252772513900DD3365 /* YoutubeManager.swift */,
@@ -311,6 +316,7 @@
 				D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */,
 				D332D817275295FB001B9A26 /* MusicInstruments.swift */,
 				D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */,
+				D363098E27D0A83900E1F079 /* ImagePicker.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -531,6 +537,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D363098F27D0A83900E1F079 /* ImagePicker.swift in Sources */,
 				D3497CB727566F7C00D69D08 /* MusicityHomeViewController.swift in Sources */,
 				D3348D19274EAA1300811091 /* UserInfo.swift in Sources */,
 				D31BCE3B2784B23C00B0E21A /* MessengerTableViewCell.swift in Sources */,
@@ -558,12 +565,13 @@
 				D37D91FB2747B72000D59BC5 /* SceneDelegate.swift in Sources */,
 				D33762602758A8F20083FE53 /* GeolocalisationManager.swift in Sources */,
 				D3A86925274F9FE400D2BCC8 /* MusicStyle.swift in Sources */,
+				D36D333827CF88DE00B5740B /* SegueManager.swift in Sources */,
 				D34049A32786090800FA2F90 /* TchatViewController.swift in Sources */,
 				D381CB0F277B18C500570A1F /* ResultProfilPage.swift in Sources */,
 				D34049A527862EB500FA2F90 /* TchatTableViewCell.swift in Sources */,
 				D3ECD6F22763B9F400366A1D /* CustomProfilPictureView.swift in Sources */,
 				D381CB15277B8F7000570A1F /* FilterViewController.swift in Sources */,
-				D3ECCC4D274AC5F7005538E6 /* AlerteManager.swift in Sources */,
+				D3ECCC4D274AC5F7005538E6 /* AlertManager.swift in Sources */,
 				D3ECCC4B274AB2CC005538E6 /* LogInViewController.swift in Sources */,
 				D393538327623CB8000A57B3 /* CustomCreateSecondUIView.swift in Sources */,
 				D3100F07275DF02B004BB3BF /* ResultUserProfilViewController.swift in Sources */,

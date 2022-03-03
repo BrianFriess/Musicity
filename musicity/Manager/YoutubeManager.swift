@@ -20,24 +20,19 @@ class YoutubeManager{
         self.session = session
     }
     
-    
     //we use this function for create a network call for check if the youtube Url exist or not
     func checkYoutubeLink(_ url :String, completion : @escaping(Result<String, YoutubeError>) -> Void){
-        
         let youtubeSuffix = url.suffix(11)
         let youtubePrefixNavigator = "https://www.youtube.com/watch?v="
-
         // we check if it's a right youtube URL
         guard url.count == 43 || url.count == 28 else {
             completion(.failure(.errorLink))
             return
         }
-        
         let youtubeUrl = URL(string: youtubePrefixNavigator + youtubeSuffix)
-        
         let task = self.session.dataTask(with : youtubeUrl!) { (_, response, error) in
             DispatchQueue.main.async {
-                guard let response = response  as? HTTPURLResponse, response.statusCode == 200, error == nil else{
+                guard let response = response  as? HTTPURLResponse, response.statusCode == 200, error == nil else {
                     completion(.failure(.errorLink))
                     return
                 }

@@ -10,23 +10,19 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
-    private let alerte = AlerteManager()
+    private let alert = AlertManager()
     private let firebaseManager = FirebaseManager()
     private let geolocalisationManager = GeolocalisationManager()
 
-    
-    //MARK: Outlet
     @IBOutlet var customView: CustomConnextionView!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customView.configureView()
         AppUtility.lockOrientation(.portrait)
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(true)
@@ -37,21 +33,18 @@ class LogInViewController: UIViewController {
         UserInfo.shared.resetSingleton()
     }
     
-    
-    //MARK: Action
     @IBAction func connexionButton(_ sender: UIButton) {
         customView.connexionIsLoadOrNot(.isOnLoad)
         //check if the password is not empty
-        guard passwordTextField.text != "", let password = passwordTextField.text else{
-            alerte.alerteVc(.emptyPassword, self)
+        guard passwordTextField.text != "", let password = passwordTextField.text else {
+            alert.alertVc(.emptyPassword, self)
             self.customView.connexionIsLoadOrNot(.isLoad)
             return
         }
         
-        
         //check if email is not empty
-        guard emailTextField.text != "", let email = emailTextField.text else{
-            alerte.alerteVc(.EmptyEmail, self)
+        guard emailTextField.text != "", let email = emailTextField.text else {
+            alert.alertVc(.EmptyEmail, self)
             self.customView.connexionIsLoadOrNot(.isLoad)
             return
         }
@@ -60,18 +53,15 @@ class LogInViewController: UIViewController {
         firebaseManager.connexionUser(email, password) { result in
             switch result{
             case .success(_):
-                self.performSegue(withIdentifier: "GoToMusicitySegue", sender: self)
+                self.performSegue(withIdentifier: SegueManager.goToMusicitySegue.returnSegueString, sender: self)
                 self.customView.connexionIsLoadOrNot(.isLoad)
             case .failure(_):
-                self.alerte.alerteVc(.ErrorConnexion, self)
+                self.alert.alertVc(.ErrorConnexion, self)
                 self.customView.connexionIsLoadOrNot(.isLoad)
             }
         }
     }
-    
-    
 }
-
 
 
 //MARK: KeyBoard Manager

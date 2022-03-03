@@ -13,13 +13,10 @@ class MusicityHomeCustomView: UIView {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var labelTextGeolocalisation: UILabel!
 
-    
-    
     enum GeolocalisationIsActive{
         case isActive
         case notActive
     }
-    
     
     func displayLabelGeolocalisation(_ geolocalisation : GeolocalisationIsActive){
         switch geolocalisation {
@@ -31,5 +28,4 @@ class MusicityHomeCustomView: UIView {
             collectionView.isHidden = true
         }
     }
-    
 }

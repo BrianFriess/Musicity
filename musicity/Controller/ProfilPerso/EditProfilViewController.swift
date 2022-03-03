@@ -14,11 +14,10 @@ class EditProfilViewController: UIViewController {
     @IBOutlet weak var bioLabel: UITextView!
     @IBOutlet weak var youtubeTextField: UITextField!
 
-    
     private let youtubeManager = YoutubeManager(session: URLSession(configuration: .default))
-    private let alerte = AlerteManager()
+    private let alert = AlertManager()
     private let fireBaseManager = FirebaseManager()
-    
+    private let imagePicker = ImagePicker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +26,6 @@ class EditProfilViewController: UIViewController {
         checkIfYoutubeLinkIsEmptyOrNot()
     }
 
-    
     //we check if the bio is empty or not in our segue
     private func checkIfBioIsEmptyOrNotAtStart(){
         if UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String == "" || UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] == nil {
@@ -37,14 +35,12 @@ class EditProfilViewController: UIViewController {
         }
     }
     
-    
     //we check if the youtube link is empty or not in our segue
     private func checkIfYoutubeLinkIsEmptyOrNot(){
         if  UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] != nil {
             editUserView.youtubeUrlLabel.text = ("https://www.youtube.com/watch?v=\(String(describing: UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] as! String))")
         }
     }
-    
     
     //we check if bio is empty when we push save, if yes, we give the value in our dataBase
     private func checkIfBioIsEmptyOrNotWhenWePushSave(){
@@ -53,12 +49,10 @@ class EditProfilViewController: UIViewController {
             case .success(let bio):
                 UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath]  = bio
             case .failure(_):
-                self.alerte.alerteVc(.errorSetInfo, self)
+                self.alert.alertVc(.errorSetInfo, self)
             }
         }
     }
-    
-    
     
     //we check if we have an url in the youtube Text Field
     private func checkIfYoutubeUrlIsEmpty(){
@@ -71,15 +65,13 @@ class EditProfilViewController: UIViewController {
                         //if yes, we get the youtube URL in our Database
                     self.getTheYoutubeUrlInDDB(url)
                 case .failure(_):
-                    self.alerte.alerteVc(.youtubeLink, self)
+                    self.alert.alertVc(.youtubeLink, self)
                 }
             }
         } else {
             dismiss(animated: true, completion: nil)
         }
     }
-    
-    
     
     private func getTheYoutubeUrlInDDB(_ url : String){
         self.fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, url, .publicInfoUser, .YoutubeUrl) { result in
@@ -88,13 +80,10 @@ class EditProfilViewController: UIViewController {
                 UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] = urlSuffix
                 self.dismiss(animated: true, completion: nil)
             case .failure(_):
-                self.alerte.alerteVc(.youtubeLink, self)
+                self.alert.alertVc(.youtubeLink, self)
             }
         }
     }
-    
-    
-    
     
     //we call the function for call our network call and dismiss the page
     @IBAction func pushSaveBUtton(_ sender: Any) {
@@ -102,61 +91,40 @@ class EditProfilViewController: UIViewController {
             checkIfBioIsEmptyOrNotWhenWePushSave()
             checkIfYoutubeUrlIsEmpty()
         } else {
-            alerte.alerteVc(.tooMuchCara, self)
+            alert.alertVc(.tooMuchCara, self)
         }
     }
-    
     
     //we call the function who call the function displayPhotoLibrary
     @IBAction func pressPhotoButton(_ sender: Any) {
     //we check if we can use the photoLibrary
         PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
             switch status {
-            case .notDetermined:
+            case .notDetermined, .restricted, .denied, .limited:
                 DispatchQueue.main.async {
-                self.alerte.alerteVc(.cantAccessPhotoLibrary, self)
-                }
-            case .restricted:
-                DispatchQueue.main.async {
-                self.alerte.alerteVc(.cantAccessPhotoLibrary, self)
-                }
-            case .denied:
-                DispatchQueue.main.async {
-                self.alerte.alerteVc(.cantAccessPhotoLibrary, self)
+                self.alert.alertVc(.cantAccessPhotoLibrary, self)
                 }
             case .authorized:
                 DispatchQueue.main.async {
                     self.displayPhotoLibrary()
                 }
-            case .limited:
-                DispatchQueue.main.async {
-                self.alerte.alerteVc(.cantAccessPhotoLibrary, self)
-                }
             @unknown default:
                 DispatchQueue.main.async {
-                self.alerte.alerteVc(.cantAccessPhotoLibrary, self)
+                self.alert.alertVc(.cantAccessPhotoLibrary, self)
                 }
             }
         }
     }
-
-    
 }
 
 
 extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     //we create this function  for create an ImagePickerController and display the photoLibrary
-    private func displayPhotoLibrary(){
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        //we choose as source the photo library
-        imagePicker.sourceType = .photoLibrary
-        //we open the photo Library
-        imagePicker.allowsEditing = true
-        self.present(imagePicker, animated: true, completion: nil)
+   private func displayPhotoLibrary(){
+       imagePicker.displayPhotoLibrary(self)
     }
-    
+
     //we display a new profil picture and we add the picture in our segue
     private func displayProfilPictureAndAddInTheSegue(_ profilPicture : UIImage){
         self.editUserView.profilPicture.setImage(profilPicture, for: .normal)
@@ -170,13 +138,12 @@ extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigati
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         //if we choose an image, the image of chooseButton changes
         self.editUserView.loadPhoto(.isloading)
-        guard let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else{
+        guard let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
         guard let imageData = pickedImage.pngData() else {
             return
         }
-        
         //we set the profilPicture in firebase and we get the url in our Segue
         fireBaseManager.setImageInFirebaseAndGetUrl(UserInfo.shared.userID, imageData) { result in
             switch result{
@@ -188,18 +155,17 @@ extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigati
                         //we display a new profil picture and we add the picture in our segue
                         self.displayProfilPictureAndAddInTheSegue(profilPicture)
                     case .failure(_):
-                        self.alerte.alerteVc(.errorImage, self)
+                        self.alert.alertVc(.errorImage, self)
                         self.editUserView.loadPhoto(.isLoad)
                     }
                 }
             case .failure(_):
-                self.alerte.alerteVc(.errorImage, self)
+                self.alert.alertVc(.errorImage, self)
                 self.editUserView.loadPhoto(.isLoad)
             }
         }
         dismiss(animated: true, completion: nil)
     }
-    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.editUserView.loadPhoto(.isLoad)
@@ -208,18 +174,13 @@ extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigati
 }
 
 
-
-
 //MARK: KeyBoard Manager
 extension EditProfilViewController : UITextFieldDelegate{
-
-    
     @IBAction func dismissKeyboard(_ sender: Any) {
         youtubeTextField.resignFirstResponder()
         bioLabel.resignFirstResponder()
     }
 
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         youtubeTextField.resignFirstResponder()
         bioLabel.resignFirstResponder()

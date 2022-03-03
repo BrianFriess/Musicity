@@ -13,12 +13,10 @@ class ChoiceCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var tagLabel: UILabel!
     @IBOutlet weak var tagView: UIView!
 
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         configure()
     }
-    
     
     func configure(){
         tagView.layer.cornerRadius = 12
@@ -26,8 +24,6 @@ class ChoiceCollectionViewCell: UICollectionViewCell {
         tagView.layer.borderWidth = 1
         tagView.layer.borderColor = UIColor.systemOrange.cgColor
     }
-
-    
 
     func selectCell(_ isSelect : Bool){
         if isSelect == false{
@@ -38,6 +34,4 @@ class ChoiceCollectionViewCell: UICollectionViewCell {
             tagLabel.textColor = UIColor.white
         }
     }
-
-    
 }

@@ -17,9 +17,7 @@ enum GeolocalisationError : Error{
 class GeolocalisationManager{
     
     private let manager = CLLocationManager()
-    
     private let geofireRef = Database.database(url: "https://musicity3-9270a-default-rtdb.europe-west1.firebasedatabase.app").reference().child(DataBaseAccessPath.userLocation.returnAccessPath)
-    
     
     enum AccessGeolocalisation{
         case accepted
@@ -46,12 +44,9 @@ class GeolocalisationManager{
         }
     }
     
-    
     // we set the localisation in our Database
     func setTheGeolocalisation(_ latitude : Double, _ longitude : Double, _ userID : String, completion : @escaping(Result<Void, GeolocalisationError>) -> Void){
-        
         let geoFire = GeoFire(firebaseRef: geofireRef)
-        
         geoFire.setLocation(CLLocation(latitude: latitude, longitude: longitude), forKey: userID ) { (error) in
             if error != nil{
                 completion(.failure(.errorSetLocalisation))
@@ -61,15 +56,12 @@ class GeolocalisationManager{
         }
     }
     
-    
     //we check around us in the DDB
     func checkAround(_ latitude : Double, _ longitude : Double,_ distance : Double, completion : @escaping(Result<[String : String],GeolocalisationError>) -> Void){
         let geoFire = GeoFire(firebaseRef: geofireRef)
         let center = CLLocation(latitude: latitude, longitude: longitude)
-        
         // we can set the distance around us for our research
         let circleQuery = geoFire.query(at: center, withRadius: distance)
-        
         //return the userID 
         circleQuery.observe(.keyEntered, with: { (key: String!, location: CLLocation!) in
             guard key != nil else {
@@ -77,16 +69,8 @@ class GeolocalisationManager{
                 return
             }
             let distanceFromUser = Int(center.distance(from: location)/1000)
-            
             let dictionnaryResult = (["idResult": key!, "distance" : String(distanceFromUser)])
             completion(.success(dictionnaryResult))
         })
     }
-    
-
-    
-
-    
-    
-    
 }

@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var ref : DatabaseReference?
 
-
+//this function is used when the apps is launch
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         configureIqKeyboard()
@@ -28,8 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    
+    //in this finction , we check the Scheme for build the app
     func configureFirbaseEmulators(){
+        //if the Scheme is "Emulators, we use other url for our Database
         #if EMULATORS
         print(
         """
@@ -38,12 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ****************************
         """
         )
+        //URL in the localhost
         Storage.storage().useEmulator(withHost:"localhost", port:9199)
         Auth.auth().useEmulator(withHost:"localhost", port:9099)
         ref = Database.database(url:"http://localhost:9000?ns=musicity-ff6d8").reference()
         
+        //if is debug, we use the true url of firebase
         #elseif DEBUG
-        
         print(
         """
         ****************************
@@ -55,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    
+    //we configure the keyboard for up the textField when we open the keyboard
     private func configureIqKeyboard(){
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = true
@@ -90,9 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 struct AppUtility {
-
     static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
-    
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
             delegate.orientationLock = orientation
         }
@@ -100,12 +100,9 @@ struct AppUtility {
 
     /// OPTIONAL Added method to adjust lock and rotate to the desired orientation
     static func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
-   
         self.lockOrientation(orientation)
-    
         UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
         UINavigationController.attemptRotationToDeviceOrientation()
     }
-
 }
 

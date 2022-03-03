@@ -10,47 +10,42 @@ import UIKit
 
 class CreateUserViewController: UIViewController {
     
-    private let alerte = AlerteManager()
+    private let alert = AlertManager()
     private let firebaseManager = FirebaseManager()
-
 
     @IBOutlet var customView: CustomCreateUserView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var SegmentedControl: UISegmentedControl!
-    
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         customView.configureView()
     }
 
-    
-    @IBAction func inscrireButton(_ sender: UIButton) {
+    @IBAction func inscriptionButton(_ sender: UIButton) {
         customView.connexionIsLoadOrNot(.isOnLoad)
         
         //we check if the 3 textField is empty or not
-        guard emailTextField.text != "", let emailUser = emailTextField.text  else{
-            alerte.alerteVc(.EmptyEmail, self)
+        guard emailTextField.text != "", let emailUser = emailTextField.text  else {
+            alert.alertVc(.EmptyEmail, self)
             customView.connexionIsLoadOrNot(.isLoad)
             return
         }
         
-        guard passwordTextField.text != "", passwordTextField.text!.count >= 6, let passwordUser = passwordTextField.text else{
-            alerte.alerteVc(.LessSixPassword, self)
+        guard passwordTextField.text != "", passwordTextField.text!.count >= 6, let passwordUser = passwordTextField.text else {
+            alert.alertVc(.LessSixPassword, self)
             customView.connexionIsLoadOrNot(.isLoad)
             return
         }
         
-        guard usernameTextField.text != "",  let username = usernameTextField.text else{
-            alerte.alerteVc(.EmptyUsername, self)
+        guard usernameTextField.text != "",  let username = usernameTextField.text else {
+            alert.alertVc(.EmptyUsername, self)
             customView.connexionIsLoadOrNot(.isLoad)
             return
         }
-        
-        
         //create a new user
-        firebaseManager.createNewUser(emailUser, passwordUser, username, SegmentedControl.selectedSegmentIndex) { result in
+        firebaseManager.createNewUser(emailUser, passwordUser, username, segmentedControl.selectedSegmentIndex) { result in
             switch result{
             case .success(_):
                 //we recover the userID in the singleton
@@ -61,17 +56,20 @@ class CreateUserViewController: UIViewController {
                         //we recover all the info of the user to ddb
                         self.getAllTheUserInfoToDDB()
                     case .failure(_):
-                        self.alerte.alerteVc(.errorCreateUser, self)
+                        self.alert.alertVc(.errorCreateUser, self)
                         self.customView.connexionIsLoadOrNot(.isLoad)
                     }
                 }
             case .failure(_):
-                self.alerte.alerteVc(.FalseEmail, self)
+                self.alert.alertVc(.FalseEmail, self)
                 self.customView.connexionIsLoadOrNot(.isLoad)
             }
         }
     }
     
+    @IBAction func pushSegmentedControl(_ sender: UISegmentedControl) {
+        customView.configureBandOrMusicien()
+    }
     
     func getAllTheUserInfoToDDB(){
         self.firebaseManager.getDictionnaryInfoUserToFirebase(UserInfo.shared.userID, .publicInfoUser) { result in
@@ -80,7 +78,7 @@ class CreateUserViewController: UIViewController {
                  //we recover the public Info in the singleton
                  self.addAllInfoOfUserInTheSingletonAndGoToTheSegue(infoUser)
              case.failure(_):
-                 self.alerte.alerteVc(.errorCreateUser, self)
+                 self.alert.alertVc(.errorCreateUser, self)
                  self.customView.connexionIsLoadOrNot(.isLoad)
              }
          }
@@ -89,21 +87,10 @@ class CreateUserViewController: UIViewController {
     //we recover the public Info in the singleton
     func addAllInfoOfUserInTheSingletonAndGoToTheSegue(_ infoUser : [String :Any]){
         UserInfo.shared.addPublicInfo(infoUser)
-        performSegue(withIdentifier: "goToFirstConnexionSegue", sender: self)
+        performSegue(withIdentifier: SegueManager.goToFirstConnexionSegue.returnSegueString, sender: self)
         customView.connexionIsLoadOrNot(.isLoad)
     }
-    
-    
-    
-    @IBAction func pushSegmentedControl(_ sender: UISegmentedControl) {
-        customView.configureBandOrMusicien()
-    }
-    
 }
-
-
-
-
 
 
 //MARK: KeyBoard Manager

@@ -20,7 +20,7 @@ class TchatViewController: UIViewController {
     private let firebaseManager = FirebaseManager()
     var currentUser = ResultInfo()
     private var messages = [[String:Any]]()
-    private let alerte = AlerteManager()
+    private let alert = AlertManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,6 @@ class TchatViewController: UIViewController {
         firebaseManager.removeNotificationUserObserver(UserInfo.shared.userID)
     }
 
-    
     //delete the notification
     func removeNotificationToDataBase(){
         firebaseManager.removeNotificationUser(UserInfo.shared.userID, currentUser.userID)
@@ -82,7 +81,6 @@ class TchatViewController: UIViewController {
         tableView.contentInset = .zero
     }
     
-
     //display the new message
     private func getMessages(){
         firebaseManager.readInMessengerDataBase(UserInfo.shared.userID, currentUser.userID) { result in
@@ -97,8 +95,6 @@ class TchatViewController: UIViewController {
         }
     }
     
-    
-    
     func scrollAtTheEndOfTableView(){
         if messages.count != 0{
             let indexPath = IndexPath(row: (self.messages.count)-1 , section: 0)
@@ -106,8 +102,6 @@ class TchatViewController: UIViewController {
         }
     }
     
-    
-
     private func configureInputBar() {
         inputBar.delegate = self
         inputBar.inputTextView.isImagePasteEnabled = false
@@ -131,8 +125,6 @@ class TchatViewController: UIViewController {
         sendButton.setSize(CGSize(width: 30, height: 30), animated: true)
     }
     
-    
-    
     private func configureKeyboard() {
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.enable = false
@@ -141,7 +133,6 @@ class TchatViewController: UIViewController {
         keyboardManager.bind(to: tableView)
     }
 
-    
     //before set the id of the user in our DDB, we check if he already exists
     private func checkIfUserAlreadyHere(_ user : ResultInfo) -> Bool{
         for currentUserId in UserInfo.shared.activeMessengerUserIdFirebase{
@@ -151,7 +142,6 @@ class TchatViewController: UIViewController {
         }
         return false
     }
-    
     
     private func sendMessage(_ message: String?) {
         guard let message = message, !message.isEmpty else {
@@ -177,8 +167,6 @@ class TchatViewController: UIViewController {
         }
     }
     
-    
-    
     //if the userId is not in our DDB, we create a new value in our DDB and we recover this value in our array of UserIdMessenger
     private func addNewUserIdInUserListMessenger(){
         if !self.checkIfUserAlreadyHere(currentUser){
@@ -192,12 +180,11 @@ class TchatViewController: UIViewController {
                     //we recover the new id in our Array in local
                     self.getTheUserIdFromDatabase()
                 case .failure(_):
-                    self.alerte.alerteVc(.messageError, self)
+                    self.alert.alertVc(.messageError, self)
                 }
             }
         }
     }
-    
     
     //recover the userId of the other user
     private func getTheUserIdFromDatabase() {
@@ -207,11 +194,10 @@ class TchatViewController: UIViewController {
                 self.addNewUserInTheOtherUserListMessenger()
                 UserInfo.shared.addAllUserMessenger(userIdArray)
             case .failure(_):
-                self.alerte.alerteVc(.messageError, self)
+                self.alert.alertVc(.messageError, self)
             }
         }
     }
-    
     
     private func getANotificationInTheDDB(){
         firebaseManager.setNotificationBanner(currentUser.userID,UserInfo.shared.userID, [DataBaseAccessPath.notificationBanner.returnAccessPath : UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as Any]) { result in
@@ -219,8 +205,6 @@ class TchatViewController: UIViewController {
         firebaseManager.setNewUserNotification(currentUser.userID, UserInfo.shared.userID) { result in
         }
     }
-    
-    
     
     //if we add the userId in the lise of messenger active in the UserInfo, we need to do the same thing in the currentUserResult
     private func addNewUserInTheOtherUserListMessenger(){
@@ -241,7 +225,6 @@ class TchatViewController: UIViewController {
         }
     }
     
-    
     private func configureANewArrayUserInMessenger(_ arrayUser : [String]){
         self.currentUser.addAllUserMessenger(arrayUser)
         //we set the dictionnary in our database
@@ -250,23 +233,22 @@ class TchatViewController: UIViewController {
                 case .success(_):
                 break
             case .failure(_):
-                self.alerte.alerteVc(.messageError, self)
+                self.alert.alertVc(.messageError, self)
             }
         }
     }
 
     //we prepare the segue
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SegueToViewProfil"{
+       if segue.identifier == SegueManager.segueToViewProfilInMessenger.returnSegueString{
             let successVC = segue.destination as! ResultUserProfilViewController
             successVC.currentUser = currentUser
             successVC.isAfterTchat = true
         }
     }
     
-    
     @IBAction func tapProfilButton(_ sender: Any) {
-        performSegue(withIdentifier: "SegueToViewProfil", sender: self)
+        performSegue(withIdentifier: SegueManager.segueToViewProfilInMessenger.returnSegueString, sender: self)
     }
 }
 
@@ -278,7 +260,6 @@ extension TchatViewController :  UITableViewDataSource, UITableViewDelegate{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
@@ -306,7 +287,6 @@ extension TchatViewController :  UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
 }
 
 

@@ -18,8 +18,6 @@ class CustomCreateUserView: UIView {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var inscriptionButton: CustomOrangeButton!
     
-
-    
     func configureView(){
         configureTextField()
         configureStick()
@@ -29,11 +27,9 @@ class CustomCreateUserView: UIView {
         userNameTextField.attributedPlaceholder = NSAttributedString(
             string: "Nom d'utilisateur",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
-        
         passwordTextField.attributedPlaceholder = NSAttributedString(
             string: "Mot de passe",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
-        
         emailTextField.attributedPlaceholder = NSAttributedString(
             string: "E-mail",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])

@@ -21,20 +21,17 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     var circle = MKCircle()
     //let defaults = UserDefaults.standard
 
-    
     override func viewDidLoad() {
         //we check if our segue have already a distance value for display at the start
-        if UserInfo.shared.filter["Distance"] != nil{
-            sliderKm.value = Float(UserInfo.shared.filter["Distance"] as! Double / 100)
+        if UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] != nil{
+            sliderKm.value = Float(UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] as! Double / 100)
         }
         labelKm.text = "\(Int(sliderKm.value * 100)) Km"
         displaySegmentedAtStart()
         chooseSegmentedFilter()
-
         mapKit.delegate = self
         displayLocation()
     }
-    
     
     //set our position in  a CLLocation and display out position on a map
     func displayLocation() {
@@ -48,7 +45,6 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         addCircle()
     }
     
-
     //add a cicle around our position
     func addCircle(){
         mapKit.removeOverlay(circle)
@@ -56,7 +52,6 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         circle = MKCircle(center: location, radius: Double(sliderKm.value) * 100000 / 2)
         mapKit.addOverlay(circle)
     }
-    
     
     //create the circle
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -70,10 +65,9 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         return circleRenderer
     }
     
-    
     // we check in our segue if we have already a value for our filter for display in our segment
     func displaySegmentedAtStart(){
-        if let bandOrMusician = UserInfo.shared.filter["Search"]{
+        if let bandOrMusician = UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath]{
             if bandOrMusician as! String == "Band"{
                 segmentedFilter.selectedSegmentIndex = 0
             } else if bandOrMusician as! String == "Musician"{
@@ -86,7 +80,6 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         }
     }
     
-    
     //we set and display the value of the slider
     @IBAction func sliderValueChanged(_ sender: Any) {
         labelKm.text = "\(Int(sliderKm.value * 100)) Km"
@@ -94,38 +87,34 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         displayLocation()
     }
     
-    
     //when we choose a new segment, we call the function chooseSegmentedFilter
     @IBAction func changeSegmentedFilter(_ sender: Any) {
         chooseSegmentedFilter()
     }
     
-    
     //when we choose a new segment, we get the value at our segue
     func chooseSegmentedFilter(){
         switch segmentedFilter.selectedSegmentIndex{
         case 0:
-            UserInfo.shared.filter["Search"] = "Band"
+            UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] = "Band"
          //   defaults.set("Band", forKey: "Search")
         case 1:
-            UserInfo.shared.filter["Search"] = "Musician"
+            UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] = "Musician"
        //     defaults.set("Musician", forKey: "Distance")
         case 2:
-            UserInfo.shared.filter["Search"] = "All"
+            UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] = "All"
           //  defaults.set("All", forKey: "Distance")
         default:
             break
         }
     }
     
-    
     //when we push the button filter, we get the value of the slider in our segue
     @IBAction func filterButton(_ sender: Any) {
-        UserInfo.shared.filter["Distance"] = Double(sliderKm.value * 100)
+        UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] = Double(sliderKm.value * 100)
         //defaults.set(Double(sliderKm.value * 100), forKey: "Distance")
         dismiss(animated: true, completion: nil)
     }
-    
 }
 
 

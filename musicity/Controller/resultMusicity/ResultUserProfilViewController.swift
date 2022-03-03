@@ -15,10 +15,10 @@ class ResultUserProfilViewController: UIViewController {
     @IBOutlet var customeResultProfilPageView: ResultProfilPage!
     
     private let firebaseManager = FirebaseManager()
-    private let alerteManager = AlerteManager()
+    private let alertManager = AlertManager()
+    
     var currentUser = ResultInfo()
     var isAfterTchat = false
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,6 @@ class ResultUserProfilViewController: UIViewController {
         }
     }
 
-    
     //we check if it's band or musician profil
     func bandOrMusician(){
         if currentUser.checkIfItsBandOrMusician() == "Band"{
@@ -63,7 +62,6 @@ class ResultUserProfilViewController: UIViewController {
         }
     }
     
-    
     //we check if the profilPicture is already load in the front page, if not, we use our network call for display the profil picture
     func checkIfProfilPictureIsAlreadyLoad(){
         if currentUser.profilPicture == nil{
@@ -74,7 +72,7 @@ class ResultUserProfilViewController: UIViewController {
                     self.customeResultProfilPageView.loadSpinner(.isLoad)
                     self.customeResultProfilPageView.profilPicture.image = image
                 case .failure(_):
-                    self.alerteManager.alerteVc(.errorImage, self)
+                    self.alertManager.alertVc(.errorImage, self)
                     self.customeResultProfilPageView.loadSpinner(.isLoad)
                 }
             }
@@ -82,7 +80,6 @@ class ResultUserProfilViewController: UIViewController {
             customeResultProfilPageView.profilPicture.image = currentUser.profilPicture
         }
     }
-    
     
     //we check the user have already a bio
     func checkIfBioIsEmpty(){
@@ -94,10 +91,9 @@ class ResultUserProfilViewController: UIViewController {
         }
     }
     
-    
     //we prepare the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SegueToFirstTimeMessenger"{
+        if segue.identifier == SegueManager.segueToFirstTimeMessenger.returnSegueString{
             let successVC = segue.destination as! TchatViewController
             successVC.currentUser = currentUser
         }
@@ -105,13 +101,9 @@ class ResultUserProfilViewController: UIViewController {
     
     //we open the tchat View Controller
     @IBAction func contactButton(_ sender: Any) {
-       performSegue(withIdentifier: "SegueToFirstTimeMessenger", sender: self)
+       performSegue(withIdentifier: SegueManager.segueToFirstTimeMessenger.returnSegueString, sender: self)
     }
-
 }
-
-
-
 
 
 extension ResultUserProfilViewController : UICollectionViewDelegate, UICollectionViewDataSource{
@@ -124,7 +116,6 @@ extension ResultUserProfilViewController : UICollectionViewDelegate, UICollectio
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCollectionResultCell", for : indexPath) as? TagCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
         // we check if we give the value of instruments or Style
         if indexPath.row < currentUser.instrumentFireBase.count{
             //at first, we give the value of instruments
@@ -133,10 +124,8 @@ extension ResultUserProfilViewController : UICollectionViewDelegate, UICollectio
             //second, the style
             cell.tagLabel.text = currentUser.styleFirbase[indexPath.row - currentUser.instrumentFireBase.count]
         }
-        
         return cell
     }
-    
 }
 
 

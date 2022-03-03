@@ -18,8 +18,6 @@ class TileCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var leftArrow: UIImageView!
     @IBOutlet weak var bandOrMusicianLabel: UILabel!
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCell()
@@ -43,14 +41,12 @@ class TileCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    
     func configureCell(){
         customView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor
         customView.layer.shadowRadius = 1.0
         customView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         customView.layer.shadowOpacity = 2.0
         customView.layer.cornerRadius = 25
-
     }
     
     enum IsLoading{
@@ -90,9 +86,7 @@ class TileCollectionViewCell: UICollectionViewCell {
         paddyY = createLabelInScrollView(infoStyle, paddyY, scrollView)
         scrollView.contentSize = CGSize(width: 0, height: paddyY)
         scrollView.layer.cornerRadius = 15
-
     }
-    
     
     //we create the label View in the scrollView
     func createLabelInScrollView(_ infoArray: [String],_ posY : Int, _ scrollView : UIScrollView) -> Int{
@@ -103,12 +97,10 @@ class TileCollectionViewCell: UICollectionViewCell {
             label.textColor = UIColor.white
             label.font = UIFont(name : "Arial Rounded MT Bold", size : 17)
             label.text = info
-            
             paddyY += 30
         }
         return paddyY
     }
-    
     
     func configureBandOrMusicianLabel(_ bandOrMusician : String){
         if bandOrMusician == "Band"{
@@ -128,8 +120,5 @@ class TileCollectionViewCell: UICollectionViewCell {
             distanceLabel.text = ""
         }
     }
-    
-    
-    
 }
 

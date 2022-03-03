@@ -83,7 +83,7 @@
                                                 </constraints>
                                                 <color key="textColor" red="0.098039209840000002" green="0.1294117719" blue="0.1686274707" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="32L-Rc-fyN"/>
                                                 </connections>
@@ -111,7 +111,7 @@
                                     <fontDescription key="titleFontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="inscrireButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EgU-9k-2Cy"/>
+                                    <action selector="inscriptionButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g0O-IV-CuB"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Musicity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRD-UE-SyR">
@@ -120,6 +120,9 @@
                                 <color key="textColor" red="0.098039209840000002" green="0.1294117719" blue="0.1686274707" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nEQ-Du-Y7x">
+                                <rect key="frame" x="150" y="467.5" width="20" height="20"/>
+                            </activityIndicatorView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0Ql-tO-Tj0">
                                 <rect key="frame" x="67.5" y="122.5" width="185" height="32"/>
                                 <color key="backgroundColor" red="0.89071965220000004" green="0.89098316430000002" blue="0.90902525190000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -132,9 +135,6 @@
                                     <action selector="pushSegmentedControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="7MS-O1-gzd"/>
                                 </connections>
                             </segmentedControl>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nEQ-Du-Y7x">
-                                <rect key="frame" x="150" y="467.5" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -211,10 +211,10 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="SegmentedControl" destination="0Ql-tO-Tj0" id="vdL-cy-x86"/>
                         <outlet property="customView" destination="8bC-Xf-vdC" id="7dq-wf-Dlf"/>
                         <outlet property="emailTextField" destination="2kM-BM-aKC" id="a9w-7a-NCN"/>
                         <outlet property="passwordTextField" destination="xf9-Gq-8yi" id="Ddy-Nc-hbN"/>
+                        <outlet property="segmentedControl" destination="0Ql-tO-Tj0" id="6CS-pO-JJx"/>
                         <outlet property="usernameTextField" destination="7DR-LN-bEu" id="4rN-95-gxF"/>
                         <segue destination="G8A-Zd-IFt" kind="presentation" identifier="goToFirstConnexionSegue" modalPresentationStyle="fullScreen" id="re9-qK-yAt"/>
                     </connections>
@@ -972,7 +972,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="HTC-sD-mXx">
-                                <rect key="frame" x="0.0" y="44" width="320" height="474"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
                                 <color key="backgroundColor" red="1" green="0.99999994039999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="cellTchat" rowHeight="93" id="7Tm-p3-j2c" customClass="TchatTableViewCell" customModule="musicity" customModuleProvider="target">
@@ -1052,7 +1052,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="tapProfilButton:" destination="HB5-yK-9ZT" eventType="touchUpInside" id="0eF-I6-Aly"/>
-                                    <segue destination="Wir-mD-zMW" kind="presentation" identifier="SegueToViewProfil" id="Zr8-tG-NmI"/>
+                                    <segue destination="Wir-mD-zMW" kind="presentation" identifier="segueToViewProfilInMessenger" id="Zr8-tG-NmI"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -1070,24 +1070,24 @@
             <objects>
                 <viewController id="Wir-mD-zMW" customClass="ResultUserProfilViewController" customModule="musicity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MW4-2a-DgX" customClass="ResultProfilPage" customModule="musicity" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sxt-KY-7QG" customClass="CustomProfilPictureView" customModule="musicity" customModuleProvider="target">
-                                <rect key="frame" x="16" y="60" width="120" height="120"/>
+                                <rect key="frame" x="16" y="16" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="J4p-zf-N0f"/>
                                     <constraint firstAttribute="width" secondItem="Sxt-KY-7QG" secondAttribute="height" multiplier="1:1" id="WhU-Bb-ZND"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxb-v5-weX">
-                                <rect key="frame" x="144" y="60" width="176" height="29"/>
+                                <rect key="frame" x="144" y="16" width="176" height="29"/>
                                 <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
                                 <color key="textColor" systemColor="systemOrangeColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="black" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sKv-AI-CpR">
-                                <rect key="frame" x="144" y="97" width="160" height="83"/>
+                                <rect key="frame" x="144" y="53" width="160" height="83"/>
                                 <color key="backgroundColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="O9F-es-bSo">
                                     <size key="itemSize" width="89" height="43"/>
@@ -1144,7 +1144,7 @@
                                 </connections>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="BEY-5l-EcI">
-                                <rect key="frame" x="16" y="195" width="288" height="20"/>
+                                <rect key="frame" x="16" y="151" width="288" height="20"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="251" text="BandOrMusician" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Gh-WY-ZOT">
                                         <rect key="frame" x="0.0" y="0.0" width="130.5" height="20"/>
@@ -1162,7 +1162,7 @@
                                 <rect key="contentStretch" x="0.29999999999999999" y="0.10000000000000001" width="1" height="1"/>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="71z-hI-tGs">
-                                <rect key="frame" x="0.0" y="479" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="459" width="320" height="40"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="pAQ-Ma-zEd"/>
@@ -1177,7 +1177,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rfM-R8-d7m">
-                                <rect key="frame" x="0.0" y="230" width="320" height="249"/>
+                                <rect key="frame" x="0.0" y="186" width="320" height="273"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGv-vn-dux" customClass="WKYTPlayerView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
@@ -1189,7 +1189,7 @@
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wCD-jU-u9q">
-                                        <rect key="frame" x="0.0" y="140" width="320" height="109"/>
+                                        <rect key="frame" x="0.0" y="140" width="320" height="133"/>
                                         <color key="backgroundColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1198,7 +1198,7 @@
                                 </subviews>
                             </stackView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="088-qP-TSj">
-                                <rect key="frame" x="66" y="110" width="20" height="20"/>
+                                <rect key="frame" x="66" y="66" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Yzp-y2-vBl"/>
@@ -1245,7 +1245,7 @@
                     <connections>
                         <outlet property="customeResultProfilPageView" destination="MW4-2a-DgX" id="iLF-3h-Eqo"/>
                         <outlet property="tagResultCollection" destination="sKv-AI-CpR" id="tVb-Fe-cSB"/>
-                        <segue destination="HB5-yK-9ZT" kind="show" identifier="SegueToFirstTimeMessenger" id="zQP-dn-fFU"/>
+                        <segue destination="HB5-yK-9ZT" kind="show" identifier="segueToFirstTimeMessenger" id="zQP-dn-fFU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cqX-s7-xew" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1726,7 +1726,7 @@
                         <outlet property="emailTextField" destination="ga7-Ea-cii" id="Ee6-hE-bXk"/>
                         <outlet property="passwordTextField" destination="0tS-UI-ZcX" id="tQl-Fh-2AO"/>
                         <segue destination="G8A-Zd-IFt" kind="presentation" identifier="goToHomeConnexion" modalPresentationStyle="fullScreen" id="fEE-P9-bCf"/>
-                        <segue destination="xRa-tR-ajf" kind="presentation" identifier="GoToMusicitySegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="0un-oa-H83"/>
+                        <segue destination="xRa-tR-ajf" kind="presentation" identifier="goToMusicitySegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="0un-oa-H83"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k28-j2-itT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1788,7 +1788,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="9Oj-NL-UHc"/>
                     <connections>
-                        <segue destination="xRa-tR-ajf" kind="presentation" identifier="GoToMusicityFromWelcome" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="Z65-NL-mh6"/>
+                        <segue destination="xRa-tR-ajf" kind="presentation" identifier="goToMusicityFromWelcome" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="Z65-NL-mh6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RAa-sb-2tf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1833,8 +1833,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="re9-qK-yAt"/>
-        <segue reference="Z65-NL-mh6"/>
-        <segue reference="D2N-pl-nUq"/>
+        <segue reference="0un-oa-H83"/>
+        <segue reference="Zr8-tG-NmI"/>
         <segue reference="zQP-dn-fFU"/>
     </inferredMetricsTieBreakers>
     <resources>

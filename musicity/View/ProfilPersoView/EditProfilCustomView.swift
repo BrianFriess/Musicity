@@ -20,14 +20,12 @@ class EditProfilCustomView: UIView {
     
     func configure(_ profilPicture : UIImage) {
         configureButton(profilPicture)
-        
     }
     
     enum Loading{
         case isloading
         case isLoad
     }
-    
     
     func loadPhoto(_ loadind : Loading){
         switch loadind {
@@ -43,7 +41,6 @@ class EditProfilCustomView: UIView {
             saveActivityIndicator.isHidden = true
         }
     }
-    
     
     private func configureButton(_ profilPictureUser : UIImage){
         profilPicture.layer.cornerRadius = 60
@@ -67,7 +64,4 @@ class EditProfilCustomView: UIView {
             break
         }
     }
-    
-
-
 }

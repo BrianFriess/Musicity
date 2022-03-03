@@ -15,7 +15,5 @@ class CustomProfilPictureView: UIImageView {
     
     private func configureProfilPicture(){
         layer.cornerRadius = 60
-        
     }
-
 }

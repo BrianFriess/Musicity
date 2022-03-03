@@ -26,7 +26,6 @@ class CustomConnextionView: UIView {
         emailTextField.attributedPlaceholder = NSAttributedString(
             string: "E-mail",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
-        
         passwordTextField.attributedPlaceholder = NSAttributedString(
             string: "Mot de passe",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
@@ -38,7 +37,6 @@ class CustomConnextionView: UIView {
             stick[i].layer.cornerRadius = 1.5
         }
     }
-    
     
     private func configureButton(){
         incriptionButton.layer.cornerRadius = 20
@@ -63,5 +61,4 @@ class CustomConnextionView: UIView {
             self.activityIndicator.startAnimating()
         }
     }
-    
 }

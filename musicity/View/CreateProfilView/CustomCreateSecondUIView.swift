@@ -63,5 +63,4 @@ class CustomCreateSecondUIView: UIView {
             activityIndicator.isHidden = true
         }
     }
-    
 }

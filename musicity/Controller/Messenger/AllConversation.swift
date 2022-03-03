@@ -12,23 +12,16 @@ class AllConversation: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private let firebaseManager = FirebaseManager()
-    private let alerte = AlerteManager()
+    private let alert = AlertManager()
     
     var arrayUserMessenger = [ResultInfo]()
     var row = 0
-
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         checkIfWeHaveAMessengerUser()
         addObserverNotification()
         self.tableView.reloadData()
     }
-    
     
     //we check if we have an user Id before read all the user id
     private func checkIfWeHaveAMessengerUser(){
@@ -40,7 +33,6 @@ class AllConversation: UIViewController {
             }
         }
     }
-    
     
     //we check all the userID who we have already a conversation
     private func checkMessengerUserId(){
@@ -61,14 +53,12 @@ class AllConversation: UIViewController {
         }
     }
     
-    
     private func addUserInArrayForTableView(_ currentUser : ResultInfo){
         if !self.checkIfUserAlreadyHere(currentUser, self.arrayUserMessenger){
             self.arrayUserMessenger.append(currentUser)
             addObserverNotification()
         }
     }
-    
     
     //before set the id of the user in our array, we check if he already exists in the array
     private func checkIfUserAlreadyHere(_ user : ResultInfo, _ arrayUser : [ResultInfo]) -> Bool{
@@ -106,14 +96,10 @@ class AllConversation: UIViewController {
             }
         }
     }
-    
 }
 
 
-
 extension AllConversation : UITableViewDelegate, UITableViewDataSource{
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrayUserMessenger.count
     }
@@ -131,11 +117,7 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
             cell.nameLabel.font = .systemFont(ofSize: 20)
             cell.nameLabel.textColor = .systemOrange
         }
-        
-        
         cell.nameLabel.text = arrayUserMessenger[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String
-        
-        
         if arrayUserMessenger[indexPath.row].profilPicture == nil{
             cell.loadingPicture(.isNotLoad)
         } else {
@@ -144,11 +126,10 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
         }
         return cell
     }
-
     
-        //we prepare our userId in the segue for load the conversation with the right user
+    //we prepare our userId in the segue for load the conversation with the right user
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueToMessenger"{
+        if segue.identifier == SegueManager.segueToMessenger.returnSegueString{
             let successVC = segue.destination as! TchatViewController
             successVC.currentUser = arrayUserMessenger[row]
         }
@@ -157,12 +138,11 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
     //when we click on a cell, we delete the notification in the DDB
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         row = indexPath.row
-        performSegue(withIdentifier: "segueToMessenger", sender: self)
+        performSegue(withIdentifier: SegueManager.segueToMessenger.returnSegueString, sender: self)
         firebaseManager.removeNotificationUser(UserInfo.shared.userID, arrayUserMessenger[indexPath.row].userID)
         arrayUserMessenger[indexPath.row].haveNotification = false
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
     
     //cache for load the profil picture 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -177,16 +157,15 @@ extension AllConversation : UITableViewDelegate, UITableViewDataSource{
                                 self.arrayUserMessenger[indexPath.row].addProfilPicture(image)
                                 self.tableView.reloadData()
                             case .failure(_):
-                                self.alerte.alerteVc(.errorCheckAroundUs, self)
+                                self.alert.alertVc(.errorCheckAroundUs, self)
                             }
                         }
                 case .failure(_):
-                    self.alerte.alerteVc(.errorCheckAroundUs, self)
+                    self.alert.alertVc(.errorCheckAroundUs, self)
                 }
             }
         }
     }
-    
 }
 
 

@@ -14,7 +14,6 @@ class MessengerTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         configure()
@@ -22,8 +21,6 @@ class MessengerTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     enum PictureIsLoad{
@@ -45,8 +42,6 @@ class MessengerTableViewCell: UITableViewCell {
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
             picture.isHidden = true
-
         }
     }
-
 }

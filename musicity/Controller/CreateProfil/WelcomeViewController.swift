@@ -10,8 +10,7 @@ import UIKit
 class WelcomeViewController: UIViewController {
     
     private let firebaseManager = FirebaseManager()
-    private let alerte = AlerteManager()
-    
+    private let alert = AlertManager()
     
     //we get all the info in the singleton
     @IBAction func letsgoButton(_ sender: Any) {
@@ -19,15 +18,13 @@ class WelcomeViewController: UIViewController {
             switch result{
             case .success(let allInfo):
                 guard UserInfo.shared.addAllInfo(allInfo) else {
-                    self.alerte.alerteVc(.errorGetInfo, self)
+                    self.alert.alertVc(.errorGetInfo, self)
                     return
                 }
-                self.performSegue(withIdentifier: "GoToMusicityFromWelcome", sender: self)
+                self.performSegue(withIdentifier: SegueManager.goToMusicityFromWelcome.returnSegueString, sender: self)
             case .failure(_):
-                self.alerte.alerteVc(.errorGetInfo, self)
+                self.alert.alertVc(.errorGetInfo, self)
             }
         }
     }
-
-    
 }

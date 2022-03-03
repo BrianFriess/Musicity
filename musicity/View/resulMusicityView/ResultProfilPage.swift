@@ -20,7 +20,6 @@ class ResultProfilPage: UIView {
     @IBOutlet weak var youtubePlayer: WKYTPlayerView!
     @IBOutlet weak var bioLabelText: UITextView!
     
-    
     enum BandOrMusician{
         case isBand
         case isMusician
@@ -29,7 +28,6 @@ class ResultProfilPage: UIView {
     func configLabelUsername(_ username : String){
         usernameTextField.text = username
     }
-    
     
     func isBandOrMusician(_ style : BandOrMusician){
         switch style {
@@ -47,7 +45,6 @@ class ResultProfilPage: UIView {
         case isInLoading
     }
     
-    
     func loadSpinner(_ isLoading : IsLoading){
         switch isLoading {
         case .isLoad:
@@ -59,12 +56,10 @@ class ResultProfilPage: UIView {
         }
     }
     
-    
     enum IsEmpty{
         case isEmpty
         case isNotEmpty
     }
-    
     
     func bioIsEmpty(_ checkBio : IsEmpty){
         switch checkBio {
@@ -75,7 +70,6 @@ class ResultProfilPage: UIView {
         }
     }
     
-    
     func youtubePlayerIsEmpty(_ checkYoutubeUrl : IsEmpty){
         switch checkYoutubeUrl {
         case .isEmpty:
@@ -84,5 +78,4 @@ class ResultProfilPage: UIView {
             youtubePlayer.isHidden = false
         }
     }
-
 }

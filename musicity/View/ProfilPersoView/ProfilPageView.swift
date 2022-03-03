@@ -21,7 +21,6 @@ class ProfilPageView: UIView {
     @IBOutlet weak var youtubePlayer: WKYTPlayerView!
     @IBOutlet weak var bioLabelText: UITextView!
     
-    
     enum BandOrMusician{
         case isBand
         case isMusician
@@ -80,6 +79,4 @@ class ProfilPageView: UIView {
             youtubePlayer.isHidden = false
         }
     }
-    
-    
 }
