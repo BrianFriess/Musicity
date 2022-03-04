@@ -7,18 +7,18 @@
 
 import UIKit
 
-class MusicityHomeCustomView: UIView {
-// custom pour afficher le label si geoloc pas activé
+final class MusicityHomeCustomView: UIView {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var labelTextGeolocalisation: UILabel!
 
-    enum GeolocalisationIsActive{
+    enum GeolocalisationIsActive {
         case isActive
         case notActive
     }
     
-    func displayLabelGeolocalisation(_ geolocalisation : GeolocalisationIsActive){
+    //check is the geolocalisation is acticate or not for display the collection View or not
+    func displayLabelGeolocalisation(_ geolocalisation : GeolocalisationIsActive) {
         switch geolocalisation {
         case .isActive:
             labelTextGeolocalisation.isHidden = true
@@ -28,4 +28,5 @@ class MusicityHomeCustomView: UIView {
             collectionView.isHidden = true
         }
     }
+    
 }

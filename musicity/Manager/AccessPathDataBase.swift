@@ -8,41 +8,51 @@
 import Foundation
 
 enum DataBaseAccessPath {
+    case users
     case username
-    case BandOrMusician
+    case bandOrMusician
     case publicInfoUser
-    case NbMember
-    case Style
-    case Instrument
+    case nbMember
+    case style
+    case instrument
     case userLocation
-    case Bio
-    case YoutubeUrl
+    case bio
+    case youtubeUrl
     case messenger
     case messengerUserId
     case distance
     case search
     case notification
     case notificationBanner
+    case band
+    case member
+    case all
+    case musician
+    case messages
+    case profilImage
+    case idResult
     
-    var returnAccessPath : String{
-        switch self{
+    var returnAccessPath : String {
+        switch self {
+        case .users:
+            return "users"
         case .username:
             return "username"
-        case .BandOrMusician:
+        case .bandOrMusician:
             return "BandOrMusician"
         case .publicInfoUser:
             return "publicInfoUser"
-        case .NbMember:
+        case .nbMember:
             return "NbMember"
-        case .Style:
+        case .style:
             return "Style"
-        case .Instrument:
+        case .instrument:
             return "Instrument"
         case .userLocation:
             return "UserLocation"
-        case .Bio:
+        case .bio:
             return "Bio"
-        case .YoutubeUrl:
+        case .youtubeUrl:
             return "YoutubeUrl"
         case .messenger:
             return "Messenger"
@@ -56,6 +66,21 @@ enum DataBaseAccessPath {
             return "Notification"
         case .notificationBanner:
             return "NotificationBanner"
+        case .band:
+            return "Band"
+        case .member:
+            return "Membre(s)"
+        case .all:
+            return "All"
+        case .musician:
+            return "Musician"
+        case .messages:
+            return "Messages"
+        case .profilImage:
+            return "ProfilImage/profilImage.png"
+        case .idResult:
+            return "idResult"
         }
     }
+    
 }

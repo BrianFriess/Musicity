@@ -7,13 +7,15 @@
 
 import UIKit
 
-class CustomProfilPictureView: UIImageView {
+final class CustomProfilPictureView: UIImageView {
     
     override func awakeFromNib() {
         configureProfilPicture()
     }
     
-    private func configureProfilPicture(){
+    //add corner radius at the UIImageView
+    private func configureProfilPicture() {
         layer.cornerRadius = 60
     }
+    
 }

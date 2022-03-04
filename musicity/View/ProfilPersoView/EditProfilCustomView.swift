@@ -8,9 +8,8 @@
 import UIKit
 
 
-class EditProfilCustomView: UIView {
-
-
+final class EditProfilCustomView: UIView {
+    
     @IBOutlet weak var activityIndicatorPP: UIActivityIndicatorView!
     @IBOutlet weak var profilPicture: UIButton!
     @IBOutlet weak var bioLabelText: UITextView!
@@ -22,12 +21,14 @@ class EditProfilCustomView: UIView {
         configureButton(profilPicture)
     }
     
-    enum Loading{
+    enum Loading {
         case isloading
         case isLoad
     }
     
-    func loadPhoto(_ loadind : Loading){
+    //check if the the view is loading or not
+    //display and hide some elements
+    func loadPhoto(_ loadind : Loading) {
         switch loadind {
         case .isloading:
             profilPicture.isHidden = true
@@ -42,7 +43,8 @@ class EditProfilCustomView: UIView {
         }
     }
     
-    private func configureButton(_ profilPictureUser : UIImage){
+    //add picture on a UiButton and configure UIButton
+    private func configureButton(_ profilPictureUser : UIImage) {
         profilPicture.layer.cornerRadius = 60
         profilPicture.setImage(profilPictureUser, for: .normal)
         profilPicture.imageView?.contentMode = .scaleAspectFill
@@ -51,12 +53,13 @@ class EditProfilCustomView: UIView {
         profilPicture.layer.borderColor = UIColor.systemOrange.cgColor
     }
     
-    enum IsEmpty{
+    enum IsEmpty {
         case isEmpty
         case isNotEmpty
     }
     
-    func bioIsEmpty(_ checkBio : IsEmpty){
+    //check if the bio is empty or not
+    func bioIsEmpty(_ checkBio : IsEmpty) {
         switch checkBio {
         case .isEmpty:
             bioLabelText.text = "Pas de bio pour l'instant..."
@@ -64,4 +67,5 @@ class EditProfilCustomView: UIView {
             break
         }
     }
+    
 }

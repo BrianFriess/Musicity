@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomConnextionView: UIView {
+final class CustomConnextionView: UIView {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet var stick: [UIView]!
@@ -16,13 +16,14 @@ class CustomConnextionView: UIView {
     @IBOutlet weak var incriptionButton: UIButton!
     @IBOutlet weak var connexionButton: CustomOrangeButton!
     
-    func configureView(){
+    func configureView() {
         configureTextField()
         configureStick()
         configureButton()
     }
     
-    private func configureTextField(){
+    //configure the information for the view
+    private func configureTextField() {
         emailTextField.attributedPlaceholder = NSAttributedString(
             string: "E-mail",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
@@ -31,25 +32,27 @@ class CustomConnextionView: UIView {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
     }
     
-    private func configureStick(){
+    //configure all the sticks
+    private func configureStick() {
         let count = stick.count
-        for i in 0 ..< count{
+        for i in 0 ..< count {
             stick[i].layer.cornerRadius = 1.5
         }
     }
     
-    private func configureButton(){
+    private func configureButton() {
         incriptionButton.layer.cornerRadius = 20
         incriptionButton.layer.borderWidth = 3
         incriptionButton.layer.borderColor = UIColor.systemOrange.cgColor
     }
     
-    enum IsLoad{
+    enum IsLoad {
         case isLoad
         case isOnLoad
     }
     
-    func connexionIsLoadOrNot(_ isLoad : IsLoad){
+    //display the activity indicator or not
+    func connexionIsLoadOrNot(_ isLoad : IsLoad) {
         switch isLoad {
         case .isLoad:
             self.connexionButton.isHidden = false
@@ -61,4 +64,5 @@ class CustomConnextionView: UIView {
             self.activityIndicator.startAnimating()
         }
     }
+    
 }

@@ -7,7 +7,8 @@
 
 import UIKit
 
-class TileCollectionViewCell: UICollectionViewCell {
+//is the custom cell in the collectionView in MusicityHomeViewController
+final class TileCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var customView: UIView!
     @IBOutlet weak var profilPicture: UIImageView!
@@ -23,8 +24,8 @@ class TileCollectionViewCell: UICollectionViewCell {
         configureCell()
     }
     
-    //we check if the collectionView is the first or the last to display the arrow or not 
-    func displayArrow(_ checkCollectionRow: Int, _ collectionMax : Int){
+    //we check if the collectionView is the first or the last to display the arrow or not
+    func displayArrow(_ checkCollectionRow: Int, _ collectionMax : Int) {
         if checkCollectionRow == 0 {
             leftArrow.isHidden = true
             rightArrow.isHidden = false
@@ -41,7 +42,7 @@ class TileCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configureCell(){
+    private func configureCell() {
         customView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor
         customView.layer.shadowRadius = 1.0
         customView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
@@ -49,13 +50,13 @@ class TileCollectionViewCell: UICollectionViewCell {
         customView.layer.cornerRadius = 25
     }
     
-    enum IsLoading{
+    enum IsLoading {
         case isLoad
         case isInLoading
     }
     
     //the view display the spinner or the profil picture
-    func loadPhoto(_ isLoading : IsLoading, _ profilPicture : UIImage?){
+    func loadPhoto(_ isLoading : IsLoading, _ profilPicture : UIImage?) {
         switch isLoading {
         case .isLoad:
             spinnerActivityIndicator.isHidden = true
@@ -69,15 +70,8 @@ class TileCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func createCustomView(){
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
-        customView.backgroundColor = UIColor.red
-        addSubview(customView)
-    }
-    
-    
     //we create our scroll View
-    func createScrollView(_ infoInstrument : [String], _ infoStyle : [String]){
+    func createScrollView(_ infoInstrument : [String], _ infoStyle : [String]) {
         var paddyY = 0
         let scrollView = UIScrollView(frame: CGRect(x: customView.layer.frame.minX, y: customView.layer.frame.maxY/2+30, width: customView.layer.frame.size.width , height: customView.layer.frame.maxY/2-30))
         scrollView.backgroundColor = UIColor.systemOrange
@@ -89,9 +83,9 @@ class TileCollectionViewCell: UICollectionViewCell {
     }
     
     //we create the label View in the scrollView
-    func createLabelInScrollView(_ infoArray: [String],_ posY : Int, _ scrollView : UIScrollView) -> Int{
+    func createLabelInScrollView(_ infoArray: [String],_ posY : Int, _ scrollView : UIScrollView) -> Int {
         var paddyY = posY
-        for info in infoArray{
+        for info in infoArray {
             let label =  UILabel(frame: CGRect(x: 5, y:paddyY, width: Int(scrollView.layer.frame.size.width), height : 35))
             scrollView.addSubview(label)
             label.textColor = UIColor.white
@@ -102,8 +96,9 @@ class TileCollectionViewCell: UICollectionViewCell {
         return paddyY
     }
     
-    func configureBandOrMusicianLabel(_ bandOrMusician : String){
-        if bandOrMusician == "Band"{
+    //after check if it's a band or musician, we display "Groupe" or "Musicien" on the cell
+    func configureBandOrMusicianLabel(_ bandOrMusician : String) {
+        if bandOrMusician == "Band" {
             bandOrMusicianLabel.text = "Groupe"
         } else if bandOrMusician == "Musician" {
             bandOrMusicianLabel.text = "Musicien"
@@ -113,12 +108,13 @@ class TileCollectionViewCell: UICollectionViewCell {
     }
     
     //we display the distance in the distance label
-    func configDistanceLabel(_ distance : String){
+    func configDistanceLabel(_ distance : String) {
         if distance != "" {
             distanceLabel.text = ("\(distance) Km")
         } else {
             distanceLabel.text = ""
         }
     }
+    
 }
 

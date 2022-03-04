@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomCreateSecondUIView: UIView {
+final class CustomCreateSecondUIView: UIView {
     
     @IBOutlet weak var photoButton: UIButton!
     @IBOutlet weak var stepper: UIStepper!
@@ -15,28 +15,29 @@ class CustomCreateSecondUIView: UIView {
     @IBOutlet weak var stackBand: UIStackView!
     @IBOutlet weak var labelBand: UILabel!
     
-    func configView(){
+    func configView() {
         configureButton()
         configStepper()
     }
     
-    func configureButton(){
+    private func configureButton() {
         photoButton.layer.cornerRadius = 60
         photoButton.layer.borderWidth = 2
         photoButton.layer.borderColor = UIColor.systemOrange.cgColor
         activityIndicator.isHidden = true
     }
     
-    func configStepper(){
+    private func configStepper() {
         stepper.layer.cornerRadius = 8
     }
 
-    enum BandOrMusician{
+    enum BandOrMusician {
         case band
         case musician
     }
     
-    func customStack(_ bandOrMusician : BandOrMusician ){
+    //display the information in the stack view or not
+    func customStack(_ bandOrMusician : BandOrMusician ) {
         switch bandOrMusician {
         case .band:
             stackBand.isHidden = false
@@ -47,13 +48,13 @@ class CustomCreateSecondUIView: UIView {
         }
     }
     
-    enum Loading{
+    enum Loading {
         case isloading
         case isLoad
     }
     
-    
-    func loadPhoto(_ loadind : Loading){
+    //check if the picture is load or not
+    func loadPhoto(_ loadind : Loading) {
         switch loadind {
         case .isloading:
             photoButton.isHidden = true
@@ -63,4 +64,5 @@ class CustomCreateSecondUIView: UIView {
             activityIndicator.isHidden = true
         }
     }
+    
 }

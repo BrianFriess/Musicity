@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-struct ImagePicker{
+struct ImagePicker {
     //we create this function  for create an ImagePickerController and display the photoLibrary
-    func displayPhotoLibrary(_ ViewController : UIViewController){
+    func displayPhotoLibrary(_ ViewController : UIViewController) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = (ViewController as! UIImagePickerControllerDelegate & UINavigationControllerDelegate)
         //we choose as source the photo library
@@ -19,4 +19,5 @@ struct ImagePicker{
         imagePicker.allowsEditing = true
         ViewController.present(imagePicker, animated: true, completion: nil)
     }
+    
 }

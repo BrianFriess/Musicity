@@ -7,16 +7,17 @@
 
 import UIKit
 
-class FirstCreateProfilViewController: UIViewController {
-
+final class FirstCreateProfilViewController: UIViewController {
+    
     @IBOutlet weak var collectionStyle: UICollectionView!
-
+    
     private var isSelectArray = Array(repeating: false,  count: musicStyle.count)
     private var dictStyle = [Int : String]()
     
     private let fireBaseManager = FirebaseManager()
     private let alert = AlertManager()
- 
+    
+    //when we press on the next button
     @IBAction func pressNextButton(_ sender: Any) {
         UserInfo.shared.addStyle(dictStyle)
         UserInfo.shared.checkStyle(dictStyle.count, dictStyle)
@@ -30,9 +31,10 @@ class FirstCreateProfilViewController: UIViewController {
     }
     
     //we set a dictionnay with the choive style in firebase
-    private func setStyleInDDB(){
-        fireBaseManager.setDictionnaryUserInfo(UserInfo.shared.userID, UserInfo.shared.style, .Style) { result in
-            switch result{
+    private func setStyleInDDB() {
+        fireBaseManager.setDictionnaryUserInfo(UserInfo.shared.userID, UserInfo.shared.style, .style) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
             case .success(_):
                 self.performSegue(withIdentifier: SegueManager.goToChoiceInstruSegue.returnSegueString, sender: self)
             case .failure(_):
@@ -40,17 +42,18 @@ class FirstCreateProfilViewController: UIViewController {
             }
         }
     }
+    
 }
 
 
-extension FirstCreateProfilViewController : UICollectionViewDelegate, UICollectionViewDataSource{
+extension FirstCreateProfilViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return musicStyle.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "styleTagCell", for : indexPath) as? ChoiceCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewManager.styleTagCell.returnCellString, for : indexPath) as? ChoiceCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.selectCell(isSelectArray[indexPath.row])
@@ -58,14 +61,16 @@ extension FirstCreateProfilViewController : UICollectionViewDelegate, UICollecti
         return cell
     }
     
+    //when we select an item, if the value of the item is true, after the click, the value is false and if the value is false after the click, is true
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if isSelectArray[indexPath.row] == false{
+        if isSelectArray[indexPath.row] == false {
             isSelectArray[indexPath.row] = true
             dictStyle[indexPath.row] = musicStyle[indexPath.row]
         } else {
             isSelectArray[indexPath.row] = false
             dictStyle[indexPath.row] = nil
         }
-       collectionStyle.reloadItems(at: [indexPath])
+        collectionStyle.reloadItems(at: [indexPath])
     }
+    
 }

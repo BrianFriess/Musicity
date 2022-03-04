@@ -22,8 +22,8 @@ enum SegueManager {
     case segueToMessenger
     case segueToViewProfilInMessenger
     
-    var returnSegueString : String{
-        switch self{
+    var returnSegueString : String {
+        switch self {
         case .goToMusicitySegue:
             return "goToMusicitySegue"
         case .goToFirstConnexionSegue:
@@ -48,9 +48,9 @@ enum SegueManager {
             return "segueToMessenger"
         case .segueToViewProfilInMessenger:
             return "segueToViewProfilInMessenger"
-            
         }
     }
+    
 }
     
 

@@ -8,22 +8,21 @@
 import UIKit
 import MapKit
 
-class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+final class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var sliderKm: UISlider!
     @IBOutlet weak var labelKm: UILabel!
     @IBOutlet weak var segmentedFilter: UISegmentedControl!
     @IBOutlet weak var mapKit: MKMapView!
     
-    
     var latitude = 0.0
     var longitude = 0.0
-    var circle = MKCircle()
-    //let defaults = UserDefaults.standard
+    
+    private var circle = MKCircle()
 
     override func viewDidLoad() {
         //we check if our segue have already a distance value for display at the start
-        if UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] != nil{
+        if UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] != nil {
             sliderKm.value = Float(UserInfo.shared.filter[DataBaseAccessPath.distance.returnAccessPath] as! Double / 100)
         }
         labelKm.text = "\(Int(sliderKm.value * 100)) Km"
@@ -34,7 +33,7 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     }
     
     //set our position in  a CLLocation and display out position on a map
-    func displayLocation() {
+    private func displayLocation() {
         mapKit.showsUserLocation = true
         let location = CLLocation(latitude: latitude, longitude: longitude)
         print(Double(sliderKm.value) * 100)
@@ -46,7 +45,7 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     }
     
     //add a cicle around our position
-    func addCircle(){
+    private func addCircle() {
         mapKit.removeOverlay(circle)
         let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         circle = MKCircle(center: location, radius: Double(sliderKm.value) * 100000 / 2)
@@ -66,11 +65,11 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     }
     
     // we check in our segue if we have already a value for our filter for display in our segment
-    func displaySegmentedAtStart(){
-        if let bandOrMusician = UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath]{
-            if bandOrMusician as! String == "Band"{
+    private func displaySegmentedAtStart() {
+        if let bandOrMusician = UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] {
+            if bandOrMusician as! String == DataBaseAccessPath.band.returnAccessPath {
                 segmentedFilter.selectedSegmentIndex = 0
-            } else if bandOrMusician as! String == "Musician"{
+            } else if bandOrMusician as! String == DataBaseAccessPath.musician.returnAccessPath {
                 segmentedFilter.selectedSegmentIndex = 1
             } else {
                 segmentedFilter.selectedSegmentIndex = 2
@@ -93,16 +92,16 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
     }
     
     //when we choose a new segment, we get the value at our segue
-    func chooseSegmentedFilter(){
-        switch segmentedFilter.selectedSegmentIndex{
+    private func chooseSegmentedFilter() {
+        switch segmentedFilter.selectedSegmentIndex {
         case 0:
-            UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] = "Band"
+            UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] = DataBaseAccessPath.band.returnAccessPath
          //   defaults.set("Band", forKey: "Search")
         case 1:
-            UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] = "Musician"
+            UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] = DataBaseAccessPath.musician.returnAccessPath
        //     defaults.set("Musician", forKey: "Distance")
         case 2:
-            UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] = "All"
+            UserInfo.shared.filter[DataBaseAccessPath.search.returnAccessPath] = DataBaseAccessPath.all.returnAccessPath
           //  defaults.set("All", forKey: "Distance")
         default:
             break
@@ -115,6 +114,7 @@ class FilterViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         //defaults.set(Double(sliderKm.value * 100), forKey: "Distance")
         dismiss(animated: true, completion: nil)
     }
+    
 }
 
 

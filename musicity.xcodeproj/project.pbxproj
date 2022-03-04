@@ -61,6 +61,9 @@
 		D3B14CF2275A4B5800BA5876 /* ResultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */; };
 		D3B14CF4275A596300BA5876 /* TileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B14CF3275A596300BA5876 /* TileCollectionViewCell.swift */; };
 		D3C58D45279493E0001073AD /* InputBarAccessoryView in Frameworks */ = {isa = PBXBuildFile; productRef = D3C58D44279493E0001073AD /* InputBarAccessoryView */; settings = {ATTRIBUTES = (Required, ); }; };
+		D3E1173027D234A600942DF6 /* CollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1172F27D234A600942DF6 /* CollectionViewManager.swift */; };
+		D3E1173227D24E8700942DF6 /* SegueManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1173127D24E8700942DF6 /* SegueManagerTest.swift */; };
+		D3E1173427D250ED00942DF6 /* CollectionViewManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E1173327D250ED00942DF6 /* CollectionViewManagerTest.swift */; };
 		D3ECCC49274AB020005538E6 /* CustomConnextionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */; };
 		D3ECCC4B274AB2CC005538E6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */; };
 		D3ECCC4D274AC5F7005538E6 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECCC4C274AC5F7005538E6 /* AlertManager.swift */; };
@@ -131,13 +134,16 @@
 		D3ACE21227AA967700896354 /* FirebaseManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManagerTest.swift; sourceTree = "<group>"; };
 		D3B14CF1275A4B5800BA5876 /* ResultInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultInfo.swift; sourceTree = "<group>"; };
 		D3B14CF3275A596300BA5876 /* TileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCollectionViewCell.swift; sourceTree = "<group>"; };
+		D3E1172F27D234A600942DF6 /* CollectionViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewManager.swift; sourceTree = "<group>"; };
+		D3E1173127D24E8700942DF6 /* SegueManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueManagerTest.swift; sourceTree = "<group>"; };
+		D3E1173327D250ED00942DF6 /* CollectionViewManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewManagerTest.swift; sourceTree = "<group>"; };
 		D3ECCC48274AB020005538E6 /* CustomConnextionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConnextionView.swift; sourceTree = "<group>"; };
 		D3ECCC4A274AB2CC005538E6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		D3ECCC4C274AC5F7005538E6 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		D3ECD6EC276355F900366A1D /* CustomOrangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOrangeButton.swift; sourceTree = "<group>"; };
 		D3ECD6F12763B9F400366A1D /* CustomProfilPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProfilPictureView.swift; sourceTree = "<group>"; };
 		D3ECD6F42763BF6600366A1D /* EditProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilViewController.swift; sourceTree = "<group>"; };
-		D3EE0FA627C556F40027A44C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D3EE0FA627C556F40027A44C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "musicity/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3FF5A592770F794000596D7 /* EditProfilCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilCustomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,7 +220,8 @@
 				D3ACE20B27A7FEDC00896354 /* ResultInfoTest.swift */,
 				D392C4FF27AD9E300027902A /* AlerteManagerTest.swift */,
 				D374AAA727B8271100FF5522 /* AccessPathTest.swift */,
-				D36A4AC627A727EC0089BF0C /* FakeDataUnitTest.swift */,
+				D3E1173127D24E8700942DF6 /* SegueManagerTest.swift */,
+				D3E1173327D250ED00942DF6 /* CollectionViewManagerTest.swift */,
 			);
 			path = musicityUnitTests;
 			sourceTree = "<group>";
@@ -222,6 +229,8 @@
 		D3348D17274E3C8A00811091 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				D3E1172F27D234A600942DF6 /* CollectionViewManager.swift */,
+				D332D813275280EC001B9A26 /* AccessPathDataBase.swift */,
 				D36D333727CF88DE00B5740B /* SegueManager.swift */,
 				D3ECCC4C274AC5F7005538E6 /* AlertManager.swift */,
 				D32E5A22274D659F0045073C /* FirebaseManager.swift */,
@@ -242,6 +251,7 @@
 		D34C7BA427B003AA00BA5D21 /* FireBaseTest */ = {
 			isa = PBXGroup;
 			children = (
+				D36A4AC627A727EC0089BF0C /* FakeDataUnitTest.swift */,
 				D3ACE21227AA967700896354 /* FirebaseManagerTest.swift */,
 			);
 			path = FireBaseTest;
@@ -279,15 +289,13 @@
 		D37D91F72747B72000D59BC5 /* musicity */ = {
 			isa = PBXGroup;
 			children = (
-				D37D91FA2747B72000D59BC5 /* SceneDelegate.swift */,
-				D37D91F82747B72000D59BC5 /* AppDelegate.swift */,
-				D37D92312748080D00D59BC5 /* Archistico_Bold.ttf */,
+				D3E1172E27D2300F00942DF6 /* SupportingFiles */,
+				D3EE0FA627C556F40027A44C /* GoogleService-Info.plist */,
+				D37D92062747B72100D59BC5 /* Info.plist */,
 				D37D922A2747DF2B00D59BC5 /* Controller */,
 				D37D92292747DF2500D59BC5 /* model */,
 				D3348D17274E3C8A00811091 /* Manager */,
 				D37D92282747DF1C00D59BC5 /* View */,
-				D37D92062747B72100D59BC5 /* Info.plist */,
-				D3EE0FA627C556F40027A44C /* GoogleService-Info.plist */,
 			);
 			path = musicity;
 			sourceTree = "<group>";
@@ -295,6 +303,7 @@
 		D37D92282747DF1C00D59BC5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D37D92312748080D00D59BC5 /* Archistico_Bold.ttf */,
 				D37D92012747B72100D59BC5 /* Assets.xcassets */,
 				D37D91FE2747B72000D59BC5 /* Main.storyboard */,
 				D37D92032747B72100D59BC5 /* LaunchScreen.storyboard */,
@@ -311,7 +320,6 @@
 		D37D92292747DF2500D59BC5 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				D332D813275280EC001B9A26 /* AccessPathDataBase.swift */,
 				D3348D18274EAA1300811091 /* UserInfo.swift */,
 				D3A86924274F9FE400D2BCC8 /* MusicStyle.swift */,
 				D332D817275295FB001B9A26 /* MusicInstruments.swift */,
@@ -378,6 +386,15 @@
 				D3ECD6F42763BF6600366A1D /* EditProfilViewController.swift */,
 			);
 			path = ProfilPerso;
+			sourceTree = "<group>";
+		};
+		D3E1172E27D2300F00942DF6 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				D37D91FA2747B72000D59BC5 /* SceneDelegate.swift */,
+				D37D91F82747B72000D59BC5 /* AppDelegate.swift */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		D3ECD6EE27635A9900366A1D /* collectionViewCell */ = {
@@ -527,9 +544,11 @@
 				D392C50427ADAD5D0027902A /* FakeResponseYoutube.swift in Sources */,
 				D32952E227A30B29009C34CB /* UserInfoTest.swift in Sources */,
 				D392C50227ADA4250027902A /* YoutubeManagerTest.swift in Sources */,
+				D3E1173427D250ED00942DF6 /* CollectionViewManagerTest.swift in Sources */,
 				D374AAA627B7FD3300FF5522 /* UrlTestProtocol.swift in Sources */,
 				D36A4AC727A727EC0089BF0C /* FakeDataUnitTest.swift in Sources */,
 				D392C50027AD9E300027902A /* AlerteManagerTest.swift in Sources */,
+				D3E1173227D24E8700942DF6 /* SegueManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +556,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3E1173027D234A600942DF6 /* CollectionViewManager.swift in Sources */,
 				D363098F27D0A83900E1F079 /* ImagePicker.swift in Sources */,
 				D3497CB727566F7C00D69D08 /* MusicityHomeViewController.swift in Sources */,
 				D3348D19274EAA1300811091 /* UserInfo.swift in Sources */,

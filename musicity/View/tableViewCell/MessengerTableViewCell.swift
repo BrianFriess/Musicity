@@ -7,8 +7,7 @@
 
 import UIKit
 
-class MessengerTableViewCell: UITableViewCell {
-
+final class MessengerTableViewCell: UITableViewCell {
     
     @IBOutlet weak var picture: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -18,21 +17,23 @@ class MessengerTableViewCell: UITableViewCell {
         super.awakeFromNib()
         configure()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    enum PictureIsLoad{
+    //we add a cornerRadius as the picture
+    private func configure() {
+        picture.layer.cornerRadius = 38.5
+    }
+    
+    enum PictureIsLoad {
         case isLoad
         case isNotLoad
     }
     
-    func configure(){
-        picture.layer.cornerRadius = 38.5
-    }
-    
-    func loadingPicture( _ isLoad : PictureIsLoad){
+    //when we call this function, we set isLoad for display the activity indicator or not
+    func loadingPicture( _ isLoad : PictureIsLoad) {
         switch isLoad {
         case .isLoad:
             activityIndicator.stopAnimating()
@@ -44,4 +45,5 @@ class MessengerTableViewCell: UITableViewCell {
             picture.isHidden = true
         }
     }
+    
 }

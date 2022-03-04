@@ -10,17 +10,18 @@ import UIKit
 import IQKeyboardManagerSwift
 import InputBarAccessoryView
 
-class TchatViewController: UIViewController {
-
+final class TchatViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
     private let keyboardManager = KeyboardManager()
     private let inputBar = InputBarAccessoryView()
     private let firebaseManager = FirebaseManager()
-    var currentUser = ResultInfo()
-    private var messages = [[String:Any]]()
     private let alert = AlertManager()
+    
+    var currentUser = ResultInfo()
+    
+    private var messages = [[String:Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,19 +41,20 @@ class TchatViewController: UIViewController {
         firebaseManager.removeNotificationUserObserver(UserInfo.shared.userID)
     }
 
-    //delete the notification
-    func removeNotificationToDataBase(){
+    //delete the notification when view did load
+    private func removeNotificationToDataBase() {
         firebaseManager.removeNotificationUser(UserInfo.shared.userID, currentUser.userID)
         currentUser.haveNotification = false
     }
     
     //if we receive a tchat in the tchatViewConroller, we delete the notification
-    func checkIfWeHaveAnewNotificationForRemove(){
-        firebaseManager.checkNewUserNotification(UserInfo.shared.userID) { result in
-            switch result{
+    private func checkIfWeHaveAnewNotificationForRemove() {
+        firebaseManager.checkNewUserNotification(UserInfo.shared.userID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
             case .success(let userId):
                 print(userId)
-                if userId[DataBaseAccessPath.notification.returnAccessPath] as! String == self.currentUser.userID{
+                if userId[DataBaseAccessPath.notification.returnAccessPath] as! String == self.currentUser.userID {
                 self.removeNotificationToDataBase()
                 }
             case .failure(_):
@@ -62,14 +64,13 @@ class TchatViewController: UIViewController {
     }
     
     //we configure the Keyboard for 
-    func configureKeyboardNotification(){
+    private func configureKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     //when the keyboard appear
     @objc private func keyboardWillShow(notification: NSNotification) {
-        
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue, tableView.contentInset == .zero {
             tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height , right: 0)
         }
@@ -82,9 +83,10 @@ class TchatViewController: UIViewController {
     }
     
     //display the new message
-    private func getMessages(){
-        firebaseManager.readInMessengerDataBase(UserInfo.shared.userID, currentUser.userID) { result in
-            switch result{
+    private func getMessages() {
+        firebaseManager.readInMessengerDataBase(UserInfo.shared.userID, currentUser.userID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
             case .success(let messages):
                 self.messages.append(messages)
                 self.tableView.insertRows(at: [IndexPath(row: self.messages.count-1, section: 0)], with: .automatic)
@@ -95,13 +97,15 @@ class TchatViewController: UIViewController {
         }
     }
     
-    func scrollAtTheEndOfTableView(){
-        if messages.count != 0{
+    //thanks to this function, we scroll at the end of the tchat tableView
+    private func scrollAtTheEndOfTableView() {
+        if messages.count != 0 {
             let indexPath = IndexPath(row: (self.messages.count)-1 , section: 0)
             self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
     
+    //we configure the input bar at the bottom
     private func configureInputBar() {
         inputBar.delegate = self
         inputBar.inputTextView.isImagePasteEnabled = false
@@ -125,6 +129,7 @@ class TchatViewController: UIViewController {
         sendButton.setSize(CGSize(width: 30, height: 30), animated: true)
     }
     
+    //we reconfigure the keyboard for don't use the package IQKeyboardManager in this controller
     private func configureKeyboard() {
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.enable = false
@@ -134,15 +139,16 @@ class TchatViewController: UIViewController {
     }
 
     //before set the id of the user in our DDB, we check if he already exists
-    private func checkIfUserAlreadyHere(_ user : ResultInfo) -> Bool{
-        for currentUserId in UserInfo.shared.activeMessengerUserIdFirebase{
-            if currentUserId == user.userID{
+    private func checkIfUserAlreadyHere(_ user : ResultInfo) -> Bool {
+        for currentUserId in UserInfo.shared.activeMessengerUserIdFirebase {
+            if currentUserId == user.userID {
                 return true
             }
         }
         return false
     }
     
+    //when we send a new message, we check if we have all the info
     private func sendMessage(_ message: String?) {
         guard let message = message, !message.isEmpty else {
             return
@@ -150,11 +156,12 @@ class TchatViewController: UIViewController {
         guard let userName = UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] else {
             return
         }
+        //create a dictionnay for firebase
         let newMessage: [String:Any] = ["name": userName,
                                         "message": message]
         //we send the new message in our DDB
         firebaseManager.setNewMessage(UserInfo.shared.userID, currentUser.userID, newMessage) { [weak self] result in
-            switch result{
+            switch result {
             case .success(_):
                 self?.inputBar.inputTextView.text = ""
                 self?.inputBar.inputTextView.resignFirstResponder()
@@ -168,14 +175,15 @@ class TchatViewController: UIViewController {
     }
     
     //if the userId is not in our DDB, we create a new value in our DDB and we recover this value in our array of UserIdMessenger
-    private func addNewUserIdInUserListMessenger(){
-        if !self.checkIfUserAlreadyHere(currentUser){
+    private func addNewUserIdInUserListMessenger() {
+        if !self.checkIfUserAlreadyHere(currentUser) {
             let countUserIdMessenger = UserInfo.shared.activeMessengerUserIdFirebase.count
             //we set our value in a dictionnary for set the DDB
             UserInfo.shared.activeMessengerUserId[String(countUserIdMessenger)] =  self.currentUser.userID
             //we add the new id in our DDB
-            firebaseManager.setTheUserIdMessengerInDdb(UserInfo.shared.userID, UserInfo.shared.activeMessengerUserId) { result in
-                switch result{
+            firebaseManager.setTheUserIdMessengerInDdb(UserInfo.shared.userID, UserInfo.shared.activeMessengerUserId) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
                 case .success(_):
                     //we recover the new id in our Array in local
                     self.getTheUserIdFromDatabase()
@@ -188,8 +196,9 @@ class TchatViewController: UIViewController {
     
     //recover the userId of the other user
     private func getTheUserIdFromDatabase() {
-        self.firebaseManager.getTheUserIdMessengerToDdb(UserInfo.shared.userID) { result in
-            switch result{
+        self.firebaseManager.getTheUserIdMessengerToDdb(UserInfo.shared.userID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
             case .success(let userIdArray):
                 self.addNewUserInTheOtherUserListMessenger()
                 UserInfo.shared.addAllUserMessenger(userIdArray)
@@ -199,18 +208,20 @@ class TchatViewController: UIViewController {
         }
     }
     
-    private func getANotificationInTheDDB(){
-        firebaseManager.setNotificationBanner(currentUser.userID,UserInfo.shared.userID, [DataBaseAccessPath.notificationBanner.returnAccessPath : UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as Any]) { result in
+    //add a notification in ddb
+    private func getANotificationInTheDDB() {
+        firebaseManager.setNotificationBanner(currentUser.userID,UserInfo.shared.userID, [DataBaseAccessPath.notificationBanner.returnAccessPath : UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as Any]) { _ in
         }
-        firebaseManager.setNewUserNotification(currentUser.userID, UserInfo.shared.userID) { result in
+        firebaseManager.setNewUserNotification(currentUser.userID, UserInfo.shared.userID) { _ in
         }
     }
     
     //if we add the userId in the lise of messenger active in the UserInfo, we need to do the same thing in the currentUserResult
-    private func addNewUserInTheOtherUserListMessenger(){
+    private func addNewUserInTheOtherUserListMessenger() {
         //we get all the user in the messenger Id
-        firebaseManager.getTheUserIdMessengerToDdb(currentUser.userID) { result in
-            switch result{
+        firebaseManager.getTheUserIdMessengerToDdb(currentUser.userID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
             case .success(let arrayUser):
                 //we create an array of user Id
                 var arrayUserAndCurrentUserInfo = arrayUser
@@ -219,17 +230,19 @@ class TchatViewController: UIViewController {
                 self.configureANewArrayUserInMessenger(arrayUserAndCurrentUserInfo)
                 //if we don't have a userMessengerId in our database, we create an dictionnary just with the UserInfo
             case .failure(_):
-                //we set the dictionnary in our database
+                //we set the array in our database
                 self.configureANewArrayUserInMessenger([UserInfo.shared.userID])
             }
         }
     }
     
-    private func configureANewArrayUserInMessenger(_ arrayUser : [String]){
+    //we send the array firebase
+    private func configureANewArrayUserInMessenger(_ arrayUser : [String]) {
         self.currentUser.addAllUserMessenger(arrayUser)
         //we set the dictionnary in our database
-        self.firebaseManager.setTheUserIdMessengerInDdb(self.currentUser.userID, self.currentUser.activeMessengerUserId) { result  in
-            switch result{
+        self.firebaseManager.setTheUserIdMessengerInDdb(self.currentUser.userID, self.currentUser.activeMessengerUserId) { [weak self] result  in
+            guard let self = self else { return }
+            switch result {
                 case .success(_):
                 break
             case .failure(_):
@@ -240,7 +253,7 @@ class TchatViewController: UIViewController {
 
     //we prepare the segue
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       if segue.identifier == SegueManager.segueToViewProfilInMessenger.returnSegueString{
+       if segue.identifier == SegueManager.segueToViewProfilInMessenger.returnSegueString {
             let successVC = segue.destination as! ResultUserProfilViewController
             successVC.currentUser = currentUser
             successVC.isAfterTchat = true
@@ -250,12 +263,11 @@ class TchatViewController: UIViewController {
     @IBAction func tapProfilButton(_ sender: Any) {
         performSegue(withIdentifier: SegueManager.segueToViewProfilInMessenger.returnSegueString, sender: self)
     }
+    
 }
 
 
-
-
-extension TchatViewController :  UITableViewDataSource, UITableViewDelegate{
+extension TchatViewController :  UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -266,36 +278,37 @@ extension TchatViewController :  UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellTchat", for : indexPath) as? TchatTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewManager.cellTchat.returnCellString, for : indexPath) as? TchatTableViewCell else {
             return UITableViewCell()
         }
-
         cell.messageLabel.text = messages[indexPath.row]["message"] as? String
         cell.nameLabel.text = messages[indexPath.row]["name"] as? String
-        if cell.nameLabel.text == UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String{
+        if cell.nameLabel.text == UserInfo.shared.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as? String {
             cell.viewCustom.backgroundColor = UIColor.systemOrange
         } else {
             cell.viewCustom.backgroundColor = UIColor.gray
         }
-        
         return cell
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
 }
 
 
-//when we click on the sent button
 extension TchatViewController: InputBarAccessoryViewDelegate {
+    //when we click on the sent button
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         self.sendMessage(text)
         inputBar.inputTextView.text = ""
         inputBar.inputTextView.resignFirstResponder()
     }
+    
 }
 

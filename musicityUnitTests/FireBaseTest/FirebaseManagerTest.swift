@@ -225,7 +225,7 @@ class FirebaseManagerTest: XCTestCase {
     
     func testSetDictionnaryInDDB_HaveAGoodValue_SetDictionnary(){
         let expectation = XCTestExpectation(description: "wait for queue change")
-        firebaseManager.setDictionnaryUserInfo(data.userId, data.dictInstrument, .Instrument) { result in
+        firebaseManager.setDictionnaryUserInfo(data.userId, data.dictInstrument, .instrument) { result in
             expectation.fulfill()
             XCTAssertNotNil(result)
             switch result{

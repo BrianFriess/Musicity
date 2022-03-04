@@ -7,15 +7,16 @@
 
 import UIKit
 
-class CustomOrangeButton: UIButton {
-
-   // @IBOutlet weak var orangeButton: UIButton!
+final class CustomOrangeButton: UIButton {
+    
     override func awakeFromNib() {
         configureButton()
     }
     
-    private func configureButton(){
+    //add corner radius and color at UiButton
+    private func configureButton() {
         layer.cornerRadius = 20
         layer.backgroundColor = UIColor.systemOrange.cgColor
     }
+    
 }

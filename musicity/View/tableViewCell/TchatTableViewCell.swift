@@ -8,8 +8,8 @@
 import UIKit
 import SwiftUI
 
-class TchatTableViewCell: UITableViewCell {
-
+final class TchatTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var viewCustom: UIView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -18,8 +18,10 @@ class TchatTableViewCell: UITableViewCell {
         super.awakeFromNib()
         configure()
     }
-
-    func configure(){
+    
+    //we add a corner radius at the view with the text field in the tchat view controller
+    private func configure() {
         viewCustom.layer.cornerRadius = 10
     }
+
 }

@@ -8,25 +8,25 @@
 import UIKit
 import YoutubePlayer_in_WKWebView
 
-class ProfilPageView: UIView {
+final class ProfilPageView: UIView {
 
     @IBOutlet weak var profilPicture: UIImageView!
     @IBOutlet weak var usernameTextField: UILabel!
     @IBOutlet weak var nbMemberLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var bandOrMusicianLabel: UILabel!
-    //@IBOutlet weak var bioLabelText: UILabel!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var editActivityIndcator: UIActivityIndicatorView!
     @IBOutlet weak var youtubePlayer: WKYTPlayerView!
     @IBOutlet weak var bioLabelText: UITextView!
     
-    enum BandOrMusician{
+    enum BandOrMusician {
         case isBand
         case isMusician
     }
     
-    func isBandOrMusician(_ style : BandOrMusician){
+    //check if is a band or musician for display this
+    func isBandOrMusician(_ style : BandOrMusician) {
         switch style {
         case .isBand:
             nbMemberLabel.isHidden = false
@@ -37,12 +37,13 @@ class ProfilPageView: UIView {
         }
     }
     
-    enum IsLoading{
+    enum IsLoading {
         case isLoad
         case isInLoading
     }
     
-    func loadSpinner(_ isLoading : IsLoading){
+    //check if the informations is loading or not
+    func loadSpinner(_ isLoading : IsLoading) {
         switch isLoading {
         case .isLoad:
             activityIndicator.isHidden = true
@@ -57,12 +58,13 @@ class ProfilPageView: UIView {
         }
     }
     
-    enum IsEmpty{
+    enum IsEmpty {
         case isEmpty
         case isNotEmpty
     }
     
-    func bioIsEmpty(_ checkBio : IsEmpty){
+    //check if the bio is empty or not
+    func bioIsEmpty(_ checkBio : IsEmpty) {
         switch checkBio {
         case .isEmpty:
             bioLabelText.text = "Pas de bio pour l'instant..."
@@ -71,7 +73,8 @@ class ProfilPageView: UIView {
         }
     }
     
-    func youtubePlayerIsEmpty(_ checkYoutubeUrl : IsEmpty){
+    //check if we have a youtube video or not
+    func youtubePlayerIsEmpty(_ checkYoutubeUrl : IsEmpty) {
         switch checkYoutubeUrl {
         case .isEmpty:
             youtubePlayer.isHidden = true
@@ -79,4 +82,5 @@ class ProfilPageView: UIView {
             youtubePlayer.isHidden = false
         }
     }
+    
 }

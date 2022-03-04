@@ -8,7 +8,7 @@
 import UIKit
 
 
-class CustomCreateUserView: UIView {
+final class CustomCreateUserView: UIView {
 
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -18,12 +18,13 @@ class CustomCreateUserView: UIView {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var inscriptionButton: CustomOrangeButton!
     
-    func configureView(){
+    func configureView() {
         configureTextField()
         configureStick()
     }
     
-    func configureTextField(){
+    //configure the information for the view
+    private func configureTextField() {
         userNameTextField.attributedPlaceholder = NSAttributedString(
             string: "Nom d'utilisateur",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
@@ -35,15 +36,17 @@ class CustomCreateUserView: UIView {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
     }
     
-    func configureStick(){
+    //configure all the sticks
+    private func configureStick() {
         let count = stick.count
-        for i in 0 ..< count{
+        for i in 0 ..< count {
             stick[i].layer.cornerRadius = 1.5
         }
     }
         
-    func configureBandOrMusicien(){
-        switch segmentedControl.selectedSegmentIndex{
+    //check if it's a band or musician thanks to the segmented for display the good information
+    func configureBandOrMusicien() {
+        switch segmentedControl.selectedSegmentIndex {
         case 0 :
             userNameTextField.attributedPlaceholder = NSAttributedString(string: "Nom d'utilisateur", attributes: [NSAttributedString.Key.foregroundColor: UIColor.orange.withAlphaComponent(0.3)])
         case 1 :
@@ -53,12 +56,13 @@ class CustomCreateUserView: UIView {
         }
     }
     
-    enum IsLoad{
+    enum IsLoad {
         case isLoad
         case isOnLoad
     }
     
-    func connexionIsLoadOrNot(_ isLoad : IsLoad){
+    //display the activity indicator or not
+    func connexionIsLoadOrNot(_ isLoad : IsLoad) {
         switch isLoad {
         case .isLoad:
             self.inscriptionButton.isHidden = false
@@ -70,5 +74,6 @@ class CustomCreateUserView: UIView {
             self.activityController.startAnimating()
         }
     }
+    
 }
  

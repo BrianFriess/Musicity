@@ -19,27 +19,23 @@ class UserInfoTest: XCTestCase {
         userInfo = UserInfo.shared
     }
     
-    
-    func setOneStyleDictionnary() -> [Int:String]{
+    func setOneStyleDictionnary() -> [Int:String] {
         return [0:"rock"]
     }
     
-    func setTwoStyleDictionnay()-> [Int:String]{
+    func setTwoStyleDictionnay()-> [Int:String] {
         return [0:"rock" , 1:"metal"]
     }
     
-    
-    
-    func setOneInstrumentDictionnary() -> [Int:String]{
+    func setOneInstrumentDictionnary() -> [Int:String] {
         return [0:"rock"]
     }
     
-    func setTwoInstrumentDictionnay()-> [Int:String]{
+    func setTwoInstrumentDictionnay()-> [Int:String] {
         return [0:"rock" , 1:"metal"]
     }
     
-    
-    func testStyleIsEmpty_SetOneStyle_StyleIsNotEmpty(){
+    func testStyleIsEmpty_SetOneStyle_StyleIsNotEmpty() {
         let dictStyle = setOneStyleDictionnary()
         
         userInfo.addStyle(dictStyle)
@@ -48,7 +44,7 @@ class UserInfoTest: XCTestCase {
     }
     
     
-    func testStyleHaveTwoValue_UserChangeHisChoiceAndChooseJustOneStyle_HaveANewDictionnaryWithOneValue(){
+    func testStyleHaveTwoValue_UserChangeHisChoiceAndChooseJustOneStyle_HaveANewDictionnaryWithOneValue() {
         let dictOneStyle = setOneStyleDictionnary()
         let dictTwoStyles = setTwoStyleDictionnay()
         
@@ -60,7 +56,7 @@ class UserInfoTest: XCTestCase {
 
     
     
-    func testInstrumentIsEmpty_SetOneInstrument_InstrumentIsNotEmpty(){
+    func testInstrumentIsEmpty_SetOneInstrument_InstrumentIsNotEmpty() {
         let dictInstrument = setOneInstrumentDictionnary()
         
         userInfo.addInstrument(dictInstrument)
@@ -69,7 +65,7 @@ class UserInfoTest: XCTestCase {
     }
     
     
-    func testInstrumentHaveTwoValue_UserChangeHisChoiceAndChooseJustOneInstrument_HaveANewDictionnaryWithOneValue(){
+    func testInstrumentHaveTwoValue_UserChangeHisChoiceAndChooseJustOneInstrument_HaveANewDictionnaryWithOneValue() {
         let dictOneInstrument = setOneInstrumentDictionnary()
         let dictTwoInstruments = setTwoInstrumentDictionnay()
         
@@ -81,17 +77,16 @@ class UserInfoTest: XCTestCase {
     
 
     
-    func testUserInfoIsEmpty_RecoverAllTheInfoToTheDDB_UserInfoIsNotEmpty(){
+    func testUserInfoIsEmpty_RecoverAllTheInfoToTheDDB_UserInfoIsNotEmpty() {
         let userInfoExport = data.exportUserDataBase
 
-        if userInfo.addAllInfo(userInfoExport){
+        if userInfo.addAllInfo(userInfoExport) {
             XCTAssert(userInfo.instrumentFireBase == userInfoExport["Instrument"] as! [String])
             XCTAssert(userInfo.styleFirbase == userInfoExport["Style"] as! [String])
- 
         }
     }
         
-    func testDontHaveAprofilPicture_AddProfilPicture_HaveAprofilPicture(){
+    func testDontHaveAprofilPicture_AddProfilPicture_HaveAprofilPicture() {
         XCTAssert(userInfo.profilPicture == nil)
         
         userInfo.addProfilPicture(data.image)
@@ -100,8 +95,7 @@ class UserInfoTest: XCTestCase {
     }
     
         
-    func testUserInfoIsEmpty_RecoverAllTheInfoToTheDDBWithError_UserInfoIsEmpty(){
-            
+    func testUserInfoIsEmpty_RecoverAllTheInfoToTheDDBWithError_UserInfoIsEmpty() {
         var userInfoExport = data.exportUserDataBase
         userInfoExport.removeAll()
         XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
@@ -115,7 +109,7 @@ class UserInfoTest: XCTestCase {
         XCTAssert(userInfo.addAllInfo(userInfoExport) == false)
     }
     
-    func testStyleIsEmpty_CheckIfDataIsEmptyOrNot(){
+    func testStyleIsEmpty_CheckIfDataIsEmptyOrNot() {
         XCTAssert(userInfo.checkIfStyleIsEmpty())
         
         XCTAssertFalse(userInfo.checkUrlProfilPicture())
@@ -123,31 +117,30 @@ class UserInfoTest: XCTestCase {
         XCTAssert(userInfo.checkIfInstrumentIsEmpty())
     }
     
-    func testurlStringIsEmpty_AddURLString_URLStringIsNotEmpty(){
+    func testurlStringIsEmpty_AddURLString_URLStringIsNotEmpty() {
         XCTAssert(userInfo.stringUrl == "")
         
-        if userInfo.addAllInfo(data.exportUserDataBase){
+        if userInfo.addAllInfo(data.exportUserDataBase) {
             userInfo.addUrlString(userInfo.publicInfoUser["YoutubeUrl"] as! String)
             XCTAssert(userInfo.stringUrl == "6U2SuAGRj4s")
         }
     }
     
-    func testUserInfoIsNotEmpty_CheckIfItsABandOrMusician_HaveAReturn(){
-        if userInfo.addAllInfo(data.exportUserDataBase){
+    func testUserInfoIsNotEmpty_CheckIfItsABandOrMusician_HaveAReturn() {
+        if userInfo.addAllInfo(data.exportUserDataBase) {
             XCTAssert(userInfo.checkIfItsBandOrMusician() == "Band")
         }
     }
     
-    func testUserInfoIsNotEmpty_ResetAll_UserInfoIsEmpty(){
-        if userInfo.addAllInfo(data.exportUserDataBase){
+    func testUserInfoIsNotEmpty_ResetAll_UserInfoIsEmpty() {
+        if userInfo.addAllInfo(data.exportUserDataBase) {
             userInfo.resetSingleton()
         }
         
         XCTAssert(userInfo.userID == ""  && userInfo.profilPicture == nil && userInfo.stringUrl == "" &&  userInfo.instrumentFireBase == [] &&  userInfo.styleFirbase == [] &&  userInfo.activeMessengerUserIdFirebase == [])
     }
     
-    
-    func testUserIdIsEmpty_AssUuserId_NotEmpty(){
+    func testUserIdIsEmpty_AssUuserId_NotEmpty() {
         let testId = "testId"
         
         userInfo.addUserId(testId)
@@ -155,5 +148,4 @@ class UserInfoTest: XCTestCase {
         XCTAssert(userInfo.userID == testId)
     }
     
-
 }

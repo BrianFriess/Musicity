@@ -8,8 +8,8 @@
 import UIKit
 import PhotosUI
 
-class SecondCreateProfilTableViewController: UIViewController {
-
+final class SecondCreateProfilTableViewController: UIViewController {
+    
     @IBOutlet var customView: CustomCreateSecondUIView!
     @IBOutlet weak var collectionInstrument: UICollectionView!
     @IBOutlet weak var nbMemberLabel: UILabel!
@@ -27,7 +27,7 @@ class SecondCreateProfilTableViewController: UIViewController {
         //call the function in the customView
         customView.configView()
         //check if it's a band or musician for configure the view
-        if UserInfo.shared.checkIfItsBandOrMusician() == "Band" {
+        if UserInfo.shared.checkIfItsBandOrMusician() == DataBaseAccessPath.band.returnAccessPath {
             customView.customStack(.band)
         } else {
             customView.customStack(.musician)
@@ -37,21 +37,19 @@ class SecondCreateProfilTableViewController: UIViewController {
     @IBAction func pressFinishButton(_ sender: Any) {
         UserInfo.shared.addInstrument(dictInstrument)
         UserInfo.shared.checkInstrument(dictInstrument.count, dictInstrument)
-        
         //we check if wa have all informations
         guard UserInfo.shared.checkUrlProfilPicture() else {
             alert.alertVc(.emptyProfilPicture, self)
             return
         }
-        
         guard UserInfo.shared.checkIfInstrumentIsEmpty() else {
             alert.alertVc(.emptyInstrument, self)
             return
         }
         //we check if it's band or musician
-        if UserInfo.shared.checkIfItsBandOrMusician() == "Band"{
+        if UserInfo.shared.checkIfItsBandOrMusician() == DataBaseAccessPath.band.returnAccessPath  {
             //check if the label nbMember is not empty
-            guard nbMemberLabel.text != "Membre(s)" else {
+            guard nbMemberLabel.text != DataBaseAccessPath.member.returnAccessPath else {
                 alert.alertVc(.emptyNbMembre, self)
                 return
             }
@@ -62,10 +60,11 @@ class SecondCreateProfilTableViewController: UIViewController {
     }
     
     //we check if it's band or musician
-    private func bandOrMusician(){
+    private func bandOrMusician() {
         //if it's a band, we set the number of member in the band in firebase
-        fireBaseManager.setSingleUserInfo(UserInfo.shared.userID, .publicInfoUser, .NbMember, nbMemberLabel.text!) { result in
-            switch result{
+        fireBaseManager.setSingleUserInfo(UserInfo.shared.userID, .publicInfoUser, .nbMember, nbMemberLabel.text!) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
             case .success(_):
                 break
             case .failure(_):
@@ -75,9 +74,10 @@ class SecondCreateProfilTableViewController: UIViewController {
     }
     
     //we set a dictionnary with all the instruments in firebase
-    private func setInstrumentInDDB(){
-        fireBaseManager.setDictionnaryUserInfo( UserInfo.shared.userID, UserInfo.shared.instrument, .Instrument) { result in
-            switch result{
+    private func setInstrumentInDDB() {
+        fireBaseManager.setDictionnaryUserInfo( UserInfo.shared.userID, UserInfo.shared.instrument, .instrument) { [weak self]  result in
+            guard let self = self else { return }
+            switch result {
             case .success(_):
                 self.performSegue(withIdentifier: SegueManager.goToWelcomeSegue.returnSegueString, sender: self)
             case .failure(_):
@@ -89,19 +89,19 @@ class SecondCreateProfilTableViewController: UIViewController {
     //set the value thanks to the stepper
     @IBAction func stepperBand(_ sender: UIStepper) {
         nbMemberLabel.text = Int(sender.value).description
-        if Int(sender.value) == 0{
-            nbMemberLabel.text = "Membre(s)"
+        if Int(sender.value) == 0 {
+            nbMemberLabel.text = DataBaseAccessPath.member.returnAccessPath
         }
     }
     
     //we call the function who call the function displayPhotoLibrary
     @IBAction func pressPhotoButton(_ sender: Any) {
-    //we check if we can use the photoLibrary
+        //we check if we can use the photoLibrary
         PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
             switch status {
             case .notDetermined,. restricted, .denied, .limited:
                 DispatchQueue.main.async {
-                self.alert.alertVc(.cantAccessPhotoLibrary, self)
+                    self.alert.alertVc(.cantAccessPhotoLibrary, self)
                 }
             case .authorized:
                 DispatchQueue.main.async {
@@ -109,23 +109,24 @@ class SecondCreateProfilTableViewController: UIViewController {
                 }
             @unknown default:
                 DispatchQueue.main.async {
-                self.alert.alertVc(.cantAccessPhotoLibrary, self)
+                    self.alert.alertVc(.cantAccessPhotoLibrary, self)
                 }
             }
         }
     }
+    
 }
 
 
-extension SecondCreateProfilTableViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension SecondCreateProfilTableViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //we create this function  for create an ImagePickerController and display the photoLibrary
-    private func displayPhotoLibrary(){
+    private func displayPhotoLibrary() {
         imagePicker.displayPhotoLibrary(self)
     }
     
     //we add the picture in the segue and we display the picture when she's load
-    private func displayProfilPictureAndAddInTheSegue(_ urlImage : String,_ imageData : Data){
+    private func displayProfilPictureAndAddInTheSegue(_ urlImage : String,_ imageData : Data) {
         UserInfo.shared.addUrlString(urlImage)
         self.photoButton.setImage(UIImage(data: imageData), for: .normal)
         self.photoButton.imageView?.contentMode = .scaleAspectFill
@@ -145,10 +146,11 @@ extension SecondCreateProfilTableViewController : UIImagePickerControllerDelegat
         }
         
         //we set the profilPicture in firebase and we get the url in our Segue
-        fireBaseManager.setImageInFirebaseAndGetUrl(UserInfo.shared.userID, imageData) { result in
-            switch result{
+        fireBaseManager.setImageInFirebaseAndGetUrl(UserInfo.shared.userID, imageData) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
             case .success(let urlImage):
-                //we add the picture in the segue and we display the picture when she's load 
+                //we add the picture in the segue and we display the picture when she's load
                 self.displayProfilPictureAndAddInTheSegue(urlImage , imageData)
             case .failure(_):
                 self.alert.alertVc(.errorImage, self)
@@ -162,11 +164,12 @@ extension SecondCreateProfilTableViewController : UIImagePickerControllerDelegat
         self.customView.loadPhoto(.isLoad)
         dismiss(animated: true, completion: nil)
     }
+    
 }
 
 
 //this extension is for our collectionView
-extension SecondCreateProfilTableViewController : UICollectionViewDelegate, UICollectionViewDataSource{
+extension SecondCreateProfilTableViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     
     //return the number of music instruments
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -175,7 +178,7 @@ extension SecondCreateProfilTableViewController : UICollectionViewDelegate, UICo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //custom cell
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "instrumentTagCell", for : indexPath) as? ChoiceCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewManager.instrumentTagCell.returnCellString, for : indexPath) as? ChoiceCollectionViewCell else {
             return UICollectionViewCell()
         }
         //check if the cell is select or not
@@ -183,10 +186,10 @@ extension SecondCreateProfilTableViewController : UICollectionViewDelegate, UICo
         cell.tagLabel.text = musicInstruments[indexPath.row]
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //when the user push on one cell, we check if the cell is select or desect
-        if isSelectArray[indexPath.row] == false{
+        if isSelectArray[indexPath.row] == false {
             isSelectArray[indexPath.row] = true
             dictInstrument[indexPath.row] = musicInstruments[indexPath.row]
         } else {
@@ -194,6 +197,7 @@ extension SecondCreateProfilTableViewController : UICollectionViewDelegate, UICo
             dictInstrument[indexPath.row] = nil
         }
         //reload the cell
-       collectionInstrument.reloadItems(at: [indexPath])
+        collectionInstrument.reloadItems(at: [indexPath])
     }
+    
 }

@@ -8,9 +8,8 @@
 import UIKit
 import YoutubePlayer_in_WKWebView
 
-class ResultUserProfilViewController: UIViewController {
+final class ResultUserProfilViewController: UIViewController {
     
-
     @IBOutlet weak var tagResultCollection: UICollectionView!
     @IBOutlet var customeResultProfilPageView: ResultProfilPage!
     
@@ -26,7 +25,7 @@ class ResultUserProfilViewController: UIViewController {
     }
     
     //we use this function for configure the view with all the info in the model
-    func configureView(){
+    private func configureView() {
         checkIfProfilPictureIsAlreadyLoad()
         checkIfBioIsEmpty()
         customeResultProfilPageView.configLabelUsername(currentUser.publicInfoUser[DataBaseAccessPath.username.returnAccessPath] as! String)
@@ -36,38 +35,39 @@ class ResultUserProfilViewController: UIViewController {
     }
     
     //if before this controller the user is in the tchat, we hide the "contact" button 
-    func hideContactButtonOrNot(){
+    private func hideContactButtonOrNot() {
         if isAfterTchat {
             customeResultProfilPageView.contactButton.isHidden = true
         }
     }
 
     //we check if it's band or musician profil
-    func bandOrMusician(){
-        if currentUser.checkIfItsBandOrMusician() == "Band"{
+    private func bandOrMusician() {
+        if currentUser.checkIfItsBandOrMusician() == DataBaseAccessPath.band.returnAccessPath {
             customeResultProfilPageView.isBandOrMusician(.isBand)
-            customeResultProfilPageView.nbMemberLabel.text = ("\(currentUser.publicInfoUser[DataBaseAccessPath.NbMember.returnAccessPath] as! String) membre(s)")
+            customeResultProfilPageView.nbMemberLabel.text = ("\(currentUser.publicInfoUser[DataBaseAccessPath.nbMember.returnAccessPath] as! String) membre(s)")
         } else {
             customeResultProfilPageView.isBandOrMusician(.isMusician)
         }
     }
     
     //we check if the user have already a youtubeVideo
-    func youtubeVideoOrNot(){
-        if currentUser.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] as? String == "" || currentUser.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] == nil {
+    private func youtubeVideoOrNot() {
+        if currentUser.publicInfoUser[DataBaseAccessPath.youtubeUrl.returnAccessPath] as? String == "" || currentUser.publicInfoUser[DataBaseAccessPath.youtubeUrl.returnAccessPath] == nil {
             customeResultProfilPageView.youtubePlayerIsEmpty(.isEmpty)
         } else {
             customeResultProfilPageView.youtubePlayerIsEmpty(.isNotEmpty)
-            customeResultProfilPageView.youtubePlayer.load(withVideoId: currentUser.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] as! String)
+            customeResultProfilPageView.youtubePlayer.load(withVideoId: currentUser.publicInfoUser[DataBaseAccessPath.youtubeUrl.returnAccessPath] as! String)
         }
     }
     
     //we check if the profilPicture is already load in the front page, if not, we use our network call for display the profil picture
-    func checkIfProfilPictureIsAlreadyLoad(){
-        if currentUser.profilPicture == nil{
+    private func checkIfProfilPictureIsAlreadyLoad() {
+        if currentUser.profilPicture == nil {
             customeResultProfilPageView.loadSpinner(.isInLoading)
-            firebaseManager.getImageToFirebase( currentUser.stringUrl) { result in
-                switch result{
+            firebaseManager.getImageToFirebase( currentUser.stringUrl) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
                 case .success(let image):
                     self.customeResultProfilPageView.loadSpinner(.isLoad)
                     self.customeResultProfilPageView.profilPicture.image = image
@@ -82,18 +82,18 @@ class ResultUserProfilViewController: UIViewController {
     }
     
     //we check the user have already a bio
-    func checkIfBioIsEmpty(){
-        if currentUser.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String == "" || currentUser.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] == nil{
+    private func checkIfBioIsEmpty() {
+        if currentUser.publicInfoUser[DataBaseAccessPath.bio.returnAccessPath] as? String == "" || currentUser.publicInfoUser[DataBaseAccessPath.bio.returnAccessPath] == nil {
             customeResultProfilPageView.bioIsEmpty(.isEmpty)
         } else {
             customeResultProfilPageView.bioIsEmpty(.isNotEmpty)
-            customeResultProfilPageView.bioLabelText.text = currentUser.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String
+            customeResultProfilPageView.bioLabelText.text = currentUser.publicInfoUser[DataBaseAccessPath.bio.returnAccessPath] as? String
         }
     }
     
     //we prepare the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SegueManager.segueToFirstTimeMessenger.returnSegueString{
+        if segue.identifier == SegueManager.segueToFirstTimeMessenger.returnSegueString {
             let successVC = segue.destination as! TchatViewController
             successVC.currentUser = currentUser
         }
@@ -103,21 +103,22 @@ class ResultUserProfilViewController: UIViewController {
     @IBAction func contactButton(_ sender: Any) {
        performSegue(withIdentifier: SegueManager.segueToFirstTimeMessenger.returnSegueString, sender: self)
     }
+    
 }
 
 
-extension ResultUserProfilViewController : UICollectionViewDelegate, UICollectionViewDataSource{
+extension ResultUserProfilViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return currentUser.instrumentFireBase.count + currentUser.styleFirbase.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCollectionResultCell", for : indexPath) as? TagCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewManager.tagCollectionResultCell.returnCellString, for : indexPath) as? TagCollectionViewCell else {
             return UICollectionViewCell()
         }
         // we check if we give the value of instruments or Style
-        if indexPath.row < currentUser.instrumentFireBase.count{
+        if indexPath.row < currentUser.instrumentFireBase.count {
             //at first, we give the value of instruments
             cell.tagLabel.text = currentUser.instrumentFireBase[indexPath.row]
         } else {
@@ -126,6 +127,7 @@ extension ResultUserProfilViewController : UICollectionViewDelegate, UICollectio
         }
         return cell
     }
+    
 }
 
 

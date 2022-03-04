@@ -13,36 +13,34 @@ class AlerteManagerTest: XCTestCase {
     let alerteManager = AlertManager()
     let viewController = UIViewController()
     
-    
-    func testalerteManager(){
-        alerteManager.alerteVc(.errorCreateUser, viewController)
-        alerteManager.alerteVc(.LessSixPassword, viewController)
-        alerteManager.alerteVc(.EmptyUsername, viewController)
-        alerteManager.alerteVc(.EmptyEmail, viewController)
-        alerteManager.alerteVc(.FalseEmail, viewController)
-        alerteManager.alerteVc(.ErrorConnexion, viewController)
-        alerteManager.alerteVc(.emptyPassword, viewController)
-        alerteManager.alerteVc(.emptyNbInstrument, viewController)
-        alerteManager.alerteVc(.emptyNbMembre, viewController)
-        alerteManager.alerteVc(.errorGetInfo, viewController)
-        alerteManager.alerteVc(.errorSetInfo, viewController)
-        alerteManager.alerteVc(.errorLogOut, viewController)
-        alerteManager.alerteVc(.errorImage, viewController)
-        alerteManager.alerteVc(.cantAccessPhotoLibrary, viewController)
-        alerteManager.alerteVc(.emptyInstrument, viewController)
-        alerteManager.alerteVc(.emptyProfilPicture, viewController)
-        alerteManager.alerteVc(.errorGeolocalisation, viewController)
-        alerteManager.alerteVc(.errorCheckAroundUs, viewController)
-        alerteManager.alerteVc(.deniedGeolocalisation, viewController)
-        alerteManager.alerteVc(.emptyStyle, viewController)
-        alerteManager.alerteVc(.tooMuchCara, viewController)
-        alerteManager.alerteVc(.youtubeLink, viewController)
-        alerteManager.alerteVc(.messageError, viewController)
+    func testalerteManager() {
+        alerteManager.alertVc(.errorCreateUser, viewController)
+        alerteManager.alertVc(.lessSixPassword, viewController)
+        alerteManager.alertVc(.emptyUsername, viewController)
+        alerteManager.alertVc(.emptyEmail, viewController)
+        alerteManager.alertVc(.falseEmail, viewController)
+        alerteManager.alertVc(.errorConnexion, viewController)
+        alerteManager.alertVc(.emptyPassword, viewController)
+        alerteManager.alertVc(.emptyNbInstrument, viewController)
+        alerteManager.alertVc(.emptyNbMembre, viewController)
+        alerteManager.alertVc(.errorGetInfo, viewController)
+        alerteManager.alertVc(.errorSetInfo, viewController)
+        alerteManager.alertVc(.errorLogOut, viewController)
+        alerteManager.alertVc(.errorImage, viewController)
+        alerteManager.alertVc(.cantAccessPhotoLibrary, viewController)
+        alerteManager.alertVc(.emptyInstrument, viewController)
+        alerteManager.alertVc(.emptyProfilPicture, viewController)
+        alerteManager.alertVc(.errorGeolocalisation, viewController)
+        alerteManager.alertVc(.errorCheckAroundUs, viewController)
+        alerteManager.alertVc(.deniedGeolocalisation, viewController)
+        alerteManager.alertVc(.emptyStyle, viewController)
+        alerteManager.alertVc(.tooMuchCara, viewController)
+        alerteManager.alertVc(.youtubeLink, viewController)
+        alerteManager.alertVc(.messageError, viewController)
     }
     
-    
-    func testAlertLocationManager(){
-        alerteManager.locationAlerte(.deniedGeolocalisation, viewController)        
+    func testAlertLocationManager() {
+        alerteManager.locationAlert(.deniedGeolocalisation, viewController)        
     }
 
 }

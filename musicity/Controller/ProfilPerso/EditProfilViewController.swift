@@ -8,7 +8,7 @@
 import UIKit
 import PhotosUI
 
-class EditProfilViewController: UIViewController {
+final class EditProfilViewController: UIViewController {
 
     @IBOutlet var editUserView: EditProfilCustomView!
     @IBOutlet weak var bioLabel: UITextView!
@@ -27,27 +27,28 @@ class EditProfilViewController: UIViewController {
     }
 
     //we check if the bio is empty or not in our segue
-    private func checkIfBioIsEmptyOrNotAtStart(){
-        if UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String == "" || UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] == nil {
+    private func checkIfBioIsEmptyOrNotAtStart() {
+        if UserInfo.shared.publicInfoUser[DataBaseAccessPath.bio.returnAccessPath] as? String == "" || UserInfo.shared.publicInfoUser[DataBaseAccessPath.bio.returnAccessPath] == nil {
             editUserView.bioIsEmpty(.isEmpty)
         } else {
-            editUserView.bioLabelText.text = UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath] as? String
+            editUserView.bioLabelText.text = UserInfo.shared.publicInfoUser[DataBaseAccessPath.bio.returnAccessPath] as? String
         }
     }
     
     //we check if the youtube link is empty or not in our segue
-    private func checkIfYoutubeLinkIsEmptyOrNot(){
-        if  UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] != nil {
-            editUserView.youtubeUrlLabel.text = ("https://www.youtube.com/watch?v=\(String(describing: UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] as! String))")
+    private func checkIfYoutubeLinkIsEmptyOrNot() {
+        if  UserInfo.shared.publicInfoUser[DataBaseAccessPath.youtubeUrl.returnAccessPath] != nil {
+            editUserView.youtubeUrlLabel.text = ("https://www.youtube.com/watch?v=\(String(describing: UserInfo.shared.publicInfoUser[DataBaseAccessPath.youtubeUrl.returnAccessPath] as! String))")
         }
     }
     
     //we check if bio is empty when we push save, if yes, we give the value in our dataBase
-    private func checkIfBioIsEmptyOrNotWhenWePushSave(){
-        fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, editUserView.bioLabelText.text, .publicInfoUser, .Bio) { result in
-            switch result{
+    private func checkIfBioIsEmptyOrNotWhenWePushSave() {
+        fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, editUserView.bioLabelText.text, .publicInfoUser, .bio) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
             case .success(let bio):
-                UserInfo.shared.publicInfoUser[DataBaseAccessPath.Bio.returnAccessPath]  = bio
+                UserInfo.shared.publicInfoUser[DataBaseAccessPath.bio.returnAccessPath]  = bio
             case .failure(_):
                 self.alert.alertVc(.errorSetInfo, self)
             }
@@ -55,12 +56,13 @@ class EditProfilViewController: UIViewController {
     }
     
     //we check if we have an url in the youtube Text Field
-    private func checkIfYoutubeUrlIsEmpty(){
+    private func checkIfYoutubeUrlIsEmpty() {
         if youtubeTextField.text != "" && youtubeTextField.text
-            != nil{
+            != nil {
             //if yes, we check if it's a right youtube url
-            youtubeManager.checkYoutubeLink(youtubeTextField.text!) { result in
-                switch result{
+            youtubeManager.checkYoutubeLink(youtubeTextField.text!) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
                 case .success(let url):
                         //if yes, we get the youtube URL in our Database
                     self.getTheYoutubeUrlInDDB(url)
@@ -73,11 +75,13 @@ class EditProfilViewController: UIViewController {
         }
     }
     
-    private func getTheYoutubeUrlInDDB(_ url : String){
-        self.fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, url, .publicInfoUser, .YoutubeUrl) { result in
-            switch result{
+    //we get the url of the video in Firebase
+    private func getTheYoutubeUrlInDDB(_ url : String) {
+        self.fireBaseManager.setAndGetSingleUserInfo(UserInfo.shared.userID, url, .publicInfoUser, .youtubeUrl) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
             case .success(let urlSuffix):
-                UserInfo.shared.publicInfoUser[DataBaseAccessPath.YoutubeUrl.returnAccessPath] = urlSuffix
+                UserInfo.shared.publicInfoUser[DataBaseAccessPath.youtubeUrl.returnAccessPath] = urlSuffix
                 self.dismiss(animated: true, completion: nil)
             case .failure(_):
                 self.alert.alertVc(.youtubeLink, self)
@@ -115,18 +119,19 @@ class EditProfilViewController: UIViewController {
             }
         }
     }
+    
 }
 
 
-extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //we create this function  for create an ImagePickerController and display the photoLibrary
-   private func displayPhotoLibrary(){
+   private func displayPhotoLibrary() {
        imagePicker.displayPhotoLibrary(self)
     }
 
     //we display a new profil picture and we add the picture in our segue
-    private func displayProfilPictureAndAddInTheSegue(_ profilPicture : UIImage){
+    private func displayProfilPictureAndAddInTheSegue(_ profilPicture : UIImage) {
         self.editUserView.profilPicture.setImage(profilPicture, for: .normal)
         self.editUserView.profilPicture.imageView?.contentMode = .scaleAspectFill
         self.editUserView.profilPicture.clipsToBounds = true
@@ -145,12 +150,14 @@ extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigati
             return
         }
         //we set the profilPicture in firebase and we get the url in our Segue
-        fireBaseManager.setImageInFirebaseAndGetUrl(UserInfo.shared.userID, imageData) { result in
-            switch result{
+        fireBaseManager.setImageInFirebaseAndGetUrl(UserInfo.shared.userID, imageData) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
             case .success(let urlImage):
                 UserInfo.shared.addUrlString(urlImage)
-                self.fireBaseManager.getImageToFirebase(urlImage) { imageResult in
-                    switch imageResult{
+                self.fireBaseManager.getImageToFirebase(urlImage) { [weak self] imageResult in
+                    guard let self = self else { return }
+                    switch imageResult {
                     case .success(let profilPicture):
                         //we display a new profil picture and we add the picture in our segue
                         self.displayProfilPictureAndAddInTheSegue(profilPicture)
@@ -171,19 +178,24 @@ extension EditProfilViewController : UIImagePickerControllerDelegate, UINavigati
         self.editUserView.loadPhoto(.isLoad)
         dismiss(animated: true, completion: nil)
     }
+    
 }
 
 
 //MARK: KeyBoard Manager
-extension EditProfilViewController : UITextFieldDelegate{
+extension EditProfilViewController : UITextFieldDelegate {
+    
+    //dismiss Keyboard when we click on the screen
     @IBAction func dismissKeyboard(_ sender: Any) {
         youtubeTextField.resignFirstResponder()
         bioLabel.resignFirstResponder()
     }
 
+    //dismiss keyboard when we click on "enter"
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         youtubeTextField.resignFirstResponder()
         bioLabel.resignFirstResponder()
         return true
     }
+    
 }

@@ -9,24 +9,24 @@ import Foundation
 import GeoFire
 import CoreLocation
 
-enum GeolocalisationError : Error{
+enum GeolocalisationError : Error {
     case errorSetLocalisation
     case errorCheckAround
 }
 
-class GeolocalisationManager{
+struct GeolocalisationManager {
     
     private let manager = CLLocationManager()
     private let geofireRef = Database.database(url: "https://musicity3-9270a-default-rtdb.europe-west1.firebasedatabase.app").reference().child(DataBaseAccessPath.userLocation.returnAccessPath)
     
-    enum AccessGeolocalisation{
+    enum AccessGeolocalisation {
         case accepted
         case denied
         case notDetermined
     }
     
     //we check if the user autorizes the geolocalisation
-    func checkIfGeolocalisationIsActive() -> AccessGeolocalisation{
+    func checkIfGeolocalisationIsActive() -> AccessGeolocalisation {
         let locationManager = CLLocationManager()
         if CLLocationManager.locationServicesEnabled() {
             switch locationManager.authorizationStatus {
@@ -45,10 +45,10 @@ class GeolocalisationManager{
     }
     
     // we set the localisation in our Database
-    func setTheGeolocalisation(_ latitude : Double, _ longitude : Double, _ userID : String, completion : @escaping(Result<Void, GeolocalisationError>) -> Void){
+    func setTheGeolocalisation(_ latitude : Double, _ longitude : Double, _ userID : String, completion : @escaping(Result<Void, GeolocalisationError>) -> Void) {
         let geoFire = GeoFire(firebaseRef: geofireRef)
         geoFire.setLocation(CLLocation(latitude: latitude, longitude: longitude), forKey: userID ) { (error) in
-            if error != nil{
+            if error != nil {
                 completion(.failure(.errorSetLocalisation))
             } else {
                 completion(.success(()))
@@ -57,7 +57,7 @@ class GeolocalisationManager{
     }
     
     //we check around us in the DDB
-    func checkAround(_ latitude : Double, _ longitude : Double,_ distance : Double, completion : @escaping(Result<[String : String],GeolocalisationError>) -> Void){
+    func checkAround(_ latitude : Double, _ longitude : Double,_ distance : Double, completion : @escaping(Result<[String : String],GeolocalisationError>) -> Void) {
         let geoFire = GeoFire(firebaseRef: geofireRef)
         let center = CLLocation(latitude: latitude, longitude: longitude)
         // we can set the distance around us for our research
@@ -69,8 +69,9 @@ class GeolocalisationManager{
                 return
             }
             let distanceFromUser = Int(center.distance(from: location)/1000)
-            let dictionnaryResult = (["idResult": key!, "distance" : String(distanceFromUser)])
+            let dictionnaryResult = ([DataBaseAccessPath.idResult.returnAccessPath: key!, DataBaseAccessPath.distance.returnAccessPath : String(distanceFromUser)])
             completion(.success(dictionnaryResult))
         })
     }
+    
 }

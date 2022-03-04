@@ -8,15 +8,15 @@
 import Foundation
 import UIKit
 
-struct AlertManager{
+struct AlertManager {
     //we create an enumeration for our message alerteVC
-    enum AlertType{
+    enum AlertType {
         case errorCreateUser
-        case LessSixPassword
-        case EmptyUsername
-        case EmptyEmail
-        case FalseEmail
-        case ErrorConnexion
+        case lessSixPassword
+        case emptyUsername
+        case emptyEmail
+        case falseEmail
+        case errorConnexion
         case emptyPassword
         case emptyNbInstrument
         case emptyNbMembre
@@ -35,19 +35,19 @@ struct AlertManager{
         case youtubeLink
         case messageError
         
-        var title : String{
-            switch self{
+        var title : String {
+            switch self {
             case .errorCreateUser:
                 return "Problème de creation du compte!"
-            case .LessSixPassword:
+            case .lessSixPassword:
                 return "Problème de creation du compte!"
-            case .EmptyUsername:
+            case .emptyUsername:
                 return "Problème de creation du compte!"
-            case .EmptyEmail:
+            case .emptyEmail:
                 return "Problème de creation du compte!"
-            case .FalseEmail:
+            case .falseEmail:
                 return "Problème de creation du compte!"
-            case .ErrorConnexion:
+            case .errorConnexion:
                 return "Problème de connexion"
             case .emptyPassword:
                 return "Problème de connexion"
@@ -86,19 +86,19 @@ struct AlertManager{
             }
         }
         
-        var description : String{
-            switch self{
+        var description : String {
+            switch self {
             case .errorCreateUser:
                 return "Votre compte n'a pas pu être crée, merci de réessayer"
-            case .LessSixPassword:
+            case .lessSixPassword:
                 return "Votre mot de passe doit faire plus de 6 caractères"
-            case .EmptyUsername:
+            case .emptyUsername:
                 return "Le champs nom d'utilsateur est vide"
-            case .EmptyEmail:
+            case .emptyEmail:
                 return "Le champs e-mail est vide"
-            case .FalseEmail:
+            case .falseEmail:
                 return "E-mail non valide ou déjà utilisé"
-            case .ErrorConnexion:
+            case .errorConnexion:
                 return "E-mail ou mot de passe eroné"
             case .emptyPassword:
                 return "Le champs mot de passe est vide"
@@ -139,7 +139,7 @@ struct AlertManager{
     }
     
     //we create an alert VC
-    func alertVc(_ message: AlertType, _ controller : UIViewController){
+    func alertVc(_ message: AlertType, _ controller : UIViewController) {
         DispatchQueue.main.async {
             let alertVC = UIAlertController(title: "\(message.title)", message: "\(message.description)", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -148,14 +148,14 @@ struct AlertManager{
     }
     
     //we create an alert and we display the choose for open the setting of the iphone 
-    func locationAlert(_ message: AlertType, _ controller : UIViewController){
+    func locationAlert(_ message: AlertType, _ controller : UIViewController) {
        DispatchQueue.main.async {
             let alertVC = UIAlertController(title: "\(message.title)", message: "\(message.description)", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Annuler", style: .cancel, handler: nil)
             alertVC.addAction(cancelAction)
             
             let openAction = UIAlertAction(title: "Ouvrir les paramètres", style: .default) { action in
-                if let url = URL(string: UIApplication.openSettingsURLString){
+                if let url = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 }
             }
@@ -164,4 +164,5 @@ struct AlertManager{
         controller.present(alertVC, animated : true, completion : nil)
        }
     }
+    
 }
