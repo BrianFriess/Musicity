@@ -35,7 +35,9 @@ struct FirebaseManager {
             if error != nil {
                 completion(.failure(.createUserError))
             } else {
-                let userID = Auth.auth().currentUser?.uid
+                guard let userID = Auth.auth().currentUser?.uid else {
+                    return
+                }
                 switch segmented {
                 case 0 :
                     //create a musician account
@@ -43,14 +45,14 @@ struct FirebaseManager {
                         DataBaseAccessPath.bandOrMusician.returnAccessPath : DataBaseAccessPath.musician.returnAccessPath,
                         DataBaseAccessPath.username.returnAccessPath : userName
                     ]
-                    appDelegate.ref!.child(DataBaseAccessPath.users.returnAccessPath).child(userID!).child(DataBaseAccessPath.publicInfoUser.returnAccessPath).setValue(createUser)
+                    appDelegate.ref!.child(DataBaseAccessPath.users.returnAccessPath).child(userID).child(DataBaseAccessPath.publicInfoUser.returnAccessPath).setValue(createUser)
                 case 1 :
                     //create a band account
                     let createUser: [String :Any] = [
                         DataBaseAccessPath.bandOrMusician.returnAccessPath : DataBaseAccessPath.band.returnAccessPath,
                         DataBaseAccessPath.username.returnAccessPath : userName
                     ]
-                    appDelegate.ref!.child(DataBaseAccessPath.users.returnAccessPath).child(userID!).child(DataBaseAccessPath.publicInfoUser.returnAccessPath).setValue(createUser)
+                    appDelegate.ref!.child(DataBaseAccessPath.users.returnAccessPath).child(userID).child(DataBaseAccessPath.publicInfoUser.returnAccessPath).setValue(createUser)
                 default:
                     break
                 }

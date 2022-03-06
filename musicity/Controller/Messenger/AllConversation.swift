@@ -92,6 +92,8 @@ final class AllConversation: UIViewController {
         for i in 0...arrayUserMessenger.count-1 {
             if userId == arrayUserMessenger[i].userID {
                 let tampUser = arrayUserMessenger[i]
+                arrayUserMessenger[i].profilPicture = nil
+                arrayUserMessenger[i].stringUrl = ""
                 arrayUserMessenger.remove(at: i)
                 arrayUserMessenger.insert(tampUser, at: 0)
                 arrayUserMessenger[0].haveNotification = true

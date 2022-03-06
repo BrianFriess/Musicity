@@ -6,11 +6,6 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Archistico_Bold.ttf">
-            <string>Archistico-Bold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -20,18 +15,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Musicity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZb-GY-sup">
-                                <rect key="frame" x="44" y="211.5" width="232" height="57"/>
-                                <fontDescription key="fontDescription" name="Archistico-Bold" family="Archistico" pointSize="50"/>
-                                <color key="textColor" red="0.098039209840000002" green="0.1294117719" blue="0.1686274707" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Musicity" translatesAutoresizingMaskIntoConstraints="NO" id="x2X-HZ-PK5">
+                                <rect key="frame" x="40" y="206.5" width="240" height="67"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.94921308760000001" green="0.94947296380000001" blue="0.96727830169999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="rZb-GY-sup" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ahK-XV-bss"/>
-                            <constraint firstItem="rZb-GY-sup" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="uuC-nq-ftQ"/>
+                            <constraint firstItem="x2X-HZ-PK5" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="C9R-3N-7cc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x2X-HZ-PK5" secondAttribute="trailing" constant="40" id="SO2-FP-Aj6"/>
+                            <constraint firstItem="x2X-HZ-PK5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="aY2-sX-8BT"/>
+                            <constraint firstItem="x2X-HZ-PK5" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="fF3-rS-xLw"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -40,4 +34,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Musicity" width="233" height="67"/>
+    </resources>
 </document>

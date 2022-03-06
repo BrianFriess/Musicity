@@ -62,7 +62,10 @@ final class SecondCreateProfilTableViewController: UIViewController {
     //we check if it's band or musician
     private func bandOrMusician() {
         //if it's a band, we set the number of member in the band in firebase
-        fireBaseManager.setSingleUserInfo(UserInfo.shared.userID, .publicInfoUser, .nbMember, nbMemberLabel.text!) { [weak self] result in
+        guard let nbMember = nbMemberLabel.text else {
+            return
+        }
+        fireBaseManager.setSingleUserInfo(UserInfo.shared.userID, .publicInfoUser, .nbMember, nbMember) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(_):
