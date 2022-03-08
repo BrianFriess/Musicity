@@ -23,6 +23,4 @@ Creation d'un tchat en temps réel
 
 Utilisation de MapKit pour Visualiser la filtre geographique de l'utilisateur
 
-Reste à faire :
-
-Ajout du UserDefault
+Utilisation de Packages 
