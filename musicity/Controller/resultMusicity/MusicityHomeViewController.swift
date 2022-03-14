@@ -344,7 +344,7 @@ extension MusicityHomeViewController : UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         //we check if we already have the user's information in our array or not before dislpay information in the cell
         if arrayUser[indexPath.row].publicInfoUser[DataBaseAccessPath.username.returnAccessPath] == nil {
-            self.firebaseManager .getAllTheInfoToFirebase(arrayUser[indexPath.row].userID) { [weak self] result in
+            self.firebaseManager.getAllTheInfoToFirebase(arrayUser[indexPath.row].userID) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let allInfo):

@@ -129,7 +129,7 @@ struct AlertManager {
             case .emptyStyle:
                 return "Merci de renseigner au moins un style"
             case .tooMuchCara:
-                return "500 caratères max"
+                return "1500 caratères max"
             case .youtubeLink:
                 return "Ce n'est pas un lien Youtube"
             case .messageError:

@@ -57,8 +57,7 @@ final class EditProfilViewController: UIViewController {
     
     //we check if we have an url in the youtube Text Field
     private func checkIfYoutubeUrlIsEmpty() {
-        if youtubeTextField.text != "" && youtubeTextField.text
-            != nil {
+        if youtubeTextField.text != "" && youtubeTextField.text != nil {
             //if yes, we check if it's a right youtube url
             youtubeManager.checkYoutubeLink(youtubeTextField.text!) { [weak self] result in
                 guard let self = self else { return }
